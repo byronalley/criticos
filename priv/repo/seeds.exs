@@ -9,3 +9,35 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+for {email_user, password} <- [
+      {"alice", "alphaAPPLE11!"},
+      {"bob", "bravoBANANA22@"},
+      {"carol", "charlieCARROT33#"}
+    ] do
+  {:ok, _user} =
+    Criticos.Accounts.register_user(%{email: "#{email_user}@example.com", password: password})
+end
+
+for {name, birthdate, birthplace, biography} <- [
+      {"Agatha Christie", ~D[1890-09-15], "Torquay, England",
+       "Renowned English author of detective fiction."},
+      {"Bram Stoker", ~D[1847-11-08], "Dublin, Ireland",
+       "Irish author best known for his classic Gothic novel 'Dracula.'"},
+      {"Charles Dickens", ~D[1812-02-07], "Portsmouth, England",
+       "Famous English novelist and social critic."},
+      {"David Foster Wallace", ~D[1962-02-21], "Ithaca, New York, USA",
+       "American author and essayist known for his postmodern works."},
+      {"Edgar Allan Poe", ~D[1809-01-19], "Boston, Massachusetts, USA",
+       "American writer and poet famous for his macabre tales."},
+      {"F. Scott Fitzgerald", ~D[1896-09-24], "Saint Paul, Minnesota, USA",
+       "American novelist celebrated for 'The Great Gatsby.'"}
+    ] do
+  {:ok, _author} =
+    Criticos.Library.create_author(%{
+      name: name,
+      birthdate: birthdate,
+      birthplace: birthplace,
+      biography: biography
+    })
+end
