@@ -4,28 +4,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix=" · Phoenix Framework">
-      <%= assigns[:page_title] || "Criticos" %>
-    </.live_title>
+    <title>
+      <%= assigns[:page_title] || "Criticos · Book Reviews By Friends" %>
+    </title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="bg-white antialiased">
-    <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
-      <%= if @current_user do %>
-        <li class="text-[0.8125rem] leading-6 text-zinc-900">
+  <body class="bg-gray-100 antialiased">
+<!-- Navigation Bar -->
+<nav class="bg-blue-500 p-4">
+  <div class="container mx-auto">
+    <div class="flex justify-between items-center">
+      <h1 class="text-white text-2xl font-semibold">Criticos</h1>
+      <!--
+      <div class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
+      -->
+        <div class="space-x-4">
+        <a href="#" class="text-white">Home</a>
+        <a href="#" class="text-white">Books</a>
+        <a href="#" class="text-white">Reviews</a>
+        <%= if @current_user do %>
+          <span class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold">
           <%= @current_user.email %>
-        </li>
-        <li>
+          </span>
           <.link
             href={~p"/users/settings"}
             class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
           >
             Settings
           </.link>
-        </li>
-        <li>
           <.link
             href={~p"/users/log_out"}
             method="delete"
@@ -33,26 +41,26 @@
           >
             Log out
           </.link>
-        </li>
       <% else %>
-        <li>
-          <.link
-            href={~p"/users/register"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Register
-          </.link>
-        </li>
-        <li>
           <.link
             href={~p"/users/log_in"}
             class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
           >
             Log in
           </.link>
-        </li>
+
+          <.link
+            href={~p"/users/register"}
+            class="bg-white text-blue-500 px-4 py-2 rounded-full hover:bg-blue-100 transition"
+          >
+          Sign Up
+          </.link>
       <% end %>
-    </ul>
+
+      </div>
+    </div>
+  </div>
+</nav>
     <%= @inner_content %>
   </body>
 </html>
