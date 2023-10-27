@@ -24,3 +24,4 @@ This is an informal roadmap of future feature, changes etc.
   - Add Credo
   - Add Dialyxir
   - Add Sobelow
+  - Add JavaScript/React code formatter config
