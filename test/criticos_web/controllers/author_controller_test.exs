@@ -3,7 +3,6 @@ defmodule CriticosWeb.AuthorControllerTest do
 
   alias Criticos.Library
 
-  import Criticos.LibraryFixtures
   import Criticos.AccountsFixtures
 
   @create_attrs %{
@@ -101,17 +100,5 @@ defmodule CriticosWeb.AuthorControllerTest do
         get(conn, ~p"/authors/#{author}")
       end
     end
-  end
-
-  # Creates an author with the creator_id of the logged in user
-  defp author(%{conn: conn, user: user}) do
-    author = Criticos.LibraryFixtures.author_fixture(%{creator_id: user.id})
-
-    %{conn: conn, author: author}
-  end
-
-  defp author(_) do
-    author = author_fixture()
-    %{author: author}
   end
 end

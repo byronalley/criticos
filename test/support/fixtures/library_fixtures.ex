@@ -20,4 +20,21 @@ defmodule Criticos.LibraryFixtures do
 
     author
   end
+
+  @doc """
+  Generate a book.
+  """
+  def book_fixture(attrs \\ %{}) do
+    {:ok, book} =
+      attrs
+      |> Enum.into(%{
+        isbn: "some isbn",
+        summary: "some summary",
+        title: "some title",
+        year: 42
+      })
+      |> Criticos.Library.create_book()
+
+    book
+  end
 end

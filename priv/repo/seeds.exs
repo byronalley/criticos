@@ -19,7 +19,7 @@ for {email_user, password} <- [
     Criticos.Accounts.register_user(%{email: "#{email_user}@example.com", password: password})
 end
 
-for {name, birthdate, birthplace, biography} <- [
+authors = for {name, birthdate, birthplace, biography} <- [
       {"Agatha Christie", ~D[1890-09-15], "Torquay, England",
        "Renowned English author of detective fiction."},
       {"Bram Stoker", ~D[1847-11-08], "Dublin, Ireland",
@@ -33,11 +33,29 @@ for {name, birthdate, birthplace, biography} <- [
       {"F. Scott Fitzgerald", ~D[1896-09-24], "Saint Paul, Minnesota, USA",
        "American novelist celebrated for 'The Great Gatsby.'"}
     ] do
-  {:ok, _author} =
+  {:ok, author} =
     Criticos.Library.create_author(%{
       name: name,
       birthdate: birthdate,
       birthplace: birthplace,
       biography: biography
     })
+      author
 end
+
+books = [
+  {"Agatha Christie", "Murder on the Orient Express", 1934, "A famous detective novel."},
+  {"Bram Stoker", "Dracula", 1897, "A classic Gothic novel about vampires."},
+  {"Charles Dickens", "Great Expectations", 1861, "A beloved novel about the life of Pip."},
+  {"David Foster Wallace", "Infinite Jest", 1996, "A postmodern epic novel."},
+  {"Edgar Allan Poe", "The Tell-Tale Heart", 1843, "A famous macabre short story."},
+  {"F. Scott Fitzgerald", "The Great Gatsby", 1925, "A classic novel of the Jazz Age."}
+]
+
+for {author, {_, title, year, summary}} <- Enum.zip(authors, books), do: Criticos.Library.create_book(%{
+creator_id: author.creator_id,
+author_id: author.id,
+title: title,
+year: year,
+summary: summary
+})

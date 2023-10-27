@@ -36,6 +36,7 @@ defmodule CriticosWeb.Router do
     pipe_through :web_api
 
     resources "/authors", AuthorController
+    resources "/books", BookController
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -78,6 +79,7 @@ defmodule CriticosWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
     resources "/authors", AuthorController, except: [:show, :index]
+    resources "/books", BookController, except: [:show, :index]
   end
 
   scope "/", CriticosWeb do
@@ -89,9 +91,10 @@ defmodule CriticosWeb.Router do
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
 
-    # resources "/authors", AuthorController, only: [:index, :show]
-    # resources "/authors", AuthorController, only: [:index, :show]
     get "/authors/:id", AuthorController, :show
     get "/authors", AuthorController, :index
+
+    get "/books/:id", BookController, :show
+    get "/books", BookController, :index
   end
 end
