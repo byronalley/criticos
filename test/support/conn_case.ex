@@ -80,6 +80,7 @@ defmodule CriticosWeb.ConnCase do
     book = book_fixture(%{creator_id: creator.id, author_id: author.id})
     %{book: book}
   end
+
   def book(_) do
     book = book_fixture()
     %{book: book}

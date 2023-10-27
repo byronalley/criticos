@@ -122,7 +122,13 @@ defmodule Criticos.LibraryTest do
 
     test "update_book/2 with valid data updates the book" do
       book = book_fixture()
-      update_attrs = %{title: "some updated title", year: 43, summary: "some updated summary", isbn: "some updated isbn"}
+
+      update_attrs = %{
+        title: "some updated title",
+        year: 43,
+        summary: "some updated summary",
+        isbn: "some updated isbn"
+      }
 
       assert {:ok, %Book{} = book} = Library.update_book(book, update_attrs)
       assert book.title == "some updated title"

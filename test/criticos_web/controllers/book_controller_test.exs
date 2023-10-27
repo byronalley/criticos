@@ -2,7 +2,12 @@ defmodule CriticosWeb.BookControllerTest do
   use CriticosWeb.ConnCase
 
   @create_attrs %{title: "some title", year: 42, summary: "some summary", isbn: "some isbn"}
-  @update_attrs %{title: "some updated title", year: 43, summary: "some updated summary", isbn: "some updated isbn"}
+  @update_attrs %{
+    title: "some updated title",
+    year: 43,
+    summary: "some updated summary",
+    isbn: "some updated isbn"
+  }
   @invalid_attrs %{title: nil, year: nil, summary: nil, isbn: nil}
 
   describe "index" do
