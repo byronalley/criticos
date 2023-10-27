@@ -1,0 +1,18 @@
+<.header>
+  Book <%= @book.id %>
+  <:subtitle>This is a book record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/books/#{@book}/edit"}>
+      <.button>Edit book</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title"><%= @book.title %></:item>
+  <:item title="Year"><%= @book.year %></:item>
+  <:item title="Isbn"><%= @book.isbn %></:item>
+  <:item title="Summary"><%= @book.summary %></:item>
+</.list>
+
+<.back navigate={~p"/books"}>Back to books</.back>

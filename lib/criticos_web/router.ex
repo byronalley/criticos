@@ -17,16 +17,27 @@ defmodule CriticosWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :web_api do
+    plug :accepts, ["json"]
+    plug :fetch_session
+    # plug :protect_from_forgery
+    # plug :put_secure_browser_headers
+    plug :fetch_current_user
+  end
+
   scope "/", CriticosWeb do
     pipe_through :browser
 
     get "/", PageController, :home
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", CriticosWeb do
-  #   pipe_through :api
-  # end
+  # Web API Scope
+  scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
+    pipe_through :web_api
+
+    resources "/authors", AuthorController
+    resources "/books", BookController
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:criticos, :dev_routes) do
@@ -66,6 +77,9 @@ defmodule CriticosWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    resources "/authors", AuthorController, except: [:show, :index]
+    resources "/books", BookController, except: [:show, :index]
   end
 
   scope "/", CriticosWeb do
@@ -76,5 +90,11 @@ defmodule CriticosWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+
+    get "/authors/:id", AuthorController, :show
+    get "/authors", AuthorController, :index
+
+    get "/books/:id", BookController, :show
+    get "/books", BookController, :index
   end
 end

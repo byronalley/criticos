@@ -17,6 +17,9 @@ defmodule CriticosWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  import Criticos.AccountsFixtures
+  import Criticos.LibraryFixtures
+
   using do
     quote do
       # The default endpoint for testing
@@ -45,7 +48,7 @@ defmodule CriticosWeb.ConnCase do
   test context.
   """
   def register_and_log_in_user(%{conn: conn}) do
-    user = Criticos.AccountsFixtures.user_fixture()
+    user = user_fixture()
     %{conn: log_in_user(conn, user), user: user}
   end
 
@@ -60,5 +63,25 @@ defmodule CriticosWeb.ConnCase do
     conn
     |> Phoenix.ConnTest.init_test_session(%{})
     |> Plug.Conn.put_session(:user_token, token)
+  end
+
+  def author(%{conn: conn, user: user}) do
+    author = author_fixture(%{creator_id: user.id})
+
+    %{conn: conn, author: author}
+  end
+
+  def author(_) do
+    author = author_fixture()
+    %{author: author}
+  end
+
+  def book(%{user: creator, author: author}) do
+    book = book_fixture(%{creator_id: creator.id, author_id: author.id})
+    %{book: book}
+  end
+  def book(_) do
+    book = book_fixture()
+    %{book: book}
   end
 end
