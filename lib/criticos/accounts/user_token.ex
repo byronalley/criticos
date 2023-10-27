@@ -1,4 +1,8 @@
 defmodule Criticos.Accounts.UserToken do
+  @moduledoc """
+  User session token module created by `mix phx.gen.auth`
+  """
+
   use Ecto.Schema
   import Ecto.Query
   alias Criticos.Accounts.UserToken

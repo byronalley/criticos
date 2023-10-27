@@ -1,4 +1,7 @@
 defmodule Criticos.Library.Author do
+  @moduledoc """
+  Author schema
+  """
   use Ecto.Schema
   import Ecto.Changeset
   alias Criticos.Accounts.User

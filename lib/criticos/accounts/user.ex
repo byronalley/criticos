@@ -1,4 +1,7 @@
 defmodule Criticos.Accounts.User do
+  @moduledoc """
+  User module created by `mix phx.gen.auth`
+  """
   use Ecto.Schema
   import Ecto.Changeset
   alias Criticos.Library.Author

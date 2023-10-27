@@ -1,4 +1,7 @@
 defmodule Criticos.Accounts.UserNotifier do
+  @moduledoc """
+  User notifier module created by Phoenix
+  """
   import Swoosh.Email
 
   alias Criticos.Mailer

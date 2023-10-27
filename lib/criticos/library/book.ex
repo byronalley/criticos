@@ -1,4 +1,7 @@
 defmodule Criticos.Library.Book do
+  @moduledoc """
+  Book schema
+  """
   use Ecto.Schema
   alias Criticos.Library.Author
   alias Criticos.Accounts.User

@@ -1,4 +1,8 @@
 defmodule CriticosWeb.UserAuth do
+  @moduledoc """
+  User authentication module created by `mix phx.gen.auth`
+  """
+
   use CriticosWeb, :verified_routes
 
   import Plug.Conn
