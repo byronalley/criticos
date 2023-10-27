@@ -9,7 +9,7 @@ This doesn't do anything interesting yet but the goal is a social platform for s
 To start your Phoenix server:
 
   * You'll need:
-    - Elixir https://elixir-lang.org/install.html
+    - [Elixir](https://elixir-lang.org/install.html)
     - [Node](https://nodejs.org/en)
     - [NPM](https://docs.npmjs.com/cli/v10/configuring-npm/install)
   * Run `mix setup` to install and setup dependencies
