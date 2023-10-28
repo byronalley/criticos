@@ -37,6 +37,7 @@ defmodule CriticosWeb.Router do
 
     resources "/authors", AuthorController
     resources "/books", BookController
+    resources "/reviews", ReviewController
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
