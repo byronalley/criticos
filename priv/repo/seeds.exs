@@ -45,7 +45,7 @@ authors =
     author
   end
 
-books = [
+book_data = [
   {"Agatha Christie", "Murder on the Orient Express", 1934, "A famous detective novel."},
   {"Bram Stoker", "Dracula", 1897, "A classic Gothic novel about vampires."},
   {"Charles Dickens", "Great Expectations", 1861, "A beloved novel about the life of Pip."},
@@ -54,8 +54,9 @@ books = [
   {"F. Scott Fitzgerald", "The Great Gatsby", 1925, "A classic novel of the Jazz Age."}
 ]
 
-for {author, {_, title, year, summary}} <- Enum.zip(authors, books),
-    do:
+books =
+  for {author, {_, title, year, summary}} <- Enum.zip(authors, book_data) do
+    {:ok, book} =
       Criticos.Library.create_book(%{
         creator_id: author.creator_id,
         author_id: author.id,
@@ -63,3 +64,27 @@ for {author, {_, title, year, summary}} <- Enum.zip(authors, books),
         year: year,
         summary: summary
       })
+
+    book
+  end
+
+for {book, {content, rating, private_notes}} <-
+      Enum.zip(books, [
+        {"Everything you could hope for from a mystery on a train!", 4, "Nothing else to say"},
+        {"Too gosh darned scary, could barely finish it!", 2, "Heavens to Betsy"},
+        {"Who even knows why this is a classic when it's a tale of a three terrible people", 2,
+         "Note, should probably finish this at some point"},
+        {"Super great brilliant book that I totally understood", 4,
+         "How do people actually read this, I can't understand anything"},
+        {"Creepy and fantastic", 4,
+         "How do people actually read this, I can't understand anything"},
+        {"Not bad but the movie was way better", 3, ""}
+      ]) do
+  Criticos.Timeline.create_review(%{
+    creator_id: book.creator_id,
+    book_id: book.id,
+    content: content,
+    rating: rating,
+    private_notes: private_notes
+  })
+end
