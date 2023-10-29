@@ -44,7 +44,12 @@ import React, { useState, useEffect } from 'react';
 import {createRoot} from "react-dom/client"
 
 import {AuthorsList} from "./authors.jsx"
+import {Home} from './home.jsx'
 
 const root = createRoot(document.getElementById('root'));
 //root.render(<App />);
-root.render(<AuthorsList />);
+root.render(
+<>
+<AuthorsList /> <Home />
+</>
+);

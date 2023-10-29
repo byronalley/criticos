@@ -4,6 +4,7 @@ import axios from 'axios';
 const AuthorsList = () => {
   const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isLoggedOn, setIsLoggedOn] = useState(true)
 
   useEffect(() => {
     // Make a GET request to fetch the authors
@@ -21,6 +22,22 @@ const AuthorsList = () => {
 
   return (
     <div className="p-4">
+      {
+        isLoggedOn ? (
+          <>
+          <a href="#" className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
+                    Settings
+                    </a>
+                    <a
+                    href="#" 
+                    className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+                    >
+                    Log out
+                    </a>
+                      </>
+        ) : (<a href='#'>Login</a>)
+      }
+
       <h1 className="text-2xl mb-4">Authors List</h1>
       {loading ? (
         <p className="text-gray-600">Loading...</p>
