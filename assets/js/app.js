@@ -16,7 +16,7 @@
 //
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
-import "phoenix_html"
+import "phoenix_html";
 // Establish Phoenix Socket and LiveView configuration.
 // import {Socket} from "phoenix"
 // import {LiveSocket} from "phoenix_live_view"
@@ -40,16 +40,23 @@ import "phoenix_html"
 // window.liveSocket = liveSocket
 
 // -- React Section
-import React, { useState, useEffect } from 'react';
-import {createRoot} from "react-dom/client"
+import React, { useState, useEffect } from "react";
+import { createRoot } from "react-dom/client";
 
-import {AuthorsList} from "./authors.jsx"
-import {Home} from './home.jsx'
+import { AuthorsList } from "./authors.jsx";
+import Home from "./home.jsx";
 
-const root = createRoot(document.getElementById('root'));
-//root.render(<App />);
-root.render(
-<>
-<AuthorsList /> <Home />
-</>
-);
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+  const root = createRoot(rootElement);
+  //root.render(<App />);
+  root.render(
+    <>
+      <AuthorsList />
+      <Home />
+    </>
+  );
+} else {
+  console.error('Could not find element with id "root"');
+}
