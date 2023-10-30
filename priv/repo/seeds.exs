@@ -46,23 +46,31 @@ authors =
   end
 
 book_data = [
-  {"Agatha Christie", "Murder on the Orient Express", 1934, "A famous detective novel."},
-  {"Bram Stoker", "Dracula", 1897, "A classic Gothic novel about vampires."},
-  {"Charles Dickens", "Great Expectations", 1861, "A beloved novel about the life of Pip."},
-  {"David Foster Wallace", "Infinite Jest", 1996, "A postmodern epic novel."},
-  {"Edgar Allan Poe", "The Tell-Tale Heart", 1843, "A famous macabre short story."},
-  {"F. Scott Fitzgerald", "The Great Gatsby", 1925, "A classic novel of the Jazz Age."}
+  {"Agatha Christie", "Murder on the Orient Express", 1934, "A famous detective novel.",
+   "murder-on-the-orient-express.jpg"},
+  {"Bram Stoker", "Dracula", 1897, "A classic Gothic novel about vampires.", "dracula.jpg"},
+  {"Charles Dickens", "Great Expectations", 1861, "A beloved novel about the life of Pip.",
+   "great-expectations.jpg"},
+  {"David Foster Wallace", "Infinite Jest", 1996, "A postmodern epic novel.",
+   "infinite-jest.jpg"},
+  {"Edgar Allan Poe", "The Tell-Tale Heart", 1843, "A famous macabre short story.",
+   "tell-tale-heart.jpg"},
+  {"F. Scott Fitzgerald", "The Great Gatsby", 1925, "A classic novel of the Jazz Age.",
+   "great-gatsby.jpg"}
 ]
 
 books =
-  for {author, {_, title, year, summary}} <- Enum.zip(authors, book_data) do
+  for {author, {_, title, year, summary, filename}} <- Enum.zip(authors, book_data) do
+    image = File.read!(__DIR__ <> "/fixtures/#{filename}")
+
     {:ok, book} =
       Criticos.Library.create_book(%{
         creator_id: author.creator_id,
         author_id: author.id,
         title: title,
         year: year,
-        summary: summary
+        summary: summary,
+        image: image
       })
 
     book
