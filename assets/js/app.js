@@ -53,7 +53,6 @@ if (rootElement) {
   //root.render(<App />);
   root.render(
     <>
-      <AuthorsList />
       <Home />
     </>
   );
