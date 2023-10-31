@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Reviews from "./Reviews";
 import Featured from "./Feautured";
@@ -9,7 +9,6 @@ export default function Home() {
     <>
       <Header />
       <Reviews />
-      <Featured />
       <Footer />
     </>
   );
