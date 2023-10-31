@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Featured() {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
