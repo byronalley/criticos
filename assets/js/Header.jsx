@@ -2,12 +2,13 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="bg-gray-800 text-white p-12">
+    <header className="bg-gray-800 text-white p-12 ">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-semibold">
+        <h2 className="text-4xl font-semibold animate-flip-up animate-ease-out">
           Discover and Share Your Favorite Books
         </h2>
-        <p className="text-lg mt-4">
+
+        <p className="text-lg mt-4 animate-flip-down animate-delay-500 animate-ease-out">
           Join our community of book lovers and start sharing your reviews
           today.
         </p>
