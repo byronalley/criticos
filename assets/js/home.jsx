@@ -3,7 +3,7 @@ import Header from "./Header";
 import Reviews from "./Reviews";
 import Featured from "./Featured";
 import Footer from "./Footer";
-import Navbar from "./Nabar";
+import Navbar from "./Navbar";
 
 export default function Home() {
   const [user, setUser] = useState(null);
