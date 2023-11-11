@@ -33,11 +33,16 @@ defmodule CriticosWeb.Router do
 
   # Web API Scope
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
+    pipe_through [:browser, :require_authenticated_user]
+  end
+
+  scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
     pipe_through :web_api
 
     resources "/authors", AuthorController
     resources "/books", BookController
     resources "/reviews", ReviewController
+    resources "/images", ImageController, only: [:show, :index]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -97,5 +102,7 @@ defmodule CriticosWeb.Router do
 
     get "/books/:id", BookController, :show
     get "/books", BookController, :index
+
+    get "/images/:url", ImageController, :show
   end
 end

@@ -61,7 +61,13 @@ book_data = [
 
 books =
   for {author, {_, title, year, summary, filename}} <- Enum.zip(authors, book_data) do
-    image = File.read!(__DIR__ <> "/fixtures/#{filename}")
+    image_data = File.read!(__DIR__ <> "/fixtures/#{filename}")
+
+    {:ok, image} = Criticos.Files.create_image(%{
+        creator_id: author.creator_id,
+    data: image_data,
+    content_type: "image/jpeg",
+    })
 
     {:ok, book} =
       Criticos.Library.create_book(%{
@@ -70,7 +76,7 @@ books =
         title: title,
         year: year,
         summary: summary,
-        image: image
+        image_url: image.url
       })
 
     book

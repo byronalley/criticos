@@ -1,0 +1,63 @@
+defmodule Criticos.FilesTest do
+  use Criticos.DataCase
+
+  alias Criticos.Files
+
+  describe "images" do
+    alias Criticos.Files.Image
+
+    import Criticos.FilesFixtures
+
+    @invalid_attrs %{data: nil, content_type: nil}
+
+    test "list_images/0 returns all images" do
+      image = image_fixture()
+      assert Files.list_images() == [image]
+    end
+
+    test "get_image!/1 returns the image with given url" do
+      image = image_fixture()
+      assert Files.get_image!(image.url) == image
+    end
+
+    test "create_image/1 with valid data creates a image" do
+      valid_attrs = %{data: "some data", url: "some url", content_type: "some content_type"}
+
+      assert {:ok, %Image{} = image} = Files.create_image(valid_attrs)
+      assert image.data == "some data"
+      assert image.url == "some url"
+      assert image.content_type == "some content_type"
+    end
+
+    test "create_image/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Files.create_image(@invalid_attrs)
+    end
+
+    test "update_image/2 with valid data updates the image" do
+      image = image_fixture()
+      update_attrs = %{data: "some updated data", url: "some updated url", content_type: "some updated content_type"}
+
+      assert {:ok, %Image{} = image} = Files.update_image(image, update_attrs)
+      assert image.data == "some updated data"
+      assert image.url == "some updated url"
+      assert image.content_type == "some updated content_type"
+    end
+
+    test "update_image/2 with invalid data returns error changeset" do
+      image = image_fixture()
+      assert {:error, %Ecto.Changeset{}} = Files.update_image(image, @invalid_attrs)
+      assert image == Files.get_image!(image.url)
+    end
+
+    test "delete_image/1 deletes the image" do
+      image = image_fixture()
+      assert {:ok, %Image{}} = Files.delete_image(image)
+      assert_raise Ecto.NoResultsError, fn -> Files.get_image!(image.url) end
+    end
+
+    test "change_image/1 returns a image changeset" do
+      image = image_fixture()
+      assert %Ecto.Changeset{} = Files.change_image(image)
+    end
+  end
+end

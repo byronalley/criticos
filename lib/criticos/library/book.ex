@@ -3,8 +3,11 @@ defmodule Criticos.Library.Book do
   Book schema
   """
   use Ecto.Schema
-  alias Criticos.Library.Author
+
   alias Criticos.Accounts.User
+  alias Criticos.Library.Author
+  alias Criticos.Files.Image
+
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -18,6 +21,7 @@ defmodule Criticos.Library.Book do
 
     belongs_to :author, Author
     belongs_to :creator, User
+    belongs_to :image_url, Image, references: :url, type: :string
 
     timestamps()
   end
