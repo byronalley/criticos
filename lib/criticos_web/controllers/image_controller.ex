@@ -8,8 +8,8 @@ defmodule CriticosWeb.ImageController do
 
   action_fallback CriticosWeb.FallbackController
 
-  def show(conn, %{"url" => url}) do
-    %{data: data, content_type: content_type} = Files.get_image!(url)
+  def show(conn, %{"filename" => filename}) do
+    %{data: data, content_type: content_type} = Files.get_image!(filename)
 
     conn
     |> put_resp_content_type(content_type)

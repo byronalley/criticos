@@ -11,7 +11,7 @@ defmodule CriticosWeb.ImageControllerTest do
     setup [:create_image]
 
     test "returns image data", %{conn: conn, image: image} do
-      conn = get(conn, ~p"/web_api/images/#{image.url}")
+      conn = get(conn, ~p"/web_api/images/#{image.filename}")
       assert html_response(conn, 200) == image.data
     end
   end

@@ -4,6 +4,8 @@ alias Criticos.{
   Accounts,
   Accounts.User,
   Accounts.UserToken,
+  Files,
+  Files.Image,
   Library,
   Library.Author,
   Library.Book,
