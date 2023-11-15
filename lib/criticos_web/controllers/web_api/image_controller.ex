@@ -25,14 +25,6 @@ defmodule CriticosWeb.WebAPI.ImageController do
     render(conn, :show, image: image)
   end
 
-  def update(conn, %{"url" => url, "image" => image_params}) do
-    image = Files.get_image!(url)
-
-    with {:ok, %Image{} = image} <- Files.update_image(image, image_params) do
-      render(conn, :show, image: image)
-    end
-  end
-
   def delete(conn, %{"url" => url}) do
     image = Files.get_image!(url)
 

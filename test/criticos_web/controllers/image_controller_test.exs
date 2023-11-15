@@ -3,21 +3,13 @@ defmodule CriticosWeb.ImageControllerTest do
 
   import Criticos.FilesFixtures
 
-  alias Criticos.Files.Image
-
-  @update_attrs %{
-    data: "some updated data",
-    url: "some updated url",
-    content_type: "some updated content_type"
-  }
-  @invalid_attrs %{data: nil, url: nil, content_type: nil}
-
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
-    setup [:create_image]
   end
 
   describe "show/2" do
+    setup [:create_image]
+
     test "returns image data", %{conn: conn, image: image} do
       conn = get(conn, ~p"/web_api/images/#{image.url}")
       assert html_response(conn, 200) == image.data

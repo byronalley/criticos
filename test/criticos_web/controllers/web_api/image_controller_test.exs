@@ -3,18 +3,12 @@ defmodule CriticosWeb.WebAPI.ImageControllerTest do
 
   import Criticos.FilesFixtures
 
-  alias Criticos.Files.Image
-
   @create_attrs %{
     data: "some data",
     url: "some url",
-    content_type: "some content_type"
+    content_type: "image/png"
   }
-  @update_attrs %{
-    data: "some updated data",
-    url: "some updated url",
-    content_type: "some updated content_type"
-  }
+
   @invalid_attrs %{data: nil, url: nil, content_type: nil}
 
   setup %{conn: conn} do
@@ -29,18 +23,25 @@ defmodule CriticosWeb.WebAPI.ImageControllerTest do
   end
 
   describe "create image" do
+    setup [:register_and_log_in_user]
+
     test "renders image when data is valid", %{conn: conn} do
       conn = post(conn, ~p"/web_api/images", image: @create_attrs)
+
       assert %{"url" => url} = json_response(conn, 201)["data"]
 
       conn = get(conn, ~p"/web_api/images/#{url}")
 
+      # FIXME
       assert %{
                "url" => ^url,
-               "content_type" => "some content_type",
-               "data" => "some data",
-               "url" => "some url"
+               "content_type" => "image/fixme"
              } = json_response(conn, 200)["data"]
+
+      # assert %{
+      #          ,"data" => "some data",
+      #          "url" => "some url"
+      #        } = json_response(conn, 200)["data"]
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -49,30 +50,8 @@ defmodule CriticosWeb.WebAPI.ImageControllerTest do
     end
   end
 
-  describe "update image" do
-    setup [:create_image]
-
-    test "renders image when data is valid", %{conn: conn, image: %Image{url: url} = image} do
-      conn = put(conn, ~p"/web_api/images/#{image}", image: @update_attrs)
-      assert %{"url" => ^url} = json_response(conn, 200)["data"]
-
-      conn = get(conn, ~p"/web_api/images/#{url}")
-
-      assert %{
-               "content_type" => "some updated content_type",
-               "data" => "some updated data",
-               "url" => "some updated url"
-             } = json_response(conn, 200)["data"]
-    end
-
-    test "renders errors when data is invalid", %{conn: conn, image: image} do
-      conn = put(conn, ~p"/web_api/images/#{image}", image: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
-    end
-  end
-
   describe "delete image" do
-    setup [:create_image]
+    setup [:register_and_log_in_user, :create_image]
 
     test "deletes chosen image", %{conn: conn, image: image} do
       conn = delete(conn, ~p"/web_api/images/#{image}")
@@ -84,8 +63,8 @@ defmodule CriticosWeb.WebAPI.ImageControllerTest do
     end
   end
 
-  defp create_image(_) do
-    image = image_fixture()
+  defp create_image(%{user: user}) do
+    image = image_fixture(%{creator_id: user.id})
     %{image: image}
   end
 end

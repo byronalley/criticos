@@ -3,6 +3,8 @@ defmodule Criticos.Files.Image do
   import Ecto.Changeset
   alias Criticos.Accounts.User
 
+  @derive {Phoenix.Param, key: :url}
+
   @primary_key {:url, :string, autogenerate: false}
   @foreign_key_type :binary_id
   schema "images" do
@@ -29,7 +31,8 @@ defmodule Criticos.Files.Image do
         url = Ecto.UUID.generate() <> ".#{t}"
         put_change(changeset, :url, url)
 
-      _ -> add_error(changeset, :content_type, "Invalid content type, cannot set URL")
+      _ ->
+        add_error(changeset, :content_type, "Invalid content type, cannot set URL")
     end
   end
 end
