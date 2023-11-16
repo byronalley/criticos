@@ -39,15 +39,13 @@ defmodule Criticos.Files.ImageTest do
                ]
       end
     end
+  end
 
+  describe "set_url/1" do
     test "sets url" do
-      assert %Changeset{} =
-               changeset =
-               Image.changeset(%Image{}, %{data: "fake_data", content_type: "image/png"})
+      image = %Image{filename: "foo.jpg", content_type: "image/jpeg"}
 
-      assert url = Changeset.get_field(changeset, :url)
-
-      assert url =~ ~r(images/.*\.png)
+      assert %Image{url: "images/foo.jpg"} = Image.set_url(image)
     end
   end
 end
