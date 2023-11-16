@@ -5,11 +5,6 @@ defmodule Criticos.FilesFixtures do
   """
 
   @doc """
-  Generate a unique image url.
-  """
-  def unique_image_url, do: "some url#{System.unique_integer([:positive])}"
-
-  @doc """
   Generate a image.
   """
   def image_fixture(attrs \\ %{}) do
@@ -17,8 +12,7 @@ defmodule Criticos.FilesFixtures do
       attrs
       |> Enum.into(%{
         content_type: "image/png",
-        data: "some data",
-        url: unique_image_url() <> ".png"
+        data: "some data"
       })
       |> Criticos.Files.create_image()
 

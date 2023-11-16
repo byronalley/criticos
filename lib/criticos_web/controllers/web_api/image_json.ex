@@ -16,9 +16,8 @@ defmodule CriticosWeb.WebAPI.ImageJSON do
   end
 
   defp data(%Image{} = image) do
-    %{
-      url: "images/" <> image.url,
-      content_type: image.content_type,
-    }
+    image
+    |> Image.set_url()
+    |> Map.take([:url, :filename, :content_type])
   end
 end

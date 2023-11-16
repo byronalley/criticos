@@ -4,14 +4,6 @@ defmodule Criticos.Files.ImageTest do
   alias Ecto.Changeset
   alias Criticos.Files.Image
 
-  # FIXME
-  # 1. Check content type
-  # 2. Create URL if there isn't one
-  #   - Extract extension by content type
-  #   - Prefix with UUID
-  # 2. Don't allow changing url
-  # 3. Images should only be created or deleted, no updating
-
   describe "changeset/2" do
     test "sets filename for allowed content types" do
       for allowed <- [

@@ -35,7 +35,7 @@ defmodule Criticos.Files do
       ** (Ecto.NoResultsError)
 
   """
-  def get_image!(url), do: Repo.get!(Image, url)
+  def get_image!(filename), do: Repo.get!(Image, filename)
 
   @doc """
   Creates a image.
@@ -53,24 +53,6 @@ defmodule Criticos.Files do
     %Image{}
     |> Image.changeset(attrs)
     |> Repo.insert()
-  end
-
-  @doc """
-  Updates a image.
-
-  ## Examples
-
-      iex> update_image(image, %{field: new_value})
-      {:ok, %Image{}}
-
-      iex> update_image(image, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_image(%Image{} = image, attrs) do
-    image
-    |> Image.changeset(attrs)
-    |> Repo.update()
   end
 
   @doc """

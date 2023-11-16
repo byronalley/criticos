@@ -6,7 +6,6 @@ defmodule Criticos.Library.Book do
 
   alias Criticos.Accounts.User
   alias Criticos.Library.Author
-  alias Criticos.Files.Image
 
   import Ecto.Changeset
 
@@ -18,10 +17,10 @@ defmodule Criticos.Library.Book do
     field :year, :integer
     field :summary, :string
     field :isbn, :string
+    field :image_url, :string
 
     belongs_to :author, Author
     belongs_to :creator, User
-    belongs_to :image_url, Image, references: :url, type: :string
 
     timestamps()
   end

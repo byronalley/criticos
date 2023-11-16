@@ -12,5 +12,9 @@ defmodule Criticos.Repo.Migrations.CreateImages do
     end
 
     create index(:images, [:creator_id])
+
+    alter table(:books) do
+      add :image_url, :string
+    end
   end
 end

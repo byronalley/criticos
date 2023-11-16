@@ -13,6 +13,10 @@ defmodule CriticosWeb.Router do
     plug :fetch_current_user
   end
 
+  pipeline :images do
+    plug :accepts, ["png", "jpeg", "gif"]
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -36,7 +40,7 @@ defmodule CriticosWeb.Router do
     # pipe_through [:web_api, :require_authenticated_user]
     pipe_through [:web_api]
 
-    resources "/images", ImageController, only: [:create, :delete], param: "url"
+    resources "/images", ImageController, only: [:create, :delete], param: "filename"
   end
 
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
@@ -45,7 +49,7 @@ defmodule CriticosWeb.Router do
     resources "/authors", AuthorController
     resources "/books", BookController
     resources "/reviews", ReviewController
-    resources "/images", ImageController, only: [:show, :index], param: "url"
+    resources "/images", ImageController, only: [:show, :index], param: "filename"
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -91,6 +95,12 @@ defmodule CriticosWeb.Router do
     resources "/books", BookController, except: [:show, :index]
   end
 
+  scope "/images", CriticosWeb do
+    pipe_through [:images]
+
+    get "/:filename", ImageController, :show
+  end
+
   scope "/", CriticosWeb do
     pipe_through [:browser]
 
@@ -105,7 +115,5 @@ defmodule CriticosWeb.Router do
 
     get "/books/:id", BookController, :show
     get "/books", BookController, :index
-
-    get "/images/:url", ImageController, :show
   end
 end

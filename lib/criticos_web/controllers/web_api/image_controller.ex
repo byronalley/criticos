@@ -20,13 +20,13 @@ defmodule CriticosWeb.WebAPI.ImageController do
     end
   end
 
-  def show(conn, %{"url" => url}) do
-    image = Files.get_image!(url)
+  def show(conn, %{"filename" => filename}) do
+    image = Files.get_image!(filename)
     render(conn, :show, image: image)
   end
 
-  def delete(conn, %{"url" => url}) do
-    image = Files.get_image!(url)
+  def delete(conn, %{"filename" => filename}) do
+    image = Files.get_image!(filename)
 
     with {:ok, %Image{}} <- Files.delete_image(image) do
       send_resp(conn, :no_content, "")

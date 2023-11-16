@@ -3,16 +3,17 @@ defmodule CriticosWeb.ImageControllerTest do
 
   import Criticos.FilesFixtures
 
-  setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
-  end
-
   describe "show/2" do
     setup [:create_image]
 
     test "returns image data", %{conn: conn, image: image} do
-      conn = get(conn, ~p"/web_api/images/#{image.filename}")
-      assert html_response(conn, 200) == image.data
+      conn =
+        conn
+        |> put_req_header("accept", "*/*")
+        |> get(~p"/images/#{image}")
+
+      assert response(conn, 200) == image.data
+      assert {"content-type", "image/png"} in conn.resp_headers
     end
   end
 
