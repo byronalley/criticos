@@ -21,8 +21,9 @@ defmodule CriticosWeb.WebAPI.ImageController do
   end
 
   def show(conn, %{"filename" => filename}) do
-    image = Files.get_image!(filename)
-    render(conn, :show, image: image)
+    with {:ok, image} <- Files.get_image(filename) do
+      render(conn, :show, image: image)
+    end
   end
 
   def delete(conn, %{"filename" => filename}) do
