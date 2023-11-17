@@ -71,9 +71,9 @@ defmodule CriticosWeb.WebAPI.ImageControllerTest do
       conn = delete(conn, ~p"/web_api/images/#{image}")
       assert response(conn, 204)
 
-      assert_error_sent 404, fn ->
-        get(conn, ~p"/web_api/images/#{image}")
-      end
+      assert conn
+             |> get(~p"/web_api/images/#{image}")
+             |> response(404)
     end
   end
 
