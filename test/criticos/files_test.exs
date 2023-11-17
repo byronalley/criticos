@@ -15,6 +15,12 @@ defmodule Criticos.FilesTest do
       assert Files.list_images() == [image]
     end
 
+    test "get_image/1 returns the image with given filename" do
+      image = image_fixture()
+
+      assert {:ok, ^image} = Files.get_image(image.filename)
+    end
+
     test "get_image!/1 returns the image with given filename" do
       image = image_fixture()
 

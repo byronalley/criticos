@@ -24,6 +24,19 @@ defmodule Criticos.Files do
   @doc """
   Gets a single image.
 
+  Returns {:ok, %Image{}} or {:error, :not_found}
+
+  """
+  def get_image(filename) do
+    case Repo.get(Image, filename) do
+      nil -> {:error, :not_found}
+      image -> {:ok, image}
+    end
+  end
+
+  @doc """
+  Gets a single image.
+
   Raises `Ecto.NoResultsError` if the Image does not exist.
 
   ## Examples
