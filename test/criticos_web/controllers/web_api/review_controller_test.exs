@@ -7,7 +7,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
 
   @create_attrs %{
     content: "some content",
-    rating: 42,
+    rating: 2,
     private_notes: "some private_notes"
   }
   @update_attrs %{
@@ -39,7 +39,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "id" => ^id,
                "content" => "some content",
                "private_notes" => "some private_notes",
-               "rating" => 42
+               "rating" => 2
              } = json_response(conn, 200)["data"]
     end
 
