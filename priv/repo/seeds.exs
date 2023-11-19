@@ -10,13 +10,28 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
+alias Criticos.{
+  Accounts,
+  Accounts.User,
+  Files.Image,
+  Library.Book,
+  Repo,
+  Timeline.Review
+}
+
+if "clean" in System.argv() do
+  for table <- [Review, Book, Image, User] do
+    Repo.delete_all(table)
+  end
+end
+
 for {email_user, password} <- [
       {"alice", "alphaAPPLE11!"},
       {"bob", "bravoBANANA22@"},
       {"carol", "charlieCARROT33#"}
     ] do
   {:ok, _user} =
-    Criticos.Accounts.register_user(%{email: "#{email_user}@example.com", password: password})
+    Accounts.register_user(%{email: "#{email_user}@example.com", password: password})
 end
 
 authors =
