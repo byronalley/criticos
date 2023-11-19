@@ -26,7 +26,7 @@ defmodule Criticos.Timeline.Review do
   @doc false
   def changeset(review, attrs) do
     review
-    |> cast(attrs, [:content, :rating, :private_notes])
+    |> cast(attrs, [:content, :rating, :private_notes, :book_id])
     |> validate_required([:content, :rating])
     |> validate_number(:rating,
       greater_than_or_equal_to: 0,
