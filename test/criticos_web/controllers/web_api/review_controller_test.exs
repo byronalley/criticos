@@ -1,6 +1,7 @@
 defmodule CriticosWeb.WebAPI.ReviewControllerTest do
   use CriticosWeb.ConnCase
 
+  import Criticos.LibraryFixtures
   import Criticos.TimelineFixtures
 
   alias Criticos.Timeline.Review
@@ -22,13 +23,28 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
   end
 
   describe "index" do
-    test "lists all reviews", %{conn: conn} do
+    setup [:create_book, :create_review]
+
+    test "lists all reviews", %{conn: conn, review: review} do
       conn = get(conn, ~p"/web_api/reviews")
-      assert json_response(conn, 200)["data"] == []
+      assert [received] = json_response(conn, 200)["data"]
+
+      id = review.id
+      book_id = review.book_id
+
+      assert %{
+               "id" => ^id,
+               "content" => "some content",
+               "rating" => 2,
+               "private_notes" => "some private_notes",
+               "book_id" => ^book_id
+             } = received
     end
   end
 
   describe "create review" do
+    setup [:create_book]
+
     test "renders review when data is valid", %{conn: conn} do
       conn = post(conn, ~p"/web_api/reviews", review: @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
@@ -72,6 +88,30 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
     end
   end
 
+  describe "show review" do
+    setup [:create_book, :create_review]
+
+    test "renders review when data is valid", %{
+      conn: conn,
+      review: %Review{id: id, book_id: book_id} = review
+    } do
+      conn = get(conn, ~p"/web_api/reviews/#{review}")
+
+      assert %{
+               "id" => ^id,
+               "content" => "some content",
+               "private_notes" => "some private_notes",
+               "rating" => 2,
+               "book_id" => ^book_id
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn, review: review} do
+      conn = put(conn, ~p"/web_api/reviews/#{review}", review: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
   describe "delete review" do
     setup [:create_review]
 
@@ -85,8 +125,21 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
     end
   end
 
-  defp create_review(_) do
-    review = review_fixture()
+  defp create_book(_) do
+    %{book: book_fixture()}
+  end
+
+  defp create_review(%{book: book}) do
+    review =
+      review_fixture(%{
+        book: book,
+        book_id: book.id
+      })
+
     %{review: review}
+  end
+
+  defp create_review(_) do
+    %{review: review_fixture()}
   end
 end

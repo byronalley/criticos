@@ -3,6 +3,8 @@ defmodule Criticos.TimelineTest do
 
   alias Criticos.Timeline
 
+  import Criticos.LibraryFixtures
+
   describe "reviews" do
     alias Criticos.Timeline.Review
 
@@ -16,7 +18,10 @@ defmodule Criticos.TimelineTest do
     end
 
     test "get_review!/1 returns the review with given id" do
-      review = review_fixture()
+      book = book_fixture()
+
+      review = review_fixture(%{book_id: book.id})
+
       assert Timeline.get_review!(review.id) == review
     end
 

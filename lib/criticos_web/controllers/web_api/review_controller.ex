@@ -22,6 +22,7 @@ defmodule CriticosWeb.WebAPI.ReviewController do
 
   def show(conn, %{"id" => id}) do
     review = Timeline.get_review!(id)
+
     render(conn, :show, review: review)
   end
 
