@@ -31,7 +31,11 @@ for {email_user, password} <- [
       {"carol", "charlieCARROT33#"}
     ] do
   {:ok, _user} =
-    Accounts.register_user(%{email: "#{email_user}@example.com", password: password})
+    Accounts.register_user(%{
+      email: "#{email_user}@example.com",
+      username: email_user,
+      password: password
+    })
 end
 
 authors =

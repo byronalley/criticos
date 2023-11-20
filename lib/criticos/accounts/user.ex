@@ -14,6 +14,7 @@ defmodule Criticos.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    field(:username, :string)
 
     has_many :author, Author, foreign_key: :creator_id
 
@@ -45,9 +46,17 @@ defmodule Criticos.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :username])
+    |> validate_username()
     |> validate_email(opts)
     |> validate_password(opts)
+  end
+
+  defp validate_username(changeset) do
+    changeset
+    |> validate_required(:username)
+    |> validate_length(:username, min: 1, max: 64)
+    |> validate_format(:username, ~r/^[a-z0-9_]/)
   end
 
   defp validate_email(changeset, opts) do

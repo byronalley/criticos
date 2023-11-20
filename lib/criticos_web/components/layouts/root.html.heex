@@ -23,7 +23,7 @@
             <a href="#" class="text-white">Reviews</a>
             <%= if @current_user do %>
               <span class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold">
-                <%= @current_user.email %>
+                <%= @current_user.username %>
               </span>
               <.link
                 href={~p"/users/settings"}
