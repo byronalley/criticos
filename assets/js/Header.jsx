@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="bg-gray-800 text-white p-12 ">
+    <header className="bg-gray-900 text-fuchsia-200 p-12 ">
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-semibold animate-flip-up animate-ease-out">
           Discover and Share Your Favorite Books
@@ -14,7 +14,7 @@ export default function Header() {
         </p>
         <a
           href="#"
-          className="inline-block mt-6 bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition"
+          className="inline-block mt-6 bg-cyan text-white px-6 py-3 hover:bg-transparent font-2bit hover:shadow-[0_0_10px_2px_cyan] transition"
         >
           Get Started
         </a>
