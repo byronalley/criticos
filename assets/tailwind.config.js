@@ -4,6 +4,24 @@
 const plugin = require("tailwindcss/plugin");
 const fs = require("fs");
 const path = require("path");
+const cgaColors = {
+  black: "#000000",
+  blue: "#0000AA",
+  green: "#00AA00",
+  cyan: "#00AAAA",
+  red: "#AA0000",
+  magenta: "#AA00AA",
+  brown: "#AA5500",
+  lightGray: "#AAAAAA",
+  darkGray: "#555555",
+  lightBlue: "#5555FF",
+  lightGreen: "#55FF55",
+  lightCyan: "#55FFFF",
+  lightRed: "#FF5555",
+  lightMagenta: "#FF55FF",
+  yellow: "#FFFF55",
+  white: "#FFFFFF",
+};
 
 module.exports = {
   content: [
@@ -16,7 +34,10 @@ module.exports = {
     extend: {
       transform: ["hover", "focus"],
       colors: {
-        brand: "#FD4F00",
+        ...cgaColors,
+      },
+      fontFamily: {
+        twobit: ["Twobit", "sans-serif"],
       },
     },
   },

@@ -14,7 +14,7 @@ export default function Header() {
         </p>
         <a
           href="#"
-          className="inline-block mt-6 bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition"
+          className="inline-block mt-6 bg-cyan text-white px-6 py-3 hover:bg-black font-2bit hover:shadow-[0_0_10px_2px_cyan] transition"
         >
           Get Started
         </a>
