@@ -63,10 +63,10 @@ export default function Reviews() {
                     alt="Book Title"
                     className="w-full h-48 object-cover"
                   /> */}
-                  <h4 className="text-xl font-semibold text-white">
+                  <h4 className="text-xl font-semibold text-cyan">
                     {book.title}
                   </h4>
-                  <p className="text-white mt-2 mb-3">Author Name</p>
+                  <p className="text-cyan mt-2 mb-3">Author Name</p>
                   <p className="inline-block text-500-blue">{book.summary}</p>
                 </div>
 
