@@ -50,33 +50,34 @@ export default function Reviews() {
         <h3 className="text-2xl font-semibold txt-gray-800">
           Latest Book Reviews
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-6 mx-2 ">
           {books.map((book) => (
-            <div className="bg-blue-500 rounded-lg shadow-lg overflow-hidden">
-              <img
-                src="images/white-square.gif"
-                alt="Book Title"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h4 className="text-xl font-semibold text-white">
-                  {book.title}
-                </h4>
-                {/* <p className="text-white mt-2 mb-3">Author Name</p> */}
-                <p className="inline-block mt-4  text-500-blue ">
-                  {book.summary}{" "}
-                </p>
-
-                <div className="bg-white px-4 py-2 rounded-md">
+            <div className="card xs:mx-4">
+              <div className="card-inner">
+                <div className="card-front p-6 bg-blue-500">
+                  {" "}
+                  {/* <img
+                    src="images/white-square.gif"
+                    alt="Book Title"
+                    className="w-full h-48 object-cover"
+                  /> */}
+                  <h4 className="text-xl font-semibold text-white">
+                    {book.title}
+                  </h4>
+                  <p className="text-white mt-2 mb-3">Author Name</p>
+                  <p className="inline-block text-500-blue">{book.summary}</p>
+                </div>
+                <div className="card-back bg-red-500 px-4 py-2 rounded-md">
                   <p className="text-black font-semibold">
                     Rating:{" "}
                     {book.reviews.length > 0
                       ? book.reviews[0].rating
                       : "No reviews yet"}
                   </p>
-
-                  <p className="inline-block mt-4  text-500-blue ">
-                    {book.reviews[0].content}
+                  <p className="inline-block mt-4 text-500-blue">
+                    {book.reviews.length > 0
+                      ? book.reviews[0].content
+                      : "No reviews yet"}
                   </p>
                 </div>
               </div>
