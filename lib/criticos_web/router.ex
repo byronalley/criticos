@@ -41,6 +41,8 @@ defmodule CriticosWeb.Router do
     pipe_through [:web_api]
 
     resources "/images", ImageController, only: [:create, :delete], param: "filename"
+
+    get "/current_user", UserController, :current_user
   end
 
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
