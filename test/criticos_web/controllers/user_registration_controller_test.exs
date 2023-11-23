@@ -22,11 +22,12 @@ defmodule CriticosWeb.UserRegistrationControllerTest do
   describe "POST /users/register" do
     @tag :capture_log
     test "creates account and logs the user in", %{conn: conn} do
-      email = unique_user_email()
+      username = unique_username()
+      email = unique_user_email(username)
 
       conn =
         post(conn, ~p"/users/register", %{
-          "user" => valid_user_attributes(email: email)
+          "user" => valid_user_attributes(email: email, username: username)
         })
 
       assert get_session(conn, :user_token)
@@ -35,7 +36,7 @@ defmodule CriticosWeb.UserRegistrationControllerTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, ~p"/")
       response = html_response(conn, 200)
-      assert response =~ email
+      assert response =~ username
       assert response =~ ~p"/users/settings"
       assert response =~ ~p"/users/log_out"
     end
