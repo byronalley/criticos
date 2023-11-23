@@ -1,3 +1,8 @@
+// TODO(BA): This is needed so that logout works
+// but we can remove it once everything has moved
+// over to React
+import "phoenix_html"
+
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 
