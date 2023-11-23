@@ -53,7 +53,6 @@ defmodule CriticosWeb.WebAPI.AuthorControllerTest do
   end
 
   describe "update author" do
-    @describetag :skip
     setup [:create_author]
 
     test "renders author when data is valid", %{conn: conn, author: %Author{id: id} = author} do
@@ -78,7 +77,6 @@ defmodule CriticosWeb.WebAPI.AuthorControllerTest do
   end
 
   describe "delete author" do
-    @describetag :skip
     setup [:create_author]
 
     test "deletes chosen author", %{conn: conn, author: author} do
