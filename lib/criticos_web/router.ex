@@ -43,6 +43,9 @@ defmodule CriticosWeb.Router do
     resources "/images", ImageController, only: [:create, :delete], param: "filename"
 
     get "/current_user", UserController, :current_user
+
+    # FIXME: perms
+    resources "/users", UserController
   end
 
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
