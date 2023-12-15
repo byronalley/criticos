@@ -31,6 +31,19 @@ defmodule CriticosWeb.WebAPI.UserSessionControllerTest do
       conn = post(conn, ~p"/web_api/users/log_in", user: @invalid_attrs)
       assert json_response(conn, 401)["errors"] == %{"detail" => "Unauthorized"}
     end
+
+    test "logs the user in with remember me", %{conn: conn, user: user} do
+      conn =
+        post(conn, ~p"/web_api/users/log_in", %{
+          "user" => %{
+            "email" => user.email,
+            "password" => valid_user_password(),
+            "remember_me" => "true"
+          }
+        })
+
+      assert conn.resp_cookies["_criticos_web_user_remember_me"]
+    end
   end
 
   describe "DELETE /users/log_out" do
