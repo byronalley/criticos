@@ -33,22 +33,21 @@ defmodule CriticosWeb.WebAPI.UserSessionControllerTest do
     end
   end
 
-  describe "delete user" do
-    setup [:create_user]
+  describe "DELETE /users/log_out" do
+    test "logs the user out", %{conn: conn, user: user} do
+      session =
+        conn
+        |> log_in_user(user)
+        |> delete(~p"/web_api/users/log_out")
+        |> get_session(:user_token)
 
-    test "deletes chosen user", %{conn: conn, user: _user} do
-      conn = delete(conn, ~p"/web_api/users/log_out")
-      assert response(conn, 204)
-
-      # FIXME
-      # assert_error_sent 404, fn ->
-      #   get(conn, ~p"/web_api/users/#{user}")
-      # end
+      refute session
     end
-  end
 
-  defp create_user(_) do
-    user = user_fixture()
-    %{user: user}
+    test "succeeds even if the user is not logged in", %{conn: conn} do
+      conn = delete(conn, ~p"/web_api/users/log_out")
+
+      refute get_session(conn, :user_token)
+    end
   end
 end
