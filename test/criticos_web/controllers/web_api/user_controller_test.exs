@@ -39,5 +39,11 @@ defmodule CriticosWeb.WebAPI.UserControllerTest do
       # Should not include private data
       refute data["email"]
     end
+
+    test "returns 404 not found if user doesn't exist", %{conn: conn} do
+      conn = get(conn, ~p"/web_api/users/#{Ecto.UUID.generate()}")
+
+      assert %{"detail" => "Not Found"} = json_response(conn, 404)["errors"]
+    end
   end
 end

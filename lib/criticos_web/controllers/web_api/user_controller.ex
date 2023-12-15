@@ -6,10 +6,9 @@ defmodule CriticosWeb.WebAPI.UserController do
   action_fallback CriticosWeb.FallbackController
 
   def show(conn, %{"id" => id}) do
-    # FIXME
-    user = Accounts.get_user!(id)
-
-    render(conn, :show, user: user)
+    with {:ok, user} <- Accounts.get_user(id) do
+      render(conn, :show, user: user)
+    end
   end
 
   def current_user(%{assigns: %{current_user: user}} = conn, _params) do
