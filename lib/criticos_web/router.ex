@@ -53,6 +53,8 @@ defmodule CriticosWeb.Router do
     # post "/users/reset_password", UserResetPasswordController, :create
     # get "/users/reset_password/:token", UserResetPasswordController, :edit
     # put "/users/reset_password/:token", UserResetPasswordController, :update
+
+    get "/users/:id", UserController, :show
   end
 
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do

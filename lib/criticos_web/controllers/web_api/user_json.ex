@@ -5,21 +5,33 @@ defmodule CriticosWeb.WebAPI.UserJSON do
   Renders a list of users.
   """
   def index(%{users: users}) do
-    %{data: for(user <- users, do: data(user))}
+    %{data: for(user <- users, do: public_data(user))}
+  end
+
+  @doc """
+  Renders the *current* user
+  """
+  def current_user(%{user: user}) do
+    %{
+      data: %{
+        id: user.id,
+        username: user.username,
+        email: user.email
+      }
+    }
   end
 
   @doc """
   Renders a single user.
   """
   def show(%{user: user}) do
-    %{data: data(user)}
+    %{data: public_data(user)}
   end
 
-  defp data(%User{} = user) do
+  defp public_data(%User{} = user) do
     %{
       id: user.id,
-      username: user.username,
-      email: user.email
+      username: user.username
     }
   end
 end
