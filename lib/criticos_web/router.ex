@@ -45,7 +45,14 @@ defmodule CriticosWeb.Router do
     get "/current_user", UserController, :current_user
 
     # FIXME: perms
-    resources "/users", UserController
+
+    # post "/users/register", UserRegistrationController, :create
+    post "/users/log_in", UserSessionController, :create
+    delete "/users/log_out", UserSessionController, :delete
+    # get "/users/reset_password", UserResetPasswordController, :new
+    # post "/users/reset_password", UserResetPasswordController, :create
+    # get "/users/reset_password/:token", UserResetPasswordController, :edit
+    # put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
