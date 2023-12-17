@@ -23,7 +23,7 @@ defmodule Criticos.Files.Image do
     image
     |> cast(attrs, [:creator_id, :content_type, :data])
     |> set_filename()
-    # |> set_url()
+    |> set_url_for_changeset()
     |> validate_required([:filename, :content_type, :data])
     |> unique_constraint(:url)
   end
@@ -39,8 +39,17 @@ defmodule Criticos.Files.Image do
     end
   end
 
+  defp set_url_for_changeset(changeset) do
+    case get_field(changeset, :filename) do
+      nil -> changeset
+      filename -> put_change(changeset, :url, to_url(filename))
+    end
+  end
+
   @doc """
   Set the virtual field url for an image
   """
-  def set_url(%__MODULE__{filename: filename} = image), do: %{image | url: "images/" <> filename}
+  def set_url(%__MODULE__{filename: filename} = image), do: %{image | url: to_url(filename)}
+
+  defp to_url(filename), do: "images/" <> filename
 end

@@ -18,7 +18,7 @@ defmodule Criticos.Files do
 
   """
   def list_images do
-    Repo.all(Image)
+    Repo.all(Image) |> Enum.map(&Image.set_url/1)
   end
 
   @doc """
@@ -30,7 +30,7 @@ defmodule Criticos.Files do
   def get_image(filename) do
     case Repo.get(Image, filename) do
       nil -> {:error, :not_found}
-      image -> {:ok, image}
+      image -> {:ok, Image.set_url(image)}
     end
   end
 
@@ -48,7 +48,7 @@ defmodule Criticos.Files do
       ** (Ecto.NoResultsError)
 
   """
-  def get_image!(filename), do: Repo.get!(Image, filename)
+  def get_image!(filename), do: Repo.get!(Image, filename) |> Image.set_url()
 
   @doc """
   Creates a image.
