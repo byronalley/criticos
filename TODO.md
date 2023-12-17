@@ -13,6 +13,7 @@ This is an informal roadmap of future feature, changes etc.
 ## Backend / Data Model
 [ ] Move user and session management to web_api:
   - [X] session
+  - [X] login with username instead of email
   - [ ] settings
   - [ ] registration
   - [ ] confirmation
