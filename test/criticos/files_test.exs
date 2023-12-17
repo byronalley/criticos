@@ -37,6 +37,7 @@ defmodule Criticos.FilesTest do
       assert image.data == "some data"
       assert image.filename
       assert image.content_type == "image/jpeg"
+      assert image.url =~ image.filename
     end
 
     test "create_image/1 with invalid data returns error changeset" do
