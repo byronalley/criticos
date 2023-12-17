@@ -48,6 +48,17 @@ defmodule Criticos.AccountsTest do
     end
   end
 
+  describe "get_user/1" do
+    test "returns error if id is invalid" do
+      assert {:error, :not_found} = Accounts.get_user("11111111-1111-1111-1111-111111111111")
+    end
+
+    test "returns the user with the given id" do
+      %{id: id} = user = user_fixture()
+      assert {:ok, %User{id: ^id}} = Accounts.get_user(user.id)
+    end
+  end
+
   describe "register_user/1" do
     test "requires email and password to be set" do
       {:error, changeset} = Accounts.register_user(%{})

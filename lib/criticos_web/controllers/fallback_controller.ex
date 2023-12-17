@@ -21,4 +21,12 @@ defmodule CriticosWeb.FallbackController do
     |> put_view(html: CriticosWeb.ErrorHTML, json: CriticosWeb.ErrorJSON)
     |> render(:"404")
   end
+
+  # Unauthorized
+  def call(conn, {:error, :unauthorized}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(html: CriticosWeb.ErrorHTML, json: CriticosWeb.ErrorJSON)
+    |> render(:"401")
+  end
 end

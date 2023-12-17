@@ -23,11 +23,6 @@ defmodule CriticosWeb.UserAuth do
   It renews the session ID and clears the whole session
   to avoid fixation attacks. See the renew_session
   function to customize this behaviour.
-
-  It also sets a `:live_socket_id` key in the session,
-  so LiveView sessions are identified and automatically
-  disconnected on log out. The line can be safely removed
-  if you are not using LiveView.
   """
   def log_in_user(conn, user, params \\ %{}) do
     token = Accounts.generate_user_session_token(user)
@@ -38,6 +33,22 @@ defmodule CriticosWeb.UserAuth do
     |> put_token_in_session(token)
     |> maybe_write_remember_me_cookie(token, params)
     |> redirect(to: user_return_to || signed_in_path(conn))
+  end
+
+  @doc """
+  Logs the user in for use in the web api.
+
+  It renews the session ID and clears the whole session
+  to avoid fixation attacks. See the renew_session
+  function to customize this behaviour.
+  """
+  def log_in_user_web_api(conn, user, params \\ %{}) do
+    token = Accounts.generate_user_session_token(user)
+
+    conn
+    |> renew_session()
+    |> put_token_in_session(token)
+    |> maybe_write_remember_me_cookie(token, params)
   end
 
   defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}) do
@@ -78,14 +89,24 @@ defmodule CriticosWeb.UserAuth do
     user_token = get_session(conn, :user_token)
     user_token && Accounts.delete_user_session_token(user_token)
 
-    if live_socket_id = get_session(conn, :live_socket_id) do
-      CriticosWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
-    end
-
     conn
     |> renew_session()
     |> delete_resp_cookie(@remember_me_cookie)
     |> redirect(to: ~p"/")
+  end
+
+  @doc """
+  Logs the user out for the web api.
+
+  It clears all session data for safety. See renew_session.
+  """
+  def log_out_user_web_api(conn) do
+    user_token = get_session(conn, :user_token)
+    user_token && Accounts.delete_user_session_token(user_token)
+
+    conn
+    |> renew_session()
+    |> delete_resp_cookie(@remember_me_cookie)
   end
 
   @doc """
@@ -218,7 +239,6 @@ defmodule CriticosWeb.UserAuth do
   defp put_token_in_session(conn, token) do
     conn
     |> put_session(:user_token, token)
-    |> put_session(:live_socket_id, "users_sessions:#{Base.url_encode64(token)}")
   end
 
   defp maybe_store_return_to(%{method: "GET"} = conn) do
