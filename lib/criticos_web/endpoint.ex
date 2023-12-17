@@ -8,7 +8,7 @@ defmodule CriticosWeb.Endpoint do
     store: :cookie,
     key: "_criticos_key",
     signing_salt: "6QwQ5dx3",
-    same_site: "Lax"
+    same_site: "Strict"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
