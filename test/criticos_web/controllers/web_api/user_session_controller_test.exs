@@ -48,13 +48,13 @@ defmodule CriticosWeb.WebAPI.UserSessionControllerTest do
 
   describe "DELETE /users/log_out" do
     test "logs the user out", %{conn: conn, user: user} do
-      session =
+      conn =
         conn
         |> log_in_user(user)
         |> delete(~p"/web_api/users/log_out")
-        |> get_session(:user_token)
 
-      refute session
+      assert response(conn, 204) == ""
+      refute get_session(conn, :user_token)
     end
 
     test "succeeds even if the user is not logged in", %{conn: conn} do
