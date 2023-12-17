@@ -25,6 +25,8 @@ defmodule CriticosWeb.WebAPI.UserSessionControllerTest do
                "email" => ^email,
                "username" => ^username
              } = json_response(conn, 200)["data"]
+
+      assert get_session(conn, :user_token)
     end
 
     test "renders errors when login credentials are invalid", %{conn: conn} do

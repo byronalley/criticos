@@ -11,7 +11,10 @@ async function loginUser() {
       body: JSON.stringify({
         user: {
           email: "alice@example.com",
-          password: "alphaAPPLE11!"
+          password: "alphaAPPLE11!",
+          // Set the remember_me param for the server to remember the user for an
+          // extended time (60 days)
+          remember_me: "true"
         }
       }),
     }
@@ -26,6 +29,9 @@ async function loginUser() {
     console.log(`id:`, id);
     console.log(`email:`, email);
     console.log(`username:`, username);
+
+    console.log(`Cookies:`);
+    console.dir(response.headers.getSetCookie());
   } catch (error) {
     console.error('Error:', error);
   }
