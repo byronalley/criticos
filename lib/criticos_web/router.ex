@@ -44,7 +44,7 @@ defmodule CriticosWeb.Router do
 
     get "/current_user", UserController, :current_user
 
-    # FIXME: perms
+    # TODO: Fix access #
 
     # post "/users/register", UserRegistrationController, :create
     post "/users/log_in", UserSessionController, :create

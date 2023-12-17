@@ -3,16 +3,25 @@
 This is an informal roadmap of future feature, changes etc.
 
 ## User Interface
-  - [ ] Move home page into JSX
+  - [X] Move home page into JSX
+  - [ ] Move navbar to JSX
   - [ ] Show most recent reviews on home page
   - [ ] Create Review
   - [ ] Browse books
   - [ ] Show reviews in book listing
 
 ## Backend / Data Model
+[ ] Move user and session management to web_api:
+  - [X] session
+  - [ ] settings
+  - [ ] registration
+  - [ ] confirmation
+  - [ ] reset password
+[ ] Fix router permissions
+
   - [ ] Move binary id stuff into app schema
-  - [ ] Add image field to Book
-  - [ ] Reviews
+  - [X] Add image field to Book
+  - [X] Reviews
     - Review: string, max 100 chars or 20 words, each punctuation mark is a "word"
     - Rating (stars): integer, 0-4 stars
     - Has type of book, movie... etc.
