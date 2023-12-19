@@ -85,14 +85,14 @@ function NavbarItems(user){
   <>
     <a
       href="/users/settings"
-      className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold"
+      className="text-white leading-6 "
     >
       Settings
     </a>
     <a
       href="/users/log_out"
       method="delete"
-      className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold"
+      className=" text-white "
     >
       Log out
     </a>
@@ -101,7 +101,7 @@ function NavbarItems(user){
   <>
     <a
       href="/users/log_in"
-      className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold"
+      className=" text-white font-semibold"
     >
       Log in
     </a>
