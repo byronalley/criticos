@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 
 import { AuthorsList } from "./authors.jsx";
-import Home from "./home.jsx";
+import Home from "./Home.jsx";
 
 const rootElement = document.getElementById("root");
 
