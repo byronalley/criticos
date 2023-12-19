@@ -23,86 +23,12 @@ export default function Navbar({ user }) {
             toggleMenu ? "max-h-screen" : "max-h-0 hidden" // Show or hide the dropdown menu based on the toggle state
           }`}
         >
-          <a href="#" className="text-white p-2 self-center">
-            Home
-          </a>
-          <a href="#" className="text-white p-2 self-center">
-            Books
-          </a>
-          <a href="#" className="text-white p-2 self-center">
-            Reviews
-          </a>
-          {!user ? (
-            <>
-              <a href="/users/settings" className="text-white p-2 self-center">
-                Settings
-              </a>
-              <a
-                href="/users/log_out"
-                method="delete"
-                className="text-white p-2 self-center"
-              >
-                Log out
-              </a>
-            </>
-          ) : (
-            <>
-              <a href="/users/log_in" className="text-white p-2 self-center">
-                Log in
-              </a>
-              <a
-                href="/users/register"
-                className="bg-white text-blue-500 p-2 rounded-full hover:bg-blue-100 transition"
-              >
-                Sign Up
-              </a>
-            </>
-          )}
+         <NavbarItems user={user}/>
         </div>
 
         {/* Show the navigation items for screens larger than md */}
         <div className="hidden md:flex space-x-4">
-          <a href="#" className="text-white">
-            Home
-          </a>
-          <a href="#" className="text-white">
-            Books
-          </a>
-          <a href="#" className="text-white">
-            Reviews
-          </a>
-          {!user ? (
-            <>
-              <a
-                href="/users/settings"
-                className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold"
-              >
-                Settings
-              </a>
-              <a
-                href="/users/log_out"
-                method="delete"
-                className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold"
-              >
-                Log out
-              </a>
-            </>
-          ) : (
-            <>
-              <a
-                href="/users/log_in"
-                className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold"
-              >
-                Log in
-              </a>
-              <a
-                href="/users/register"
-                className="bg-white text-blue-500 px-4 py-2 rounded-full hover:bg-blue-100 transition"
-              >
-                Sign Up
-              </a>
-            </>
-          )}
+        <NavbarItems user={user}/>
         </div>
 
         {/* Button with animation */}
@@ -143,4 +69,48 @@ export default function Navbar({ user }) {
       </div>
     </nav>
   );
+}
+
+function NavbarItems(user){
+  return(<>  <a href="#" className="text-white">
+  Home
+</a>
+<a href="#" className="text-white">
+  Books
+</a>
+<a href="#" className="text-white">
+  Reviews
+</a>
+{!user ? (
+  <>
+    <a
+      href="/users/settings"
+      className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold"
+    >
+      Settings
+    </a>
+    <a
+      href="/users/log_out"
+      method="delete"
+      className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold"
+    >
+      Log out
+    </a>
+  </>
+) : (
+  <>
+    <a
+      href="/users/log_in"
+      className="text-[0.8125rem] leading-6 text-zinc-900 font-semibold"
+    >
+      Log in
+    </a>
+    <a
+      href="/users/register"
+      className="bg-white text-blue-500 px-4 py-2 rounded-full hover:bg-blue-100 transition"
+    >
+      Sign Up
+    </a>
+  </>
+)}</>)
 }
