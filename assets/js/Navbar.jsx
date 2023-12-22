@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Navbar({ user }) {
+export default function Navbar({ user, login }) {
   const [toggleMenu, setToggleMenu] = useState(false); // Initialize the menu as closed
 
   const toggleButton = () => {
@@ -23,12 +23,12 @@ export default function Navbar({ user }) {
             toggleMenu ? "max-h-screen" : "max-h-0 hidden" // Show or hide the dropdown menu based on the toggle state
           }`}
         >
-         <NavbarItems user={user}/>
+         <NavbarItems user={user} login={login}/>
         </div>
 
         {/* Show the navigation items for screens larger than md */}
         <div className="hidden md:flex space-x-4">
-        <NavbarItems user={user}/>
+        <NavbarItems user={user} login={login}/>
         </div>
 
         {/* Button with animation */}
@@ -71,7 +71,7 @@ export default function Navbar({ user }) {
   );
 }
 
-function NavbarItems(user){
+function NavbarItems({user, login}){
   return(<>  <a href="#" className="text-white">
   Home
 </a>
@@ -81,7 +81,7 @@ function NavbarItems(user){
 <a href="#" className="text-white">
   Reviews
 </a>
-{!user ? (
+{user ? (
   <>
     <a
       href="/users/settings"
@@ -91,6 +91,7 @@ function NavbarItems(user){
     </a>
     <a
       href="/users/log_out"
+      // onClick={login}
       method="delete"
       className=" text-white "
     >
@@ -101,6 +102,7 @@ function NavbarItems(user){
   <>
     <a
       href="/users/log_in"
+      onClick={login}
       className=" text-white font-semibold"
     >
       Log in

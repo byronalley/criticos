@@ -4,7 +4,7 @@ import Reviews from "./Reviews";
 import Featured from "./Featured";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-
+import LoginForm from "./LoginForm";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -75,21 +75,29 @@ async function logoutUser() {
 
 function handleLogin(user){
   if (!isLoggedIn && !user ) {
-    setUser(user)
-    setIsLoggedIn(true)
+    // setUser(user)
+    // setIsLoggedIn(true)
+    console.log('Logout')
   } else {
-    setUser(null)
-    setIsLoggedIn(false)
+    // setUser(null)
+    // setIsLoggedIn(false)
+    console.log('Login')
+
   }
 }
 
 
   return (
     <>
-      <Navbar user={user} isLoggedIn={isLoggedIn} login={handleLogin}/>
-      <Header />
+         <Navbar user={user} isLoggedIn={isLoggedIn} login={handleLogin}/>
+         <Header /> 
+     {!isLoggedIn ? 
+     <LoginForm loginUser={loginUser}/>
+     :
+     <>
       <Reviews />
       <Footer />
+      </>}
     </>
   );
 }
