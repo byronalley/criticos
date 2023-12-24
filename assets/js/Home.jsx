@@ -4,7 +4,7 @@ import Reviews from "./Reviews";
 import Featured from "./Featured";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import LoginForm from "./LoginForm";
+import Login from "./Login";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -12,92 +12,99 @@ export default function Home() {
 
   async function loginUser() {
     try {
-      const response = await fetch('http://localhost:4000/web_api/users/log_in', {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user: {
-            email: "alice@example.com",
-            password: "alphaAPPLE11!",
-            // Set the remember_me param for the server to remember the user for an
-            // extended time (60 days)
-            remember_me: "true"
-          }
-        }),
-      }
+      const response = await fetch(
+        "http://localhost:4000/web_api/users/log_in",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user: {
+              email: "alice@example.com",
+              password: "alphaAPPLE11!",
+              // Set the remember_me param for the server to remember the user for an
+              // extended time (60 days)
+              remember_me: "true",
+            },
+          }),
+        }
       );
-  
+
       if (response.status !== 200) {
         console.error(`Error: ${response.status} - ${response.statusText}`);
         return;
       }
-  
-      const {data: {id, email,  username}} = await response.json();
+
+      const {
+        data: { id, email, username },
+      } = await response.json();
       console.log(`id:`, id);
       console.log(`email:`, email);
       console.log(`username:`, username);
-  
+
       console.log(`Cookies:`);
       console.dir(response.headers.getSetCookie());
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
-    console.log(response)
+    console.log(response);
   }
-  
- 
 
+  async function logoutUser() {
+    try {
+      const response = await fetch(
+        "http://localhost:4000/web_api/users/log_out",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-async function logoutUser() {
-  try {
-    const response = await fetch('http://localhost:4000/web_api/users/log_out', {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+      if (response.status == 204) {
+        console.log(`Success: 204 code`);
 
-    if (response.status == 204) {
-      console.log(`Success: 204 code`);
+        console.dir(response.headers.getSetCookie());
+      } else {
+        console.error(`Error: ${response.status} - ${response.statusText}`);
+        return;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
-      console.dir(response.headers.getSetCookie());
+  function handleLogin(user) {
+    if (!isLoggedIn && !user) {
+      // setUser(user)
+      // setIsLoggedIn(true)
+      console.log("Logout");
     } else {
-      console.error(`Error: ${response.status} - ${response.statusText}`);
-      return;
+      // setUser(null)
+      // setIsLoggedIn(false)
+      console.log("Login");
     }
-  } catch (error) {
-    console.error('Error:', error);
   }
-}
-
-function handleLogin(user){
-  if (!isLoggedIn && !user ) {
-    // setUser(user)
-    // setIsLoggedIn(true)
-    console.log('Logout')
-  } else {
-    // setUser(null)
-    // setIsLoggedIn(false)
-    console.log('Login')
-
-  }
-}
-
 
   return (
     <>
-         <Navbar user={user} isLoggedIn={isLoggedIn} login={handleLogin}/>
-         <Header /> 
-     {!isLoggedIn ? 
-     <LoginForm loginUser={loginUser}/>
-     :
-     <>
-      <Reviews />
-      <Footer />
-      </>}
+      <Navbar
+        user={user}
+        isLoggedIn={isLoggedIn}
+        login={handleLogin}
+      />
+      <Header />
+      {!isLoggedIn ? (
+        <Login loginUser={loginUser} />
+      ) : (
+        <>
+          <Reviews />
+          <Footer />
+        </>
+      )}
     </>
   );
 }
