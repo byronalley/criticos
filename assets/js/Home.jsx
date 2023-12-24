@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 import Login from "./Login";
 
 export default function Home() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ email: "", password: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   async function loginUser() {
@@ -22,8 +22,8 @@ export default function Home() {
           },
           body: JSON.stringify({
             user: {
-              email: "alice@example.com",
-              password: "alphaAPPLE11!",
+              email: user.email,
+              password: user.password,
               // Set the remember_me param for the server to remember the user for an
               // extended time (60 days)
               remember_me: "true",
@@ -40,6 +40,7 @@ export default function Home() {
       const {
         data: { id, email, username },
       } = await response.json();
+      setUser({ email, password: user.password });
       console.log(`id:`, id);
       console.log(`email:`, email);
       console.log(`username:`, username);
@@ -50,6 +51,7 @@ export default function Home() {
       console.error("Error:", error);
     }
     console.log(response);
+    setUser(response);
   }
 
   async function logoutUser() {
@@ -94,17 +96,29 @@ export default function Home() {
       <Navbar
         user={user}
         isLoggedIn={isLoggedIn}
-        login={handleLogin}
       />
       <Header />
-      {!isLoggedIn ? (
-        <Login loginUser={loginUser} />
-      ) : (
-        <>
-          <Reviews />
-          <Footer />
-        </>
-      )}
+      <h1>{user.username}</h1>
+      <input
+        type="email"
+        placeholder="Email"
+        value={user.email}
+        onChange={(e) => setUser({ ...user, email: e.target.value })}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={user.password}
+        onChange={(e) => setUser({ ...user, password: e.target.value })}
+      />
+      <button
+        className="bg-blue-500"
+        onClick={loginUser}
+      >
+        Login
+      </button>{" "}
+      <Reviews />
+      <Footer />
     </>
   );
 }

@@ -21,7 +21,10 @@ export default function Reviews() {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-6">
           {reviews.map((book) => (
-            <div className="bg-blue-500 rounded-lg shadow-lg overflow-hidden">
+            <div
+              key={book.id}
+              className="bg-blue-500 rounded-lg shadow-lg overflow-hidden"
+            >
               <img
                 src="images/white-square.gif"
                 alt="Book Title"

@@ -20,7 +20,7 @@ export default function Login({ loginUser }) {
 
       if (response.ok) {
         // Login successful, redirect to dashboard
-        window.location.href = "/dashboard";
+        window.location.href = "/";
       } else {
         // Login failed, display error message
         const errorData = await response.json();

@@ -6,7 +6,7 @@ import "phoenix_html";
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 
-import { AuthorsList } from "./authors.jsx";
+import { AuthorsList } from "./Authors.jsx";
 import Home from "./Home.jsx";
 
 const rootElement = document.getElementById("root");
