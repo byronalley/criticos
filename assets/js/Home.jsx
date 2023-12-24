@@ -16,7 +16,7 @@ export default function Home() {
         "http://localhost:4000/web_api/users/log_in",
         {
           method: "POST",
-          mode: "no-cors",
+          mode: "cors",
           headers: {
             "Content-Type": "application/json",
           },
@@ -31,6 +31,7 @@ export default function Home() {
           }),
         }
       );
+      console.log("response ", response);
 
       if (response.status !== 200) {
         console.error(`Error: ${response.status} - ${response.statusText}`);
@@ -41,6 +42,7 @@ export default function Home() {
         data: { id, email, username },
       } = await response.json();
       setUser({ email, password: user.password });
+      setIsLoggedIn(true);
       console.log(`id:`, id);
       console.log(`email:`, email);
       console.log(`username:`, username);
@@ -50,8 +52,6 @@ export default function Home() {
     } catch (error) {
       console.error("Error:", error);
     }
-    console.log(response);
-    setUser(response);
   }
 
   async function logoutUser() {
@@ -98,7 +98,7 @@ export default function Home() {
         isLoggedIn={isLoggedIn}
       />
       <Header />
-      <h1>{user.username}</h1>
+      {!user ? <h1>Login</h1> : <h1>{user.username}</h1>}
       <input
         type="email"
         placeholder="Email"
