@@ -16,7 +16,7 @@ export default function Home() {
         "http://localhost:4000/web_api/users/log_in",
         {
           method: "POST",
-          mode: "cors",
+          mode: "same-origin",
           headers: {
             "Content-Type": "application/json",
           },
@@ -47,18 +47,20 @@ export default function Home() {
       console.log(`email:`, email);
       console.log(`username:`, username);
 
-      console.log(`Cookies:`);
       console.dir(response.headers.getSetCookie());
+      console.log(`Cookies:`);
     } catch (error) {
       console.error("Error:", error);
     }
+    handleLogin(user);
   }
 
-  async function logoutUser() {
+  async function logoutUser(event) {
     try {
       const response = await fetch(
         "http://localhost:4000/web_api/users/log_out",
         {
+          mode: "same-origin",
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -70,9 +72,13 @@ export default function Home() {
         console.log(`Success: 204 code`);
 
         console.dir(response.headers.getSetCookie());
+        alert("Logged out successfully");
+
+        return false;
       } else {
         console.error(`Error: ${response.status} - ${response.statusText}`);
-        return;
+        alert("Error logging out");
+        return false;
       }
     } catch (error) {
       console.error("Error:", error);
@@ -87,7 +93,7 @@ export default function Home() {
     } else {
       // setUser(null)
       // setIsLoggedIn(false)
-      console.log("Login");
+      console.log(user);
     }
   }
 
@@ -96,6 +102,7 @@ export default function Home() {
       <Navbar
         user={user}
         isLoggedIn={isLoggedIn}
+        logoutUser={logoutUser}
       />
       <Header />
       {!user ? <h1>Login</h1> : <h1>{user.username}</h1>}

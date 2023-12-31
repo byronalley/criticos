@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Navbar({ user, login }) {
+export default function Navbar({ user, login, logoutUser }) {
   const [toggleMenu, setToggleMenu] = useState(false); // Initialize the menu as closed
 
   const toggleButton = () => {
@@ -23,12 +23,20 @@ export default function Navbar({ user, login }) {
             toggleMenu ? "max-h-screen" : "max-h-0 hidden" // Show or hide the dropdown menu based on the toggle state
           }`}
         >
-         <NavbarItems user={user} login={login}/>
+          <NavbarItems
+            user={user}
+            login={login}
+            logoutUser={logoutUser}
+          />
         </div>
 
         {/* Show the navigation items for screens larger than md */}
         <div className="hidden md:flex space-x-4">
-        <NavbarItems user={user} login={login}/>
+          <NavbarItems
+            user={user}
+            login={login}
+            logoutUser={logoutUser}
+          />
         </div>
 
         {/* Button with animation */}
@@ -71,48 +79,63 @@ export default function Navbar({ user, login }) {
   );
 }
 
-function NavbarItems({user, login}){
-  return(<>  <a href="#" className="text-white">
-  Home
-</a>
-<a href="#" className="text-white">
-  Books
-</a>
-<a href="#" className="text-white">
-  Reviews
-</a>
-{user ? (
-  <>
-    <a
-      href="/users/settings"
-      className="text-white leading-6 "
-    >
-      Settings
-    </a>
-    <a
-      href="/users/log_out"
-      // onClick={login}
-      method="delete"
-      className=" text-white "
-    >
-      Log out
-    </a>
-  </>
-) : (
-  <>
-    <a
-      href="/users/log_in"
-      onClick={login}
-      className=" text-white font-semibold"
-    >
-      Log in
-    </a>
-    <a
-      href="/users/register"
-      className="bg-white text-blue-500 px-4 py-2 rounded-full hover:bg-blue-100 transition"
-    >
-      Sign Up
-    </a>
-  </>
-)}</>)
+function NavbarItems({ user, logoutUser }) {
+  return (
+    <>
+      {" "}
+      <a
+        href="#"
+        className="text-white"
+      >
+        Home
+      </a>
+      <a
+        href="#"
+        className="text-white"
+      >
+        Books
+      </a>
+      <a
+        href="#"
+        className="text-white"
+      >
+        Reviews
+      </a>
+      {user ? (
+        <>
+          <a
+            href="/users/settings"
+            className="text-white leading-6 "
+          >
+            Settings
+          </a>
+          <button
+            onClick={(event) => {
+              logoutUser();
+              event.preventDefault();
+            }}
+            className=" text-white "
+          >
+            Log out
+          </button>
+        </>
+      ) : (
+        <>
+          <a
+            href="/"
+            onClick={login}
+            className=" text-white font-semibold"
+          >
+            Log in
+          </a>
+          <a
+            href="/users/register"
+            className="bg-white text-blue-500 px-4 py-2 rounded-full hover:bg-blue-100 transition"
+          >
+            Sign Up
+          </a>
+        </>
+      )}
+    </>
+  );
 }
