@@ -11,7 +11,9 @@ defmodule CriticosWeb.WebAPI.UserController do
     end
   end
 
-  def current_user(%{assigns: %{current_user: user}} = conn, _params) do
+  def current_user(%{assigns: %{current_user: user}} = conn, _params) when is_map(user) do
     render(conn, :current_user, user: user)
   end
+
+  def current_user(_, _params), do: {:error, :unauthorized}
 end
