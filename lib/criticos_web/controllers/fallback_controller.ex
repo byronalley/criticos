@@ -29,4 +29,12 @@ defmodule CriticosWeb.FallbackController do
     |> put_view(html: CriticosWeb.ErrorHTML, json: CriticosWeb.ErrorJSON)
     |> render(:"401")
   end
+
+  # Generic
+  def call(conn, {:error, error_code}) do
+    conn
+    |> put_status(error_code)
+    |> put_view(html: CriticosWeb.ErrorHTML, json: CriticosWeb.ErrorJSON)
+    |> render(error_code)
+  end
 end
