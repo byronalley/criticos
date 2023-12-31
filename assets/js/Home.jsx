@@ -7,10 +7,10 @@ import Navbar from "./Navbar";
 import Login from "./Login";
 
 export default function Home() {
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  async function loginUser() {
+  async function loginUser({ email, password }) {
     try {
       const response = await fetch(
         "http://localhost:4000/web_api/users/log_in",
@@ -22,8 +22,8 @@ export default function Home() {
           },
           body: JSON.stringify({
             user: {
-              email: user.email,
-              password: user.password,
+              email,
+              password,
               // Set the remember_me param for the server to remember the user for an
               // extended time (60 days)
               remember_me: "true",
@@ -38,21 +38,17 @@ export default function Home() {
         return;
       }
 
-      const {
-        data: { id, email, username },
-      } = await response.json();
-      setUser({ email, password: user.password });
+      const { data } = await response.json();
+      setUser(data);
       setIsLoggedIn(true);
-      console.log(`id:`, id);
-      console.log(`email:`, email);
-      console.log(`username:`, username);
+      console.dir(data);
+      console.dir(user);
 
       console.dir(response.headers.getSetCookie());
-      console.log(`Cookies:`);
     } catch (error) {
       console.error("Error:", error);
     }
-    handleLogin(user);
+    console.log(user);
   }
 
   async function logoutUser(event) {
@@ -85,18 +81,6 @@ export default function Home() {
     }
   }
 
-  function handleLogin(user) {
-    if (!isLoggedIn && !user) {
-      // setUser(user)
-      // setIsLoggedIn(true)
-      console.log("Logout");
-    } else {
-      // setUser(null)
-      // setIsLoggedIn(false)
-      console.log(user);
-    }
-  }
-
   return (
     <>
       <Navbar
@@ -106,24 +90,39 @@ export default function Home() {
       />
       <Header />
       {!user ? <h1>Login</h1> : <h1>{user.username}</h1>}
-      <input
-        type="email"
-        placeholder="Email"
-        value={user.email}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-      />
-      <button
-        className="bg-blue-500"
-        onClick={loginUser}
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          console.log(event.target.email.value);
+          console.log(event.target.password.value);
+          loginUser({
+            email: event.target.email.value,
+            password: event.target.password.value,
+          });
+        }}
       >
-        Login
-      </button>{" "}
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+
+          // value={user.email}
+          // onChange={(e) => setUser({ ...user, email: e.target.value })}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          // value={user.password}
+          // onChange={(e) => setUser({ ...user, password: e.target.value })}
+        />
+        <button
+          type="submit"
+          className="bg-blue-500"
+        >
+          Login
+        </button>
+      </form>
       <Reviews />
       <Footer />
     </>

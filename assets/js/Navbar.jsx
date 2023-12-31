@@ -16,6 +16,7 @@ export default function Navbar({ user, login, logoutUser }) {
       >
         Criticos
       </h1>
+      {!user ? "" : `Welcome ${user.username}`}
       <div className="container mx-auto relative z-10 flex justify-end items-center">
         {/* Show the navigation items in a dropdown menu when the menu is toggled */}
         <div
