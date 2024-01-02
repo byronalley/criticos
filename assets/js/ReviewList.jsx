@@ -6,6 +6,7 @@ function ReviewsList({ book }) {
   const [reviews, setReviews] = useState([]);
   const [books, setBooks] = useState([]);
   const [image, setImage] = useState([]);
+  const [updatedBooks, setUpdatedBooks] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -31,60 +32,13 @@ function ReviewsList({ book }) {
 
   useEffect(() => {
     if (books.length && reviews.length) {
-      const updatedBooks = books.map((book) => {
+      const newUpdatedBooks = books.map((book) => {
         book.reviews = reviews.filter((review) => book.id === review.book_id);
         return book;
       });
-      setBooks(updatedBooks);
+      setUpdatedBooks(newUpdatedBooks);
     }
   }, [books, reviews]);
-
-  // useEffect(() => {
-  //   fetch("/web_api/reviews")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setReviews(data.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/web_api/books")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setBooks(data.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/web_api/images")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setImage(data.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
-  // function handleReview() {
-  //   //map through books
-  //   books.map((book) => {
-  //     //initialize reviews as an array
-  //     book.reviews = [];
-  //     //map through reviews
-  //     reviews.map((review) => {
-  //       if (book.id === review.book_id) {
-  //         //push the review to the reviews array of the book
-  //         book.reviews.push(review);
-  //         console.log(book.reviews);
-  //       }
-  //     });
-  //   });
-  // }
-
-  // //add reviews properties to books array
-
-  // handleReview();
 
   return (
     <section className="py-12">
@@ -92,15 +46,15 @@ function ReviewsList({ book }) {
         <h3 className="text-2xl font-semibold txt-gray-800">
           Latest Book Reviews
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-6">
-          {books.map((book, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-2 gap-8 mt-6">
+          {updatedBooks.map((book, index) => (
             <div
               key={book.id}
               className="card  xs:mx-4  "
             >
               <div className="card-inner shadow-lg">
                 <div
-                  className="card-front grid grid-cols-2 gap-2 bg-gray-700 p-6
+                  className="card-front grid grid-cols-2 gap-2 bg-gray-500 p-6
         shadow-[0_0_10px_2px_cyan]"
                 >
                   <img
