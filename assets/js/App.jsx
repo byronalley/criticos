@@ -1,28 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from "./Header";
-import Reviews from "./Reviews";
-import Featured from "./Featured";
-import Footer from "./Footer";
-
 import ReviewList from "./ReviewList";
 
-export default function Home() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           index
-          path="reviews"
           element={<ReviewList />}
         />
       </Routes>
     </BrowserRouter>
-    // <>
-    //   <Header />
-    //   <Reviews />
-    //   <Footer />
-    // </>
   );
 }
