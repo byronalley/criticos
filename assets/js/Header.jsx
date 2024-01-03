@@ -1,4 +1,5 @@
 import React from "react";
+import BookSearch from "./BookSearch";
 
 export default function Header() {
   return (
@@ -12,12 +13,13 @@ export default function Header() {
           Join our community of book lovers and start sharing your reviews
           today.
         </p>
-        <a
+        {/* <a
           href="#"
           className="inline-block mt-6 bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition"
         >
           Get Started
-        </a>
+        </a> */}
+        <BookSearch />
       </div>
     </header>
   );
