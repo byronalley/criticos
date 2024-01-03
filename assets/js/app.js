@@ -3,7 +3,7 @@
 // over to React
 import "phoenix_html";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { AuthorsList } from "./authors.jsx";
@@ -16,7 +16,9 @@ if (rootElement) {
   //root.render(<App />);
   root.render(
     <>
-      <App />
+      <StrictMode>
+        <App />
+      </StrictMode>
     </>
   );
 } else {

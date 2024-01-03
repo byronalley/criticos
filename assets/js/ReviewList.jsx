@@ -48,6 +48,13 @@ function ReviewsList({ book }) {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-2 gap-8 mt-6">
           {updatedBooks.map((book, index) => (
+            // <ReviewItem
+            //   key={book.id}
+            //   book={book}
+            //   index={index}
+            //   image={image}
+            //   reviews={reviews}
+            // />
             <div
               key={book.id}
               className="card  xs:mx-4  "
@@ -55,12 +62,12 @@ function ReviewsList({ book }) {
               <div className="card-inner shadow-lg">
                 <div
                   className="card-front grid grid-cols-2 gap-2 bg-gray-500 p-6
-        shadow-[0_0_10px_2px_cyan]"
+            shadow-[0_0_10px_2px_gray]"
                 >
                   <img
                     src={image[index]?.url}
                     alt={image[index]?.filename}
-                    className=" w-full h-full object-contain "
+                    className=" w-full h-14 object-contain "
                   />
 
                   <div>
@@ -78,7 +85,7 @@ function ReviewsList({ book }) {
                     </p>
                   </div>
                 </div>
-                <div className="card-back  px-4 py-2 shadow-[0_0_20px_2px_cyan]">
+                <div className="card-back  px-4 py-2 shadow-[0_0_20px_2px_grey]">
                   <h4 className="text-xl font-semibold text-500-blue ">
                     {book.title}
                   </h4>
