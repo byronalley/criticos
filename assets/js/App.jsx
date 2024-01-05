@@ -3,9 +3,6 @@
 // over to React
 import "phoenix_html";
 
-// TODO(BA): Configure esbuild so we don't need this import
-import React from "react";
-
 import { createRoot } from "react-dom/client";
 
 import Home from "./Home.jsx";
