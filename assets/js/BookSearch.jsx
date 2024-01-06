@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Book from "./Book";
+
 const BookSearch = () => {
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
@@ -28,6 +30,7 @@ const BookSearch = () => {
         const data = await response.json();
 
         setResults(data.items);
+        console.log(results);
       } catch (error) {
         console.error("Error fetching data from Google Books API", error);
       }
@@ -63,10 +66,10 @@ const BookSearch = () => {
         <ul>
           {results.map((result, index) => {
             return (
-              <li key={index}>
-                <h1 className="text-blue-500">{result.volumeInfo.title}</h1>
-                <h2 className="text-purple-500">{result.volumeInfo.authors}</h2>
-              </li>
+              <Book
+                result={result}
+                inedx={index}
+              />
             );
           })}
         </ul>
