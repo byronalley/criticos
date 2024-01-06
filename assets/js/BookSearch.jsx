@@ -38,6 +38,7 @@ const BookSearch = () => {
       handleSearch();
     }
   };
+
   return (
     <div className="px-4 container mx-auto">
       <span className="w-full py-2">
@@ -61,9 +62,8 @@ const BookSearch = () => {
         >
           Search
         </button>
-        <h1>{bookNameOutput}</h1>
-        <h2>{authorOutput}</h2>
-        <ul>
+
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {results.map((result, index) => {
             return (
               <Book
