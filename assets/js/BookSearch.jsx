@@ -6,6 +6,8 @@ const BookSearch = () => {
   const [bookNameOutput, setBookNameOutput] = useState("");
   const [authorOutput, setAuthorOutput] = useState("");
 
+  const [results, setResults] = useState([]);
+
   const handleBookInputChange = (event) => {
     setBookName(event.target.value);
   };
@@ -15,21 +17,24 @@ const BookSearch = () => {
   };
 
   const handleSearch = async () => {
-    try {
-      const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${bookName}+inauthor:${author}`
-      );
-      const data = await response.json();
-      console.log(data.items[0].volumeInfo.title);
-      console.log(data.items);
-      setBookNameOutput(data.items[0].volumeInfo.title);
-      setAuthorOutput(data.items[0].volumeInfo.authors);
-      console.log(authorOutput);
-    } catch (error) {
-      console.error("Error fetching data from Google Books API", error);
+    if (bookName != "" || author != "") {
+      setBookNameOutput("");
+      setAuthorOutput("");
+
+      try {
+        const response = await fetch(
+          `https://www.googleapis.com/books/v1/volumes?q=${bookName}+inauthor:${author}`
+        );
+        const data = await response.json();
+
+        setResults(data.items);
+      } catch (error) {
+        console.error("Error fetching data from Google Books API", error);
+      }
+    } else {
+      handleSearch();
     }
   };
-
   return (
     <div className="px-4 container mx-auto">
       <span className="w-full py-2">
@@ -55,6 +60,16 @@ const BookSearch = () => {
         </button>
         <h1>{bookNameOutput}</h1>
         <h2>{authorOutput}</h2>
+        <ul>
+          {results.map((result, index) => {
+            return (
+              <li key={index}>
+                <h1 className="text-blue-500">{result.volumeInfo.title}</h1>
+                <h2 className="text-purple-500">{result.volumeInfo.authors}</h2>
+              </li>
+            );
+          })}
+        </ul>
       </span>
     </div>
   );
