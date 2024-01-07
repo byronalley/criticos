@@ -3,6 +3,7 @@ import Header from "./Header";
 import Reviews from "./Reviews";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import BookSearch from "./components/BookSearch";
 import { currentUser } from "./lib/Session";
 
 export default function Home() {
@@ -24,7 +25,8 @@ export default function Home() {
     <>
       <Navbar user={user} setUser={setUser} />
       <Header />
-      <Reviews />
+      {/* <BookSearch /> */}
+      {/* <Reviews /> */}
       <Footer />
     </>
   );

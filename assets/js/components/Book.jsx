@@ -11,13 +11,6 @@ function Book({ result, handleSearch }) {
 
   return (
     <li className="flex flex-row hover:bg-gray-200 p-4 cursor-pointer relative">
-      {isReviewVisible && (
-        <AddReview
-          bookId={result.id}
-          isReviewVisible={isReviewVisible}
-          setIsReviewVisible={setIsReviewVisible}
-        />
-      )}
       <img
         src={
           imageThumbnail === undefined
@@ -25,8 +18,15 @@ function Book({ result, handleSearch }) {
             : imageThumbnail.thumbnail
         }
         alt={`Cover of ${title} by ${authors}`}
-        className="w-1/8"
+        className="w-1/8 relative"
       />
+      {isReviewVisible && (
+        <AddReview
+          bookId={result.id}
+          isReviewVisible={isReviewVisible}
+          setIsReviewVisible={setIsReviewVisible}
+        />
+      )}
       <div>
         <h1 className="text-blue-500 text-left">{title}</h1>
         <h2 className="text-purple-500 text-left">{authors}</h2>
