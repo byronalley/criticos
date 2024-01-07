@@ -19,9 +19,9 @@ export default function Reviews() {
           Latest Book Reviews
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-6">
-          {reviews.map((book) => (
+          {reviews.map((book, index) => (
             <div
-              key={book.id}
+              key={index}
               className="bg-blue-500 rounded-lg shadow-lg overflow-hidden"
             >
               <img
