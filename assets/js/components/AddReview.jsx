@@ -29,6 +29,8 @@ function AddReview({ bookId, setIsReviewVisible, isReviewVisible }) {
         value={review}
         onChange={(e) => setReview(e.target.value)}
       ></input>
+      <button onClick={() => setIsReviewVisible(false)}>X</button>
+      <br />
       <button type="submit">Post</button>
     </form>
   );
