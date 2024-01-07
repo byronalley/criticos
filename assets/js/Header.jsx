@@ -1,5 +1,5 @@
 import React from "react";
-import BookSearch from "./BookSearch";
+import BookSearch from "./components/BookSearch";
 
 export default function Header() {
   return (
