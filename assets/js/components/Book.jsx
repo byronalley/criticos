@@ -10,7 +10,7 @@ function Book({ result, handleSearch }) {
   const imageThumbnail = result.volumeInfo.imageLinks;
 
   return (
-    <li className="flex flex-row hover:bg-gray-200 p-4 cursor-pointer relative">
+    <li className="flex flex-row bg-gray-600 hover:bg-gray-200 p-4 cursor-pointer relative ">
       <img
         src={
           imageThumbnail === undefined
@@ -18,7 +18,7 @@ function Book({ result, handleSearch }) {
             : imageThumbnail.thumbnail
         }
         alt={`Cover of ${title} by ${authors}`}
-        className="w-1/8 relative"
+        className="w-16 relative h-auto pr-4"
       />
       {isReviewVisible && (
         <AddReview

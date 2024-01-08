@@ -44,12 +44,8 @@ export default function Header() {
   };
 
   return (
-    <header className="h-screen bg-gray-800 text-white p-12 ">
-      <div className="container mx-auto text-center">
-        <h2 className="text-4xl mb-8 font-semibold animate-flip-up animate-ease-out">
-          Find a book{" "}
-        </h2>
-
+    <header className="h-screen  text-white lg:flex ">
+      <div className=" bg-gray-800 sticky p-12 lg:w-1/2 mx-auto text-center lg:text-left ">
         <BookSearch
           bookName={bookName}
           author={author}
@@ -57,15 +53,13 @@ export default function Header() {
           handleAuthorInputChange={handleAuthorInputChange}
           handleSearch={handleSearch}
         />
-        <h2 className="text-4xl mt-4 animate-flip-down animate-delay-500 animate-ease-out py-5">
-          Leave a review!
-        </h2>
       </div>
-
-      <BookResults
-        results={results}
-        handleSearch={handleSearch}
-      />
+      <div className="bg-gray-400 text-center lg:text-left p-12 lg:w-1/2 lg:flex h-full">
+        <BookResults
+          results={results}
+          handleSearch={handleSearch}
+        />
+      </div>
     </header>
   );
 }
