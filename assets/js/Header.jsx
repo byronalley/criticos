@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import BookSearch from "./components/BookSearch";
 import BookResults from "./components/BookResults";
 
-export default function Header() {
+export default function BookReview() {
   const [results, setResults] = useState([]);
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
@@ -54,7 +54,7 @@ export default function Header() {
           handleSearch={handleSearch}
         />
       </div>
-      <div className="bg-gray-400 text-center lg:text-left p-12 lg:w-1/2 lg:flex h-full">
+      <div className="bg-gray-400 text-center lg:text-left p-12 lg:w-1/2  h-full">
         <BookResults
           results={results}
           handleSearch={handleSearch}

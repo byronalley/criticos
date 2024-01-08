@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Header from "./Header";
-import Reviews from "./Reviews";
-import Featured from "./Featured";
+
 import Footer from "./Footer";
-import BookSearch from "./components/BookSearch";
+import BookReview from "./Header";
 
 export default function Home() {
   return (
     <>
-      <Header />
-      {/* <BookSearch /> */}
+      <BookReview />
       {/* <Reviews /> */}
       <Footer />
     </>

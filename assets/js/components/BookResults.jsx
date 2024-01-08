@@ -5,7 +5,7 @@ import Book from "./Book";
 function BookResults({ results, handleSearch }) {
   return (
     <div>
-      <h2 className="text-4xl  animate-flip-down animate-delay-500 animate-ease-out py-5">
+      <h2 className="text-4xl mb-8 animate-flip-down animate-delay-500 animate-ease-out ">
         Leave a review...
       </h2>
       <ul className="grid grid-cols-1  gap-4">
