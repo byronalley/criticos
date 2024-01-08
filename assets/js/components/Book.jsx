@@ -10,7 +10,7 @@ function Book({ result, handleSearch }) {
   const imageThumbnail = result.volumeInfo.imageLinks;
 
   return (
-    <li className="flex flex-row bg-gray-600 hover:bg-gray-200 p-4 cursor-pointer relative ">
+    <li className="flex flex-row bg-gray-600 w-full hover:bg-gray-200 p-4 relative text-left">
       <img
         src={
           imageThumbnail === undefined
@@ -28,10 +28,10 @@ function Book({ result, handleSearch }) {
         />
       )}
       <div>
-        <h1 className="text-blue-500 text-left">{title}</h1>
-        <h2 className="text-purple-500 text-left">{authors}</h2>
+        <h1 className="text-blue-500 ">{title}</h1>
+        <h2 className="text-purple-500 ">{authors}</h2>
         <button
-          className="border-2 border-white"
+          className="border-2 border-white "
           onClick={() => setIsReviewVisible(true)}
         >
           Review
