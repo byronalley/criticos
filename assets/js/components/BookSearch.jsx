@@ -10,7 +10,11 @@ const BookSearch = ({
   handleSearch,
 }) => {
   return (
-    <form className="w-full">
+    <form className="w-full lg:sticky">
+      <h2 className="text-4xl mb-8 font-semibold animate-flip-up animate-ease-out">
+        Find a book
+      </h2>
+
       <input
         className="w-full mb-2"
         type="text"
