@@ -8,9 +8,8 @@ export default function Reviews() {
       .then((res) => res.json())
       .then((data) => {
         setReviews(data.data);
-        console.log(reviews);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }, []);
 
   return (
