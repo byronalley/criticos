@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import Book from "./Book";
-
 const BookSearch = ({
   bookName,
   author,
@@ -16,7 +14,7 @@ const BookSearch = ({
       </h2>
 
       <input
-        className="w-full mb-2"
+        className="w-full mb-2 bg-gray-800 text-black px-6 py-3 rounded-full"
         type="text"
         placeholder="Search by title..."
         value={bookName}

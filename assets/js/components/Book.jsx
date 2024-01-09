@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import AddReview from "./AddReview";
+import Button from "./Button";
 
 function Book({ result, handleSearch }) {
   const [isReviewVisible, setIsReviewVisible] = useState(false);
@@ -10,7 +11,10 @@ function Book({ result, handleSearch }) {
   const imageThumbnail = result.volumeInfo.imageLinks;
 
   return (
-    <li className="flex flex-row bg-gray-600 w-full hover:bg-gray-200 p-4 relative text-left">
+    <li
+      className="flex flex-row relative 
+    bg-gray-600 w-full  p-4  text-left"
+    >
       <img
         src={
           imageThumbnail === undefined
@@ -18,8 +22,19 @@ function Book({ result, handleSearch }) {
             : imageThumbnail.thumbnail
         }
         alt={`Cover of ${title} by ${authors}`}
-        className="w-16 relative h-auto pr-4"
+        className="w-32 relative h-full pr-4"
       />
+      <div>
+        <h1 className="text-grey-800 ">{title}</h1>
+        <h2 className="text-grey-500 ">{authors}</h2>
+        <Button
+          key={result.id}
+          variant="secondary"
+          onClick={() => setIsReviewVisible(true)}
+        >
+          Review
+        </Button>
+      </div>
       {isReviewVisible && (
         <AddReview
           bookId={result.id}
@@ -27,16 +42,6 @@ function Book({ result, handleSearch }) {
           setIsReviewVisible={setIsReviewVisible}
         />
       )}
-      <div>
-        <h1 className="text-blue-500 ">{title}</h1>
-        <h2 className="text-purple-500 ">{authors}</h2>
-        <button
-          className="border-2 border-white "
-          onClick={() => setIsReviewVisible(true)}
-        >
-          Review
-        </button>
-      </div>
     </li>
   );
 }
