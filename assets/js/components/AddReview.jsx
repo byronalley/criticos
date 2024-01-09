@@ -23,7 +23,7 @@ function AddReview({ bookId, setIsReviewVisible, isReviewVisible }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-3/4 absolute bottom-0 bg-gray-800 right-0 h-auto text-gray-900 p-4 m-2 rounded shadow-lg flex"
+      className="sm:w-3/4 w-full absolute bottom-0 bg-gray-800 right-0 h-auto text-gray-900 p-4 m-0 sm:m-2 rounded shadow-lg flex"
     >
       <Button
         variant="noStyle"
