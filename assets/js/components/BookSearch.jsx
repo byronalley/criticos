@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Button from "./Button";
+
 const BookSearch = ({
   bookName,
   author,
@@ -14,26 +16,27 @@ const BookSearch = ({
       </h2>
 
       <input
-        className="w-full mb-2 bg-gray-800 text-black px-6 py-3 rounded-full"
+        className="w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded-full"
         type="text"
         placeholder="Search by title..."
         value={bookName}
         onChange={handleBookInputChange}
       />
       <input
-        className="w-full mt-2"
+        className="w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded-full"
         type="text"
         placeholder="Search by author..."
         value={author}
         onChange={handleAuthorInputChange}
       />
       <br />
-      <button
+      <Button
+        variant="primary"
         onClick={handleSearch}
-        className="inline-block w-full mt-6 bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition"
+        className="w-full mt-4"
       >
         Search
-      </button>
+      </Button>
     </form>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "./Button";
 
 function AddReview({ bookId, setIsReviewVisible, isReviewVisible }) {
   const [review, setReview] = useState("");
@@ -22,19 +23,26 @@ function AddReview({ bookId, setIsReviewVisible, isReviewVisible }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-3/4 absolute right-0 h-auto bg-grey-800 p-4 rounded shadow-lg flex"
+      className="w-3/4 absolute bottom-0 bg-gray-800 right-0 h-auto text-gray-900 p-4 m-2 rounded shadow-lg flex"
     >
-      <input
-        className="w-full h-full bg-grey-800 p-4 rounded shadow-lg"
+      <Button
+        variant="noStyle"
+        onClick={() => setIsReviewVisible(false)}
+      >
+        X
+      </Button>
+      <textarea
+        className="w-full h-full bg-grey-800  rounded shadow-lg"
         type="text"
         value={review}
         onChange={(e) => setReview(e.target.value)}
-      ></input>
-      <div>
-        <button onClick={() => setIsReviewVisible(false)}>X</button>
-        <br />
-        <button type="submit">Post</button>
-      </div>
+      ></textarea>
+      <Button
+        variant="secondary"
+        type="submit"
+      >
+        Post
+      </Button>
     </form>
   );
 }

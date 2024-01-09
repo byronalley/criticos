@@ -2,11 +2,17 @@ import React from "react";
 
 export default function Button({ children, variant, onClick }) {
   const baseStyle = "font-bold py-2 px-4 rounded";
-  const primaryStyle = "bg-blue-500 hover:bg-blue-700 text-white";
+  const primaryStyle = "bg-blue-400 hover:bg-blue-500 text-white w-full mt-4";
   const secondaryStyle =
     "border-2 border-white bg-transparent hover:bg-white hover:text-gray-700 text-white";
+  const noStyle = "bg-transparent hover:bg-transparent text-white";
 
-  const buttonStyle = variant === "primary" ? primaryStyle : secondaryStyle;
+  const buttonStyle =
+    variant === "primary"
+      ? primaryStyle
+      : variant === "secondary"
+      ? secondaryStyle
+      : noStyle;
 
   return (
     <button
