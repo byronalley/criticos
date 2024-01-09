@@ -45,7 +45,7 @@ export default function BookReview() {
 
   return (
     <header className="h-screen  text-white lg:flex ">
-      <div className=" bg-gray-800 sticky p-12 lg:w-1/2 mx-auto text-center lg:text-left ">
+      <div className=" h-screen bg-gray-800 sticky p-12 lg:w-1/2 mx-auto text-center lg:text-left ">
         <BookSearch
           bookName={bookName}
           author={author}

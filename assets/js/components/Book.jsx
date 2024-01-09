@@ -27,13 +27,15 @@ function Book({ result, handleSearch }) {
       <div>
         <h1 className="text-grey-800 ">{title}</h1>
         <h2 className="text-grey-500 ">{authors}</h2>
-        <Button
-          key={result.id}
-          variant="secondary"
-          onClick={() => setIsReviewVisible(true)}
-        >
-          Review
-        </Button>
+        {!isReviewVisible && (
+          <Button
+            key={result.id}
+            variant="secondary"
+            onClick={() => setIsReviewVisible(true)}
+          >
+            Review
+          </Button>
+        )}
       </div>
       {isReviewVisible && (
         <AddReview
