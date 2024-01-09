@@ -11,7 +11,7 @@ function AddReview({ bookId, setIsReviewVisible, isReviewVisible }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ book_id: bookId, contnent: review }),
+      body: JSON.stringify({ book_id: bookId, content: review }),
     });
 
     if (!response.ok) {
@@ -22,16 +22,19 @@ function AddReview({ bookId, setIsReviewVisible, isReviewVisible }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="absolute right-0 bottom-0 h-full bg-white p-4 rounded shadow-lg"
+      className="w-3/4 absolute right-0 h-auto bg-grey-800 p-4 rounded shadow-lg flex"
     >
       <input
+        className="w-full h-full bg-grey-800 p-4 rounded shadow-lg"
         type="text"
         value={review}
         onChange={(e) => setReview(e.target.value)}
       ></input>
-      <button onClick={() => setIsReviewVisible(false)}>X</button>
-      <br />
-      <button type="submit">Post</button>
+      <div>
+        <button onClick={() => setIsReviewVisible(false)}>X</button>
+        <br />
+        <button type="submit">Post</button>
+      </div>
     </form>
   );
 }
