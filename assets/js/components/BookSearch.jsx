@@ -11,10 +11,6 @@ const BookSearch = ({
 }) => {
   return (
     <form className="w-full lg:sticky">
-      <h2 className="text-4xl mb-8 font-semibold animate-flip-up animate-ease-out">
-        Find a book
-      </h2>
-
       <input
         className="w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded-full"
         type="text"

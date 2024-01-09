@@ -25,8 +25,8 @@ function Book({ result, handleSearch }) {
         className="w-32 relative h-full pr-4"
       />
       <div>
-        <h1 className="text-grey-800 ">{title}</h1>
-        <h2 className="text-grey-500 ">{authors}</h2>
+        <h1 className="text-white ">{title}</h1>
+        <h2 className="text-white ">{authors}</h2>
         {!isReviewVisible && (
           <Button
             key={result.id}
