@@ -13,7 +13,7 @@ export default function Header() {
           today.
         </p>
         <a
-          href="#"
+          href="/users/register"
           className="inline-block mt-6 bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition"
         >
           Get Started
