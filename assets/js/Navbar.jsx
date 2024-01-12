@@ -6,9 +6,16 @@ import Logout from "./Logout";
 export default function Navbar({ user, setUser }) {
 
   const [showMenu, setShowMenu] = useState(false); // Initialize the menu as closed
+  const [showLogin, setShowLogin] = useState(false); // Initialize the menu as closed
 
   const toggleMenu = () => {
     setShowMenu(!showMenu); // Toggle the menu
+  };
+
+  const toggleLogin = (event) => {
+    setShowLogin(!showLogin); // Toggle the menu
+    setShowMenu(false);
+    event.preventDefault();
   };
 
   return (
@@ -31,6 +38,7 @@ export default function Navbar({ user, setUser }) {
           <NavbarItems
             user={user}
             setUser={setUser}
+            toggleLogin={toggleLogin}
           />
         </div>
 
@@ -39,6 +47,7 @@ export default function Navbar({ user, setUser }) {
           <NavbarItems
             user={user}
             setUser={setUser}
+            toggleLogin={toggleLogin}
           />
         </div>
 
@@ -79,12 +88,12 @@ export default function Navbar({ user, setUser }) {
         </button>
       </div>
     </nav>
-    {!user?.username ? <Login setUser={setUser} /> : ""}
+    {showLogin ? <Login setUser={setUser} toggleLogin={toggleLogin} /> : ""}
     </>
   );
 }
 
-function NavbarItems({ user, setUser }) {
+function NavbarItems({ user, setUser, toggleLogin }) {
   return (
     <>
       <div className={"text-black"}>
@@ -121,8 +130,8 @@ function NavbarItems({ user, setUser }) {
       ) : (
         <>
           <a
-            href="/"
-            onClick={() => alert("DEBUG: Got clicked!") }
+            href="#"
+            onClick={toggleLogin}
             className="inline-block text-white border-2 border-white px-9 py-2 rounded-full hover:bg-blue-100 transition"
           >
             Log in

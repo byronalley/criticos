@@ -1,7 +1,12 @@
 import React from "react";
 
-export default function Login({ setUser }) {
-  async function loginUser({ email, password }) {
+export default function Login({ setUser, toggleLogin }) {
+  async function loginUser(event) {
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    event.preventDefault();
+
     try {
       const response = await fetch(
         "/web_api/users/log_in",
@@ -30,8 +35,11 @@ export default function Login({ setUser }) {
       const {data} = await response.json();
       const user = {id: data.id, email: data.email, username: data.username};
 
-      setUser(user);
+      // TODO(BA): Replace with a flash message
+      alert("Logged in!");
 
+      setUser(user);
+      toggleLogin(event);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -40,14 +48,9 @@ export default function Login({ setUser }) {
   return (
       <form
         className="bg-blue-500 p-10 w-full z-20 flex flex-col md:flex-row items-center justify-center"
-        onSubmit={(event) => {
-          event.preventDefault();
-          loginUser({
-            email: event.target.email.value,
-            password: event.target.password.value,
-          });
-        }}
+        onSubmit={loginUser}
       >
+      <a onClick={toggleLogin} className="h-10 px-4 py-2 mb-4 md:mb-0 md:mr-4 justify-center"> X </a>
         <input
           type="email"
           placeholder="Email"
