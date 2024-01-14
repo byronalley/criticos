@@ -49,10 +49,7 @@ export default function BookReview() {
 
   return (
     <header>
-      <h1 className="text-4xl bg-gray-800 text-white font-semibold animate-flip-up animate-ease-out">
-        Find a book leave a review
-      </h1>
-      <div className=" top-0 text-white relative mx-auto justify-center text-center lg:justify-start lg:text-left">
+      <div className=" top-0 text-white text-center  lg:text-left">
         <BookSearch
           bookName={bookName}
           author={author}
