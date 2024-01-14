@@ -21,6 +21,18 @@ module.exports = {
         "1/2-screen": "50vh",
         "2/3-screen": "66.666667vh",
       },
+      keyframes: {
+        "slide-down": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        "slide-down": "slide-down 0.5s ease-out",
+      },
+      spacing: {
+        36: "9rem",
+      },
     },
   },
   plugins: [
