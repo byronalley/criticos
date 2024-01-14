@@ -17,6 +17,10 @@ module.exports = {
       colors: {
         brand: "#FD4F00",
       },
+      height: {
+        "1/2-screen": "50vh",
+        "2/3-screen": "66.666667vh",
+      },
     },
   },
   plugins: [
