@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
+import Footer from "./Footer";
+import BookReview from "./BookReview";
+import Reviews from "./Reviews";
 import BookSearch from "./components/BookSearch";
 import BookResults from "./components/BookResults";
 
-export default function BookReview() {
+export default function BookReviewContainer() {
   const [results, setResults] = useState([]);
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
@@ -48,23 +51,30 @@ export default function BookReview() {
   };
 
   return (
-    <header>
-      <div className=" top-0 text-white text-center  lg:text-left">
-        <BookSearch
-          bookName={bookName}
-          author={author}
-          handleBookInputChange={handleBookInputChange}
-          handleAuthorInputChange={handleAuthorInputChange}
-          handleSearch={handleSearch}
-        />
+    <>
+      {/* <BookReview /> */}
+      <header>
+        <div className=" top-0 text-white text-center  lg:text-left">
+          <BookSearch
+            bookName={bookName}
+            author={author}
+            setBookName={setBookName}
+            setAuthor={setAuthor}
+            handleBookInputChange={handleBookInputChange}
+            handleAuthorInputChange={handleAuthorInputChange}
+            handleSearch={handleSearch}
+          />
 
-        <BookResults
-          results={results}
-          handleSearch={handleSearch}
-          isResultsVisible={isResultsVisible}
-          setIsResultsVisible={setIsResultsVisible}
-        />
-      </div>
-    </header>
+          <BookResults
+            results={results}
+            handleSearch={handleSearch}
+            isResultsVisible={isResultsVisible}
+            setIsResultsVisible={setIsResultsVisible}
+          />
+        </div>
+      </header>
+      <Reviews />
+      <Footer />
+    </>
   );
 }

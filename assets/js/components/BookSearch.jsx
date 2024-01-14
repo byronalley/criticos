@@ -5,6 +5,8 @@ import Button from "./Button";
 const BookSearch = ({
   bookName,
   author,
+  setAuthor,
+  setBookName,
   handleBookInputChange,
   handleAuthorInputChange,
   handleSearch,
