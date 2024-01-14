@@ -44,11 +44,8 @@ export default function BookReview() {
   };
 
   return (
-    <header className="h-screen   lg:flex ">
-      <div className=" text-white bg-gray-800 sticky p-12 lg:w-1/2 mx-auto text-center lg:text-left ">
-        <h1 className="text-4xl mb-8 font-semibold animate-flip-up animate-ease-out">
-          Find a book
-        </h1>
+    <header className=" lg:flex h-full ">
+      <div className="min-h-screen top-0 text-white bg-gray-800  p-12 lg:w-1/2 mx-auto lg:text-left ">
         <BookSearch
           bookName={bookName}
           author={author}
@@ -57,10 +54,7 @@ export default function BookReview() {
           handleSearch={handleSearch}
         />
       </div>
-      <div className="bg-gray-400 text-gray-800 text-center lg:text-left p-12 lg:w-1/2  h-full">
-        <h1 className="text-4xl  font-semibold mb-8 animate-flip-down animate-delay-500 animate-ease-out ">
-          Leave a review...
-        </h1>
+      <div className=" min-h-screen bg-gray-400 h-full  text-gray-800 text-center lg:text-left p-12 lg:w-1/2  h-full">
         <BookResults
           results={results}
           handleSearch={handleSearch}
