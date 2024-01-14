@@ -2,12 +2,28 @@ import React from "react";
 
 import Book from "./Book";
 
-function BookResults({ results, handleSearch }) {
+function BookResults({
+  results,
+  handleSearch,
+  isResultsVisible,
+  setIsResultsVisible,
+}) {
   return (
-    <ul className="grid grid-cols-1  gap-4">
-      <h1 className="text-4xl  font-semibold mb-8 animate-flip-down animate-delay-500 animate-ease-out ">
-        Leave a review...
-      </h1>
+    <ul
+      className={`grid w-3/4 grid-cols-1 relative
+       bg-gray-400 mx-auto gap-4 p-2 flex flex-column mx-auto transition-all rounded duration-500 ease-in-out ${
+         isResultsVisible
+           ? "opacity-100 translate-y-0"
+           : "opacity-0 -translate-y-10"
+       }`}
+    >
+      <li
+        onClick={() => {
+          setIsResultsVisible(false);
+        }}
+      >
+        X
+      </li>
       {results.map((result) => {
         return (
           <Book

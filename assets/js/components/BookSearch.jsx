@@ -10,29 +10,27 @@ const BookSearch = ({
   handleSearch,
 }) => {
   return (
-    <form className="h-1/2-screen w-auto lg:fixed">
-      <h1 className="text-4xl mb-8 font-semibold animate-flip-up animate-ease-out">
-        Find a book
-      </h1>
-      <input
-        className="w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded"
-        type="text"
-        placeholder="Search by title..."
-        value={bookName}
-        onChange={handleBookInputChange}
-      />
-      <input
-        className="w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded"
-        type="text"
-        placeholder="Search by author..."
-        value={author}
-        onChange={handleAuthorInputChange}
-      />
-      <br />
+    <form className=" w-full fixed absolute bg-gray-800 p-6 ">
+      <div className="flex ">
+        <input
+          className="w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded"
+          type="text"
+          placeholder="By title..."
+          value={bookName}
+          onChange={handleBookInputChange}
+        />
+        <input
+          className="w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded"
+          type="text"
+          placeholder="By author..."
+          value={author}
+          onChange={handleAuthorInputChange}
+        />
+        <br />
+      </div>
       <Button
         variant="primary"
         onClick={handleSearch}
-        className=" mt-4"
       >
         Search
       </Button>

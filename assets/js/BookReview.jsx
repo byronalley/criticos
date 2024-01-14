@@ -7,6 +7,9 @@ export default function BookReview() {
   const [results, setResults] = useState([]);
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
+
+  const [isResultsVisible, setIsResultsVisible] = useState(false);
+
   const [bookNameOutput, setBookNameOutput] = useState("");
   const [authorOutput, setAuthorOutput] = useState("");
 
@@ -34,6 +37,7 @@ export default function BookReview() {
         const data = await response.json();
 
         setResults(data.items);
+        setIsResultsVisible(true);
         console.log(results);
       } catch (error) {
         console.error("Error fetching data from Google Books API", error);
@@ -44,8 +48,11 @@ export default function BookReview() {
   };
 
   return (
-    <header className=" lg:flex h-full ">
-      <div className="flex h-1/2-screen lg:min-h-screen lg:h-auto top-0 text-white bg-gray-800  p-12 lg:w-1/2 mx-auto justify-center text-center lg:justify-start lg:text-left">
+    <header>
+      <h1 className="text-4xl bg-gray-800 text-white font-semibold animate-flip-up animate-ease-out">
+        Find a book leave a review
+      </h1>
+      <div className=" top-0 text-white relative mx-auto justify-center text-center lg:justify-start lg:text-left">
         <BookSearch
           bookName={bookName}
           author={author}
@@ -53,13 +60,17 @@ export default function BookReview() {
           handleAuthorInputChange={handleAuthorInputChange}
           handleSearch={handleSearch}
         />
-      </div>
-      <div className=" min-h-screen bg-gray-400 h-full  text-gray-800 text-center lg:text-left p-12 lg:w-1/2  h-full">
+
         <BookResults
           results={results}
           handleSearch={handleSearch}
+          isResultsVisible={isResultsVisible}
+          setIsResultsVisible={setIsResultsVisible}
         />
       </div>
+      {/* <div className=" min-h-screen bg-gray-400 h-full  text-gray-800 text-center lg:text-left p-12 lg:w-1/2  h-full"> */}
+
+      {/* </div> */}
     </header>
   );
 }
