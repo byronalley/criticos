@@ -46,6 +46,7 @@ export default function Login({ setUser, toggleLogin }) {
   }
 
   return (
+      <>
       <form
         className="bg-blue-500 p-10 w-full z-20 flex flex-col md:flex-row items-center justify-center"
         onSubmit={loginUser}
@@ -70,5 +71,12 @@ export default function Login({ setUser, toggleLogin }) {
           Login
         </button>
       </form>
+    <div className="bg-blue-500 p-10 w-full z-20 flex flex-col md:flex-row items-center justify-center">
+      <span className="inline-block p-5">{"Don't have an account yet?"}</span>
+    <a
+    className="inline-block underline p-5 text-white bg-white-400 hover:bg-white-100 transition"
+    href="/users/register">Sign up!</a>
+    </div>
+    </>
   );
 }
