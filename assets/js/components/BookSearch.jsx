@@ -17,20 +17,17 @@ const BookSearch = ({
         Find a book leave a review
       </h1>
       <div className="flex ">
-        <input
-          className="w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded"
-          type="text"
-          placeholder="By title..."
+        <Input
+          placeholder={"By title..."}
           value={bookName}
           onChange={handleBookInputChange}
-        />
-        <input
-          className="w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded"
-          type="text"
-          placeholder="By author..."
+        ></Input>
+        <Input
+          placeholder={"By author..."}
           value={author}
           onChange={handleAuthorInputChange}
         />
+
         <br />
       </div>
       <Button
