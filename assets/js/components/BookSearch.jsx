@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import Input from "./Input";
 import Button from "./Button";
 
 const BookSearch = ({
@@ -27,13 +28,13 @@ const BookSearch = ({
           value={author}
           onChange={handleAuthorInputChange}
         />
-
         <br />
       </div>
-      <Button
+      <Input placeholder={"Review..."} />
+      {/* <Button
         variant="primary"
         onClick={handleSearch}
-      >
+      > */}
         Search
       </Button>
     </form>
