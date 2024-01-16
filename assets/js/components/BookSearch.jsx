@@ -12,6 +12,12 @@ const BookSearch = ({
   handleAuthorInputChange,
   handleSearch,
 }) => {
+  const [isHidden, setIsHidden] = useState(false);
+
+  const handleInputChange = (event) => {
+    setIsHidden(true);
+  };
+
   return (
     <form className=" w-full fixed  bg-gray-800 p-6 z-10">
       <h1 className="text-4xl bg-gray-800 text-white font-semibold animate-flip-up animate-ease-out">
@@ -22,19 +28,25 @@ const BookSearch = ({
           placeholder={"By title..."}
           value={bookName}
           onChange={handleBookInputChange}
+          isHidden={isHidden}
         ></Input>
         <Input
           placeholder={"By author..."}
           value={author}
           onChange={handleAuthorInputChange}
+          isHidden={isHidden}
         />
         <br />
       </div>
-      <Input placeholder={"Review..."} />
-      {/* <Button
+      <Input
+        placeholder={"Review..."}
+        onChange={handleInputChange}
+        isHidden={true}
+      />
+      <Button
         variant="primary"
         onClick={handleSearch}
-      > */}
+      >
         Search
       </Button>
     </form>
