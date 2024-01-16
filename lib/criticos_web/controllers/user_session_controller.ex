@@ -8,6 +8,8 @@ defmodule CriticosWeb.UserSessionController do
     render(conn, :new, error_message: nil)
   end
 
+  # TODO(BA): Remove this module
+
   def create(conn, %{"user" => user_params}) do
     %{"email" => email, "password" => password} = user_params
 
