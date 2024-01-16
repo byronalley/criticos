@@ -5,7 +5,7 @@ function Input({ value, onChange, placeholder, isHidden }) {
     <input
       className={`${
         !isHidden ? "hidden" : ""
-      } w-full mb-2 bg-gray-800 text-white px-6 py-3 rounded`}
+      } w-full  bg-gray-800 text-white px-6 py-3 rounded`}
       type="text"
       placeholder={placeholder}
       value={value}
