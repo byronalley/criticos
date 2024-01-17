@@ -33,9 +33,13 @@ module.exports = {
       spacing: {
         36: "9rem",
       },
+
+      scrollbar: ["dark"], // add dark mode variants
     },
   },
   plugins: [
+    require("tailwind-scrollbar"), // require the plugin in your CSS
+
     require("@tailwindcss/forms"),
     require("tailwindcss-animated"),
     // Allows prefixing tailwind classes with LiveView classes to add rules
