@@ -11,9 +11,9 @@ function Book({ result, handleSearch }) {
   const imageThumbnail = result.volumeInfo.imageLinks;
 
   return (
-    <li
+    <div
       className="flex flex-row relative 
-    bg-gray-600 w-full  p-4  text-left"
+    bg-gray-600 w-full  p-4  text-left w-400 h-full"
     >
       <img
         src={
@@ -44,7 +44,7 @@ function Book({ result, handleSearch }) {
           setIsReviewVisible={setIsReviewVisible}
         />
       )}
-    </li>
+    </div>
   );
 }
 

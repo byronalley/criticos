@@ -53,25 +53,23 @@ export default function BookReviewContainer() {
   return (
     <>
       {/* <BookReview /> */}
-      <header>
-        <div className=" top-0 text-white text-center  lg:text-left">
-          <BookSearch
-            bookName={bookName}
-            author={author}
-            setBookName={setBookName}
-            setAuthor={setAuthor}
-            handleBookInputChange={handleBookInputChange}
-            handleAuthorInputChange={handleAuthorInputChange}
-            handleSearch={handleSearch}
-          />
+      <header className="flex fkex-row top-0 text-white text-center  lg:text-left">
+        <BookSearch
+          bookName={bookName}
+          author={author}
+          setBookName={setBookName}
+          setAuthor={setAuthor}
+          handleBookInputChange={handleBookInputChange}
+          handleAuthorInputChange={handleAuthorInputChange}
+          handleSearch={handleSearch}
+        />
 
-          <BookResults
-            results={results}
-            handleSearch={handleSearch}
-            isResultsVisible={isResultsVisible}
-            setIsResultsVisible={setIsResultsVisible}
-          />
-        </div>
+        <BookResults
+          results={results}
+          handleSearch={handleSearch}
+          isResultsVisible={isResultsVisible}
+          setIsResultsVisible={setIsResultsVisible}
+        />
       </header>
       <Reviews />
       <Footer />
