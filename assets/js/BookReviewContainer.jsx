@@ -53,7 +53,7 @@ export default function BookReviewContainer() {
   return (
     <>
       {/* <BookReview /> */}
-      <header className="flex fkex-row top-0 text-white text-center  lg:text-left">
+      <header className="flex flex-col lg:flex-row top-0 text-white text-center  lg:text-left">
         <BookSearch
           bookName={bookName}
           author={author}
@@ -69,6 +69,8 @@ export default function BookReviewContainer() {
           handleSearch={handleSearch}
           isResultsVisible={isResultsVisible}
           setIsResultsVisible={setIsResultsVisible}
+          setAuthor={setAuthor}
+          setBookName={setBookName}
         />
       </header>
       <Reviews />
