@@ -13,7 +13,7 @@ function Book({ result, handleSearch }) {
   return (
     <div
       className="flex flex-row relative 
-    bg-gray-600 w-full  p-4  text-left w-400 h-full"
+    bg-gray-600 w-full  p-4  text-left min-w-400 h-full"
     >
       <img
         src={
@@ -27,7 +27,7 @@ function Book({ result, handleSearch }) {
       <div>
         <h1 className="text-white ">{title}</h1>
         <h2 className="text-white ">{authors}</h2>
-        {!isReviewVisible && (
+        {/* {!isReviewVisible && (
           <Button
             key={result.id}
             variant="secondary"
@@ -35,7 +35,7 @@ function Book({ result, handleSearch }) {
           >
             Review
           </Button>
-        )}
+        )} */}
       </div>
       {isReviewVisible && (
         <AddReview

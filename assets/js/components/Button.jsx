@@ -3,7 +3,7 @@ import React from "react";
 export default function Button({ children, variant, onClick, isHidden }) {
   const baseStyle = `${
     !isHidden ? "hidden" : ""
-  } font-bold py-2 px-4 rounded lg:w-1/2 m-0`;
+  } font-bold py-2 px-4 rounded w-auto m-0`;
   const primaryStyle =
     "bg-white hover:bg-blue-500 text-black hover:text-white  w-full ";
   const secondaryStyle =
