@@ -9,21 +9,22 @@ function BookResults({
   setIsResultsVisible,
 }) {
   return (
-    <ul
-      className={`grid w-3/4 grid-cols-1 
-     bg-gray-400 gap-4 p-2 flex flex-column mx-auto transition-all rounded duration-500 ease-in-out ${
+    <div
+      className={`flex flex-row w-full lg:w-1/2 self-end  
+     bg-gray-400 gap-4 p-2  mx-auto  overflow-x-auto ${
        isResultsVisible
-         ? "opacity-100 translate-y-36"
+         ? "opacity-100 translate-y-0"
          : "opacity-0 -translate-y-0"
      }`}
     >
-      <li
+      <div
         onClick={() => {
           setIsResultsVisible(false);
         }}
+        className="cursor-pointer text-2xl text-white font-bold col-span-3 text-right"
       >
         X
-      </li>
+      </div>
       {results.map((result) => {
         return (
           <Book
@@ -33,7 +34,7 @@ function BookResults({
           />
         );
       })}
-    </ul>
+    </div>
   );
 }
 
