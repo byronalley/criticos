@@ -9,7 +9,8 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
   @create_attrs %{
     content: "some content",
     rating: 2,
-    private_notes: "some private_notes"
+    private_notes: "some private_notes",
+    google_volume_id: "google_volume_id"
   }
   @update_attrs %{
     content: "some updated content",
@@ -46,7 +47,9 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
     setup [:create_book]
 
     test "renders review when data is valid", %{conn: conn} do
-      conn = post(conn, ~p"/web_api/reviews", review: @create_attrs)
+      conn =
+        post(conn, ~p"/web_api/reviews", review: @create_attrs)
+
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, ~p"/web_api/reviews/#{id}")

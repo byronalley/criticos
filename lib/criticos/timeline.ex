@@ -6,6 +6,7 @@ defmodule Criticos.Timeline do
   import Ecto.Query, warn: false
   alias Criticos.Repo
 
+  alias Criticos.Library
   alias Criticos.Timeline.Review
 
   @doc """
@@ -49,9 +50,29 @@ defmodule Criticos.Timeline do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_review(attrs \\ %{}) do
+  def create_review(attrs) do
+    updated_attrs =
+      case attrs do
+        %{book_id: book_id} when is_binary(book_id) ->
+          attrs
+
+        %{"book_id" => book_id} when is_binary(book_id) ->
+          attrs
+
+        %{google_volume_id: google_volume_id} when is_binary(google_volume_id) ->
+          %{id: book_id} = Library.find_or_create_book_by_google_volume_id(google_volume_id)
+          Map.put(attrs, :book_id, book_id)
+
+        %{"google_volume_id" => google_volume_id} when is_binary(google_volume_id) ->
+          %{id: book_id} = Library.find_or_create_book_by_google_volume_id(google_volume_id)
+          Map.put(attrs, "book_id", book_id)
+
+        _ ->
+          attrs
+      end
+
     %Review{}
-    |> Review.changeset(attrs)
+    |> Review.changeset(updated_attrs)
     |> Repo.insert()
   end
 

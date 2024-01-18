@@ -26,12 +26,31 @@ defmodule Criticos.TimelineTest do
     end
 
     test "create_review/1 with valid data creates a review" do
-      valid_attrs = %{content: "some content", rating: 2, private_notes: "some private_notes"}
+      valid_attrs = %{
+        content: "some content",
+        rating: 2,
+        private_notes: "some private_notes",
+        book_id: book_fixture().id
+      }
 
       assert {:ok, %Review{} = review} = Timeline.create_review(valid_attrs)
       assert review.content == "some content"
       assert review.rating == 2
       assert review.private_notes == "some private_notes"
+    end
+
+    test "create_review/1 with google_volume_id of existing book sets book_id" do
+      google_volume_id = "google_volume_id"
+      %{id: book_id} = book_fixture(%{google_volume_id: google_volume_id})
+
+      valid_attrs = %{
+        content: "some content",
+        rating: 2,
+        private_notes: "some private_notes",
+        google_volume_id: google_volume_id
+      }
+
+      assert {:ok, %Review{book_id: ^book_id}} = Timeline.create_review(valid_attrs)
     end
 
     test "create_review/1 with invalid data returns error changeset" do
