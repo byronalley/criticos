@@ -197,4 +197,20 @@ defmodule Criticos.Library do
   def change_book(%Book{} = book, attrs \\ %{}) do
     Book.changeset(book, attrs)
   end
+
+  @doc """
+  Finds a book by google_volume_id or if none exists,
+  creates one.
+  """
+  @spec find_or_create_book_by_google_volume_id(String.t()) :: %Book{}
+  def find_or_create_book_by_google_volume_id(google_volume_id) do
+    case Repo.get_by(Book, google_volume_id: google_volume_id) do
+      nil ->
+        {:ok, book} = create_book(%{google_volume_id: google_volume_id})
+        book
+
+      book ->
+        book
+    end
+  end
 end
