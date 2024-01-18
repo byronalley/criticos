@@ -39,8 +39,22 @@ defmodule Criticos.Library.Book do
       :creator_id,
       :google_volume_id
     ])
-    |> validate_required([:title])
+    |> validate_one_required([:title, :isbn, :google_volume_id])
     |> assoc_constraint(:author)
     |> assoc_constraint(:creator)
+  end
+
+  defp validate_one_required(changeset, fields) do
+    if Enum.any?(fields, &get_field(changeset, &1)) do
+      changeset
+    else
+      Enum.reduce(fields, changeset, fn field, changeset ->
+        add_error(
+          changeset,
+          field,
+          "At least one of #{inspect(fields)} must not be blank"
+        )
+      end)
+    end
   end
 end
