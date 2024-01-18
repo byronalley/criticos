@@ -2,6 +2,7 @@ defmodule Criticos.LibraryTest do
   use Criticos.DataCase
 
   alias Criticos.Library
+  alias Criticos.Library.Book
   alias Ecto.Changeset
 
   describe "authors" do
@@ -150,8 +151,25 @@ defmodule Criticos.LibraryTest do
     end
 
     test "change_book/1 returns a book changeset" do
-      book = book_fixture()
+      book = book_fixture(%{})
       assert %Ecto.Changeset{} = Library.change_book(book)
+    end
+
+    test "find_or_create_book_by_google_volume_id/1 finds an existing book by google_volume_id" do
+      google_volume_id = "abc123"
+      %Book{id: expected_id} = book_fixture(%{google_volume_id: google_volume_id})
+
+      assert %Book{id: ^expected_id} =
+               Library.find_or_create_book_by_google_volume_id(google_volume_id)
+    end
+
+    test "find_or_create_book_by_google_volume_id/1 creates new book when google_volume_id not found" do
+      google_volume_id = "abc123"
+
+      refute Repo.get_by(Book, google_volume_id: google_volume_id)
+
+      assert %Book{google_volume_id: ^google_volume_id} =
+               Library.find_or_create_book_by_google_volume_id(google_volume_id)
     end
   end
 end
