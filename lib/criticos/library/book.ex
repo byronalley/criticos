@@ -17,6 +17,7 @@ defmodule Criticos.Library.Book do
     field :year, :integer
     field :summary, :string
     field :isbn, :string
+    field :google_volume_id, :string
     field :image_url, :string
 
     belongs_to :author, Author
@@ -28,7 +29,16 @@ defmodule Criticos.Library.Book do
   @doc false
   def changeset(book, attrs) do
     book
-    |> cast(attrs, [:title, :year, :isbn, :summary, :image_url, :author_id, :creator_id])
+    |> cast(attrs, [
+      :title,
+      :year,
+      :isbn,
+      :summary,
+      :image_url,
+      :author_id,
+      :creator_id,
+      :google_volume_id
+    ])
     |> validate_required([:title])
     |> assoc_constraint(:author)
     |> assoc_constraint(:creator)

@@ -10,6 +10,7 @@ defmodule Criticos.Library.BookTest do
         title: "title",
         year: 2011,
         summary: "short summary",
+        google_volume_id: "someStuff1234",
         isbn: "9780553898194",
         image_url: "image_url",
         author_id: Ecto.UUID.generate(),
