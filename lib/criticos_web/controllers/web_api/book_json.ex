@@ -20,6 +20,7 @@ defmodule CriticosWeb.WebAPI.BookJSON do
       id: book.id,
       title: book.title,
       year: book.year,
+      google_volume_id: book.google_volume_id,
       isbn: book.isbn,
       summary: book.summary,
       image_url: book.image_url

@@ -7,6 +7,7 @@ defmodule CriticosWeb.WebAPI.BookControllerTest do
     title: "some title",
     year: 42,
     isbn: "some isbn",
+    google_volume_id: "abcxyz123",
     summary: "some summary"
   }
   @update_attrs %{
@@ -25,6 +26,25 @@ defmodule CriticosWeb.WebAPI.BookControllerTest do
     test "lists all books", %{conn: conn} do
       conn = get(conn, ~p"/web_api/books")
       assert json_response(conn, 200)["data"] == []
+    end
+  end
+
+  describe "show book" do
+    setup [:author, :book]
+
+    test "renders book", %{
+      conn: conn,
+      book: %Book{id: id, google_volume_id: google_volume_id}
+    } do
+      conn = get(conn, ~p"/web_api/books/#{id}")
+
+      assert %{
+               "title" => "some title",
+               "year" => 42,
+               "isbn" => "some isbn",
+               "google_volume_id" => ^google_volume_id,
+               "summary" => "some summary"
+             } = json_response(conn, 200)["data"]
     end
   end
 

@@ -21,9 +21,9 @@ defmodule CriticosWeb.WebAPI.ReviewController do
   end
 
   def show(conn, %{"id" => id}) do
-    review = Timeline.get_review!(id)
-
-    render(conn, :show, review: review)
+    with {:ok, review} <- Timeline.get_review_with_google_volume_id(id) do
+      render(conn, :show, review: review)
+    end
   end
 
   def update(conn, %{"id" => id, "review" => review_params}) do

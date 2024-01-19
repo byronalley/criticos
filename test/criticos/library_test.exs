@@ -108,13 +108,20 @@ defmodule Criticos.LibraryTest do
     end
 
     test "create_book/1 with valid data creates a book" do
-      valid_attrs = %{title: "some title", year: 42, summary: "some summary", isbn: "some isbn"}
+      valid_attrs = %{
+        title: "some title",
+        year: 42,
+        summary: "some summary",
+        isbn: "some isbn",
+        google_volume_id: "abc123"
+      }
 
       assert {:ok, %Book{} = book} = Library.create_book(valid_attrs)
       assert book.title == "some title"
       assert book.year == 42
       assert book.summary == "some summary"
       assert book.isbn == "some isbn"
+      assert book.google_volume_id == "abc123"
     end
 
     test "create_book/1 with invalid data returns error changeset" do

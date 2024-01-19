@@ -6,6 +6,8 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
 
   alias Criticos.Timeline.Review
 
+  @bad_id "deadbeef-0404-0404-0404-deadbeafdead"
+
   @create_attrs %{
     content: "some content",
     rating: 2,
@@ -47,9 +49,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
     setup [:create_book]
 
     test "renders review when data is valid", %{conn: conn} do
-      conn =
-        post(conn, ~p"/web_api/reviews", review: @create_attrs)
-
+      conn = post(conn, ~p"/web_api/reviews", review: @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, ~p"/web_api/reviews/#{id}")
@@ -96,6 +96,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
 
     test "renders review when data is valid", %{
       conn: conn,
+      book: %{google_volume_id: google_volume_id},
       review: %Review{id: id, book_id: book_id} = review
     } do
       conn = get(conn, ~p"/web_api/reviews/#{review}")
@@ -105,13 +106,13 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "content" => "some content",
                "private_notes" => "some private_notes",
                "rating" => 2,
-               "book_id" => ^book_id
+               "book_id" => ^book_id,
+               "google_volume_id" => ^google_volume_id
              } = json_response(conn, 200)["data"]
     end
 
-    test "renders errors when data is invalid", %{conn: conn, review: review} do
-      conn = put(conn, ~p"/web_api/reviews/#{review}", review: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
+    test "renders errors when data is invalid", %{conn: conn} do
+      assert %{status: 404} = get(conn, ~p"/web_api/reviews/#{@bad_id}")
     end
   end
 
@@ -122,14 +123,12 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
       conn = delete(conn, ~p"/web_api/reviews/#{review}")
       assert response(conn, 204)
 
-      assert_error_sent 404, fn ->
-        get(conn, ~p"/web_api/reviews/#{review}")
-      end
+      assert %{status: 404} = get(conn, ~p"/web_api/reviews/#{review}")
     end
   end
 
   defp create_book(_) do
-    %{book: book_fixture()}
+    %{book: book_fixture(%{google_volume_id: "abc123"})}
   end
 
   defp create_review(%{book: book}) do
