@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-function Book({ result, handleSearch, setAuthor, setBookName }) {
+function Book({ result, handleSearch, setAuthor, setBookName, setBookId }) {
+  const id = result.id;
   const title = result.volumeInfo.title;
   const authors = result.volumeInfo.authors;
   const imageThumbnail = result.volumeInfo.imageLinks?.thumbnail;
@@ -11,6 +12,7 @@ function Book({ result, handleSearch, setAuthor, setBookName }) {
     bg-gray-800 w-full h-500 p-4  text-left min-w-400 h-full min-w-400 h-[200px]  "
       onClick={() => {
         setAuthor(authors), setBookName(title);
+        setBookId(id);
       }}
     >
       <div className="w-32 h-48 hover:opacity-20">

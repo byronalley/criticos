@@ -13,11 +13,43 @@ const BookSearch = ({
   handleBookInputChange,
   handleAuthorInputChange,
   handleSearch,
+  postReview,
+  reviewInput,
+  setReviewInput,
 }) => {
   const [isHidden, setIsHidden] = useState(false);
 
+  const postReview = async (event) => {
+    console.log(event);
+    if (!event) {
+      console.error("Event is waaaaay undefined");
+      return;
+    }
+    if (event) {
+      event.preventDefault();
+    }
+    const response = await fetch("/web_api/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ book_id: googleVolumeID, review: reviewInput }),
+    });
+
+    if (response.ok) {
+      console.log("Review posted successfully");
+    } else {
+      console.error("Error posting review");
+    }
+  };
+
   const handleHiddenChange = (event) => {
+    setReviewInput(event.target.value);
     setIsHidden(true);
+  };
+
+  const handleReviewPress = (event) => {
+    event.preventDefault(); // prevent the default action
+    console.log(reviewInput);
+    postReview(event);
   };
 
   return (
@@ -71,6 +103,7 @@ const BookSearch = ({
         <Button
           variant="primary"
           isHidden={isHidden}
+          onClick={(e) => handleReviewPress(e)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

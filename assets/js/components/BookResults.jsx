@@ -9,6 +9,7 @@ function BookResults({
   setIsResultsVisible,
   setBookName,
   setAuthor,
+  setBookId,
 }) {
   return (
     <div
@@ -36,6 +37,7 @@ function BookResults({
               handleSearch={handleSearch}
               setAuthor={setAuthor}
               setBookName={setBookName}
+              setBookId={setBookId}
             />
           </div>
         );

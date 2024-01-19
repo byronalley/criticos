@@ -10,6 +10,8 @@ export default function BookReviewContainer() {
   const [results, setResults] = useState([]);
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
+  const [reviewInput, setReviewInput] = useState("");
+  const [bookId, setBookId] = useState("");
 
   const [isResultsVisible, setIsResultsVisible] = useState(false);
 
@@ -50,6 +52,22 @@ export default function BookReviewContainer() {
     }
   };
 
+  // const postReview = async (event) => {
+  //   event.preventDefault();
+
+  //   const response = await fetch("/web_api/reviews", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ book_id: bookId, review: reviewInput }),
+  //   });
+
+  //   if (response.ok) {
+  //     console.log("Review posted successfully");
+  //   } else {
+  //     console.error("Error posting review");
+  //   }
+  // };
+
   return (
     <>
       {/* <BookReview /> */}
@@ -62,6 +80,9 @@ export default function BookReviewContainer() {
           handleBookInputChange={handleBookInputChange}
           handleAuthorInputChange={handleAuthorInputChange}
           handleSearch={handleSearch}
+          // reviewInput={reviewInput}
+          // setReviewInput={setReviewInput}
+          // postReview={postReview}
         />
 
         <BookResults
@@ -71,6 +92,7 @@ export default function BookReviewContainer() {
           setIsResultsVisible={setIsResultsVisible}
           setAuthor={setAuthor}
           setBookName={setBookName}
+          setBookId={setBookId}
         />
       </header>
       <Reviews />
