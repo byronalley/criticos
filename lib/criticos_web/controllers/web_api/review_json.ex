@@ -21,7 +21,8 @@ defmodule CriticosWeb.WebAPI.ReviewJSON do
       content: review.content,
       rating: review.rating,
       private_notes: review.private_notes,
-      book_id: review.book_id
+      book_id: review.book_id,
+      google_volume_id: review.google_volume_id
     }
   end
 end

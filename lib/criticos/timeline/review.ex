@@ -17,6 +17,8 @@ defmodule Criticos.Timeline.Review do
     field :rating, :integer
     field :private_notes, :string
 
+    field :google_volume_id, :string, virtual: true
+
     belongs_to :creator, User
     belongs_to :book, Book
 

@@ -7,6 +7,7 @@ defmodule Criticos.Timeline do
   alias Criticos.Repo
 
   alias Criticos.Library
+  alias Criticos.Library.Book
   alias Criticos.Timeline.Review
 
   @doc """
@@ -37,6 +38,23 @@ defmodule Criticos.Timeline do
 
   """
   def get_review!(id), do: Repo.get!(Review, id)
+
+  @doc """
+  Get a review with the google_volume_id virtual field set
+  """
+  def get_review_with_google_volume_id(id) do
+    review =
+      from(
+        r in Review,
+        join: b in Book,
+        on: r.book_id == b.id,
+        where: r.id == ^id,
+        select: %{r | google_volume_id: b.google_volume_id}
+      )
+      |> Repo.one()
+
+    if review, do: {:ok, review}, else: {:error, :not_found}
+  end
 
   @doc """
   Creates a review.

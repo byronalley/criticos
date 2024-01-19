@@ -88,5 +88,23 @@ defmodule Criticos.TimelineTest do
       review = review_fixture()
       assert %Ecto.Changeset{} = Timeline.change_review(review)
     end
+
+    test "get_review_with_google_volume_id/1 sets google_volume_id virtual field" do
+      google_volume_id = "abc123"
+
+      review = review_fixture(%{google_volume_id: google_volume_id})
+
+      assert %{google_volume_id: google_volume_id} = review
+
+      assert {:ok, %{google_volume_id: ^google_volume_id}} =
+               Timeline.get_review_with_google_volume_id(review.id)
+    end
+
+    test "get_review_with_google_volume_id/1 returns error tuple when not found" do
+      bad_id = "deadbeef-0404-0404-0404-deadbeafdead"
+
+      assert {:error, :not_found} =
+               Timeline.get_review_with_google_volume_id(bad_id)
+    end
   end
 end
