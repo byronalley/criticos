@@ -11,7 +11,7 @@ defmodule Criticos.Timeline do
   alias Criticos.Timeline.Review
 
   @doc """
-  Returns the list of reviews.
+  Returns the list of reviews
 
   ## Examples
 
@@ -20,7 +20,13 @@ defmodule Criticos.Timeline do
 
   """
   def list_reviews do
-    Repo.all(Review)
+    from(
+      r in Review,
+      join: b in Book,
+      on: r.book_id == b.id,
+      select: %{r | google_volume_id: b.google_volume_id}
+    )
+    |> Repo.all()
   end
 
   @doc """

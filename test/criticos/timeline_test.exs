@@ -12,8 +12,13 @@ defmodule Criticos.TimelineTest do
 
     @invalid_attrs %{content: nil, rating: nil, private_notes: nil}
 
-    test "list_reviews/0 returns all reviews" do
-      review = review_fixture()
+    test "list_reviews/0 returns all reviews with google_volume_id" do
+      google_volume_id = "abc123"
+      book = book_fixture(%{google_volume_id: google_volume_id})
+
+      review =
+        %{review_fixture(%{book_id: book.id}) | google_volume_id: google_volume_id}
+
       assert Timeline.list_reviews() == [review]
     end
 

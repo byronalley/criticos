@@ -40,6 +40,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "content" => "some content",
                "rating" => 2,
                "private_notes" => "some private_notes",
+               "google_volume_id" => "abc123",
                "book_id" => ^book_id
              } = received
     end
