@@ -31,10 +31,12 @@ function BookResults({
       </div> */}
       {results.map((result) => {
         return (
-          <div className="flex-shrink-0">
+          <div
+            className="flex-shrink-0"
+            key={result.id}
+          >
             <Book
               result={result}
-              key={result.id}
               handleSearch={handleSearch}
               setAuthor={setAuthor}
               setBookName={setBookName}
