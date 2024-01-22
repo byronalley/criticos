@@ -3,9 +3,7 @@ import React from "react";
 function Input({ value, onChange, placeholder, isHidden, multiline }) {
   return multiline ? (
     <textarea
-      className={`${
-        !isHidden ? "hidden" : ""
-      } w-full  bg-gray-800 text-white px-6 py-3 rounded`}
+      className={` w-full  bg-gray-800 text-white px-6 py-3 rounded`}
       type="text"
       placeholder={placeholder}
       value={value}
@@ -13,9 +11,7 @@ function Input({ value, onChange, placeholder, isHidden, multiline }) {
     />
   ) : (
     <input
-      className={`${
-        !isHidden ? "hidden" : ""
-      } w-full  bg-gray-800 text-white px-6 py-3 rounded`}
+      className={`$ w-full  bg-gray-800 text-white px-6 py-3 rounded`}
       type="text"
       placeholder={placeholder}
       value={value}

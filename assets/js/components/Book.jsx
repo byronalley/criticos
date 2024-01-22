@@ -13,6 +13,7 @@ function Book({ result, handleSearch, setAuthor, setBookName, setBookId }) {
       onClick={() => {
         setAuthor(authors), setBookName(title);
         setBookId(id);
+        console.log(bookId);
       }}
     >
       <div className="w-32 h-48 hover:opacity-20">
