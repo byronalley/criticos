@@ -10,6 +10,7 @@ function BookResults({
   setBookName,
   setAuthor,
   setBookId,
+  bookId,
 }) {
   return (
     <div
@@ -38,6 +39,7 @@ function BookResults({
               setAuthor={setAuthor}
               setBookName={setBookName}
               setBookId={setBookId}
+              bookId={bookId}
             />
           </div>
         );

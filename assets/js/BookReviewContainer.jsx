@@ -52,21 +52,22 @@ export default function BookReviewContainer() {
     }
   };
 
-  // const postReview = async (event) => {
-  //   event.preventDefault();
+  const postReview = async (event) => {
+    event.preventDefault();
 
-  //   const response = await fetch("/web_api/reviews", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ book_id: bookId, review: reviewInput }),
-  //   });
+    const response = await fetch("/web_api/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ book_id: bookId, review: reviewInput }),
+    });
 
-  //   if (response.ok) {
-  //     console.log("Review posted successfully");
-  //   } else {
-  //     console.error("Error posting review");
-  //   }
-  // };
+    if (response.ok) {
+      console.log("Review posted successfully");
+    } else {
+      console.error("Error posting review waa");
+      console.log(result);
+    }
+  };
 
   return (
     <>
@@ -80,9 +81,9 @@ export default function BookReviewContainer() {
           handleBookInputChange={handleBookInputChange}
           handleAuthorInputChange={handleAuthorInputChange}
           handleSearch={handleSearch}
-          // reviewInput={reviewInput}
-          // setReviewInput={setReviewInput}
-          // postReview={postReview}
+          reviewInput={reviewInput}
+          setReviewInput={setReviewInput}
+          postReview={postReview}
         />
 
         <BookResults

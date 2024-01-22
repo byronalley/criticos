@@ -8,6 +8,7 @@ import Button from "./Button";
 const BookSearch = ({
   bookName,
   author,
+  bookId,
   setAuthor,
   setBookName,
   handleBookInputChange,
@@ -19,36 +20,36 @@ const BookSearch = ({
 }) => {
   const [isHidden, setIsHidden] = useState(false);
 
-  const postReview = async (event) => {
-    console.log(event);
-    if (!event) {
-      console.error("Event is waaaaay undefined");
-      return;
-    }
-    if (event) {
-      event.preventDefault();
-    }
-    const response = await fetch("/web_api/reviews", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ book_id: googleVolumeID, review: reviewInput }),
-    });
+  // const postReview = async (event) => {
+  //   console.log(event);
+  //   if (!event) {
+  //     console.error("Event is waaaaay undefined");
+  //     return;
+  //   }
+  //   if (event) {
+  //     event.preventDefault();
+  //   }
+  //   const response = await fetch("/web_api/reviews", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ book_id: googleVolumeID, review: reviewInput }),
+  //   });
 
-    if (response.ok) {
-      console.log("Review posted successfully");
-    } else {
-      console.error("Error posting review");
-    }
-  };
+  //   if (response.ok) {
+  //     console.log("Review posted successfully");
+  //   } else {
+  //     console.error("Error posting review");
+  //   }
+  // };
 
   const handleHiddenChange = (event) => {
     setReviewInput(event.target.value);
-    setIsHidden(true);
   };
 
   const handleReviewPress = (event) => {
     event.preventDefault(); // prevent the default action
     console.log(reviewInput);
+    console.log(bookId);
     postReview(event);
   };
 
@@ -63,13 +64,11 @@ const BookSearch = ({
           placeholder={bookName === "" ? "By title..." : bookName}
           value={bookName}
           onChange={handleBookInputChange}
-          isHidden={isHidden}
         ></Input>
         <Input
           placeholder={author === "" ? "By author..." : author}
           value={author}
           onChange={handleAuthorInputChange}
-          isHidden={isHidden}
         />
         <Button
           variant="secondary"
@@ -97,12 +96,10 @@ const BookSearch = ({
         <Input
           placeholder={"Review..."}
           onChange={handleHiddenChange}
-          isHidden={true}
           multiline={true}
         />
         <Button
           variant="primary"
-          isHidden={isHidden}
           onClick={(e) => handleReviewPress(e)}
         >
           <svg
