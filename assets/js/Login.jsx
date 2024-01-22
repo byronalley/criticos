@@ -1,57 +1,43 @@
 import React from "react";
+import { loginUser } from "./lib/Session";
 
 export default function Login({ setUser, toggleLogin }) {
-  async function loginUser(event) {
+  async function handleLogin(event) {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
     event.preventDefault();
 
     try {
-      const response = await fetch(
-        "/web_api/users/log_in",
-        {
-          method: "POST",
-          mode: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user: {
-              email,
-              password,
-              // Set the remember_me param for the server to remember the user for an
-              // extended time (60 days)
-              remember_me: "true",
-            },
-          }),
-        }
-      );
-      if (response.status !== 200) {
-        console.error(`Error: ${response.status} - ${response.statusText}`);
-        return;
-      }
-
-      const {data} = await response.json();
-      const user = {id: data.id, email: data.email, username: data.username};
-
-      // TODO(BA): Replace with a flash message
+      const user = await loginUser(email, password);
       alert("Logged in!");
+      console.dir(user);
 
       setUser(user);
       toggleLogin(event);
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (e) {
+      if (e.name == "AuthenticationError") {
+        alert(e.message);
+      } else {
+        // TODO(BA): Handle this better
+        alert("Network error!");
+      }
     }
   }
 
   return (
-      <>
+    <>
       <form
         className="bg-blue-500 p-10 w-full z-20 flex flex-col md:flex-row items-center justify-center"
-        onSubmit={loginUser}
+        onSubmit={handleLogin}
       >
-      <a onClick={toggleLogin} className="h-10 px-4 py-2 mb-4 md:mb-0 md:mr-4 justify-center"> X </a>
+        <a
+          onClick={toggleLogin}
+          className="h-10 px-4 py-2 mb-4 md:mb-0 md:mr-4 justify-center"
+        >
+          {" "}
+          X{" "}
+        </a>
         <input
           type="email"
           placeholder="Email"
@@ -71,12 +57,15 @@ export default function Login({ setUser, toggleLogin }) {
           Login
         </button>
       </form>
-    <div className="bg-blue-500 p-10 w-full z-20 flex flex-col md:flex-row items-center justify-center">
-      <span className="inline-block p-5">{"Don't have an account yet?"}</span>
-    <a
-    className="inline-block underline p-5 text-white bg-white-400 hover:bg-white-100 transition"
-    href="/users/register">Sign up!</a>
-    </div>
+      <div className="bg-blue-500 p-10 w-full z-20 flex flex-col md:flex-row items-center justify-center">
+        <span className="inline-block p-5">{"Don't have an account yet?"}</span>
+        <a
+          className="inline-block underline p-5 text-white bg-white-400 hover:bg-white-100 transition"
+          href="/users/register"
+        >
+          Sign up!
+        </a>
+      </div>
     </>
   );
 }
