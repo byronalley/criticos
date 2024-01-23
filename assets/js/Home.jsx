@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Reviews from "./Reviews";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import { currentUser } from "./lib/Session";
 
 export default function Home() {
   const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const handleGetCurrentUser = async () => {
+      const maybeUser = await currentUser();
+
+      if (maybeUser) {
+        setUser(maybeUser);
+      }
+    };
+
+    handleGetCurrentUser();
+  }, []);
 
   return (
     <>
