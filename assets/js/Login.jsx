@@ -16,10 +16,12 @@ export default function Login({ setUser, toggleLogin }) {
       setUser(user);
       toggleLogin(event);
     } catch (e) {
-      if (e.name == "AuthenticationError") {
-        alert(e.message);
+      if (e.message == "AuthenticationError") {
+        alert("Invalid login or password");
       } else {
-        // TODO(BA): Handle this better
+        console.log(`Unexpected error: name=${e.name} message=${e.message}`);
+        console.dir(e);
+        //Probably a network error
         alert("Network error!");
       }
     }
