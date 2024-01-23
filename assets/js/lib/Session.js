@@ -17,9 +17,11 @@ async function loginUser(email, password) {
   });
 
   if (response.status !== 200) {
-    let e = new Error("Incorrect login or password");
-    e.name = "AuthenticationError";
-    throw new Error(e);
+    if (response.status == 401) {
+      throw new Error("AuthenticationError");
+    } else {
+      throw new Error(`UnexpectedError: ${response.status}`);
+    }
   }
 
   const { data } = await response.json();
