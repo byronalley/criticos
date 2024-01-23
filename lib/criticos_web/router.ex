@@ -46,7 +46,6 @@ defmodule CriticosWeb.Router do
 
     # TODO: Fix access #
 
-    # post "/users/register", UserRegistrationController, :create
     post "/users/log_in", UserSessionController, :create
     delete "/users/log_out", UserSessionController, :delete
     # get "/users/reset_password", UserResetPasswordController, :new
@@ -59,6 +58,9 @@ defmodule CriticosWeb.Router do
 
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
     pipe_through :web_api
+
+    # This should be moved under an adapted version of :redirect_if_user_is_authenticated
+    post "/users/register", UserRegistrationController, :create
 
     resources "/authors", AuthorController
     resources "/books", BookController
