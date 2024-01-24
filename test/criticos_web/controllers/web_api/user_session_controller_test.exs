@@ -29,6 +29,7 @@ defmodule CriticosWeb.WebAPI.UserSessionControllerTest do
       assert get_session(conn, :user_token)
     end
 
+    @tag :capture_log
     test "renders errors when login credentials are invalid", %{conn: conn} do
       conn = post(conn, ~p"/web_api/users/log_in", user: @invalid_attrs)
       assert json_response(conn, 401)["errors"] == %{"detail" => "Unauthorized"}
@@ -59,6 +60,7 @@ defmodule CriticosWeb.WebAPI.UserSessionControllerTest do
       refute get_session(conn, :user_token)
     end
 
+    @tag :capture_log
     test "succeeds even if the user is not logged in", %{conn: conn} do
       conn = delete(conn, ~p"/web_api/users/log_out")
 
