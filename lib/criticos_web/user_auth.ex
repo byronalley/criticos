@@ -248,4 +248,24 @@ defmodule CriticosWeb.UserAuth do
   defp maybe_store_return_to(conn), do: conn
 
   defp signed_in_path(_conn), do: ~p"/"
+
+  @doc """
+  Used for WebAPI routes that require the user to not be authenticated.
+  """
+  def reject_if_user_is_authenticated(conn, _opts) do
+    if conn.assigns[:current_user] do
+      conn
+      |> put_resp_content_type("application/json")
+      |> put_status(409)
+      |> json(%{
+        errors: %{
+          error: "Conflict",
+          message: "User is already registered and authenticated."
+        }
+      })
+      |> halt()
+    else
+      conn
+    end
+  end
 end
