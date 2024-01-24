@@ -57,10 +57,13 @@ defmodule CriticosWeb.Router do
   end
 
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
-    pipe_through :web_api
+    pipe_through [:web_api, :reject_if_user_is_authenticated]
 
-    # This should be moved under an adapted version of :redirect_if_user_is_authenticated
     post "/users/register", UserRegistrationController, :create
+  end
+
+  scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
+    pipe_through :web_api
 
     resources "/authors", AuthorController
     resources "/books", BookController

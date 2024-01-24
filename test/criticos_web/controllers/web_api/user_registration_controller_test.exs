@@ -61,5 +61,20 @@ defmodule CriticosWeb.WebAPI.UserRegistrationControllerTest do
 
       assert %{"email" => ["has already been taken"]} = json_response(conn, 422)["errors"]
     end
+
+    test "fails if user is logged in", %{conn: conn} do
+      user = user_fixture()
+
+      conn =
+        conn
+        |> log_in_user(user)
+        |> post(~p"/web_api/users/register", %{user: valid_user_attributes()})
+
+      assert %{
+               "error" => "Conflict",
+               "message" => "User is already registered and authenticated."
+             } =
+               json_response(conn, 409)["errors"]
+    end
   end
 end
