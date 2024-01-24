@@ -305,4 +305,23 @@ defmodule CriticosWeb.UserAuthTest do
       refute conn.status
     end
   end
+
+  describe "reject_if_user_is_authenticated/2" do
+    test "sends json error if user is authenticated", %{conn: conn, user: user} do
+      conn = conn |> assign(:current_user, user) |> UserAuth.reject_if_user_is_authenticated([])
+
+      assert %{
+               "error" => "Conflict",
+               "message" => "User is already registered and authenticated."
+             } = json_response(conn, 409)["errors"]
+
+      assert conn.halted
+    end
+
+    test "does not halt or send error if user is not authenticated", %{conn: conn} do
+      conn = UserAuth.reject_if_user_is_authenticated(conn, [])
+      refute conn.halted
+      refute conn.status
+    end
+  end
 end
