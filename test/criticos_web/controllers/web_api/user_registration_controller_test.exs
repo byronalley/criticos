@@ -29,5 +29,37 @@ defmodule CriticosWeb.WebAPI.UserRegistrationControllerTest do
 
       assert json_response(conn, 200)["data"]
     end
+
+    test "returns an error with messages when params are wrong", %{conn: conn} do
+      email = "1234"
+      username = "%%%"
+      password = "1234"
+
+      user_attrs = %{
+        email: email,
+        username: username,
+        password: password
+      }
+
+      conn =
+        post(conn, ~p"/web_api/users/register", %{user: user_attrs})
+
+      assert %{
+               "email" => _,
+               "password" => _,
+               "username" => _
+             } =
+               json_response(conn, 422)["errors"]
+    end
+
+    test "fails when user already exists", %{conn: conn} do
+      user_attrs = valid_user_attributes()
+      user_fixture(user_attrs)
+
+      conn =
+        post(conn, ~p"/web_api/users/register", %{user: user_attrs})
+
+      assert %{"email" => ["has already been taken"]} = json_response(conn, 422)["errors"]
+    end
   end
 end
