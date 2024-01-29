@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Header() {
+export default function Welcome() {
   return (
     <header className="bg-gray-800 text-white p-12 ">
       <div className="container mx-auto text-center">
