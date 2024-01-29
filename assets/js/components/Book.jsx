@@ -4,7 +4,10 @@ function Book({ result, handleSearch, setAuthor, setBookName, setBookId }) {
   const id = result.id;
   const title = result.volumeInfo.title;
   const authors = result.volumeInfo.authors;
-  const imageThumbnail = result.volumeInfo.imageLinks?.thumbnail;
+
+  const imageThumbnail =
+    result.volumeInfo.imageLinks?.thumbnail?.replace("http:", "https:") ||
+    "https://via.placeholder.com/128x192.png?text=No+Cover";
 
   return (
     <div
@@ -18,11 +21,7 @@ function Book({ result, handleSearch, setAuthor, setBookName, setBookId }) {
     >
       <div className="w-32 h-48 hover:opacity-20">
         <img
-          src={
-            imageThumbnail === undefined
-              ? "https://via.placeholder.com/128x192.png?text=No+Cover"
-              : imageThumbnail
-          }
+          src={imageThumbnail}
           alt={`Cover of ${title} by ${authors}`}
           className="w-full h-full object-cover object-center  "
         />
