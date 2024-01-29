@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
+import Welcome from "./Welcome";
 import BookReviewContainer from "./BookReviewContainer";
 import Reviews from "./Reviews";
 import Footer from "./Footer";
@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <>
       <Navbar user={user} setUser={setUser} />
-      <Header />
+      <Welcome />
       <BookReviewContainer />
       <Footer />
     </>
