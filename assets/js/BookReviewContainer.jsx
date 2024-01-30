@@ -43,7 +43,6 @@ export default function BookReviewContainer() {
 
         setResults(data.items);
         setIsResultsVisible(true);
-        console.log(results);
       } catch (error) {
         console.error("Error fetching data from Google Books API", error);
       }

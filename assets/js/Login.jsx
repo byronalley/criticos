@@ -11,7 +11,6 @@ export default function Login({ setUser, toggleLogin }) {
     try {
       const user = await loginUser(email, password);
       alert("Logged in!");
-      console.dir(user);
 
       setUser(user);
       toggleLogin(event);
