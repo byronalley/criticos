@@ -4,11 +4,14 @@ defmodule Criticos.Timeline.ReviewTest do
   alias Ecto.Changeset
   alias Criticos.Timeline.Review
 
-  @valid_review %Review{
+  @valid_params %{
     content: "Some content",
     rating: 4,
-    book_id: Ecto.UUID.generate()
+    book_id: Ecto.UUID.generate(),
+    creator_id: Ecto.UUID.generate()
   }
+
+  @valid_review Map.merge(%Review{}, @valid_params)
 
   describe "changeset/2" do
     test "rating must be between 0 and 4" do
@@ -20,18 +23,12 @@ defmodule Criticos.Timeline.ReviewTest do
       end
     end
 
-    test "requires content, rating and book_id" do
-      valid_params = %{
-        content: "Some content",
-        rating: 4,
-        book_id: Ecto.UUID.generate()
-      }
-
-      required = ~w[rating content book_id]a
+    test "requires book_id, content, creator_id, rating" do
+      required = ~w[book_id content creator_id rating]a
 
       for f <- required do
         invalid =
-          Map.put(valid_params, f, nil)
+          Map.put(@valid_params, f, nil)
 
         assert match?(
                  %Changeset{
