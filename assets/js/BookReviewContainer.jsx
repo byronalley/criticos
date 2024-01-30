@@ -58,7 +58,7 @@ export default function BookReviewContainer() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        review: { ...reviewInput, google_volume_id: bookId },
+        review: { content: reviewInput, google_volume_id: bookId },
       }),
     });
 
