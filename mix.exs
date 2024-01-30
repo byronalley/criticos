@@ -52,7 +52,7 @@ defmodule Criticos.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:credo, "~> 1.7.1"},
-      {:mix_test_interactive, "~> 1.0", only: :dev, runtime: false}
+      {:mix_test_interactive, "~> 2.0", only: :dev, runtime: false}
     ]
   end
 
