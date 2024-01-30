@@ -43,12 +43,8 @@ async function currentUser() {
     }
 
     const { data } = await response.json();
-    const user = { id: data.id, email: data.email, username: data.username };
 
-    console.log(`Got currentUser:`);
-    console.dir(user);
-
-    return user;
+    return { id: data.id, email: data.email, username: data.username };
   } catch {
     return null;
   }
