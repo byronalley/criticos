@@ -9,10 +9,12 @@ defmodule Criticos.TimelineFixtures do
   """
   def review_fixture(attrs \\ %{}) do
     book_id = attrs[:book_id] || attrs[:book][:id] || Criticos.LibraryFixtures.book_fixture().id
+    creator_id = attrs[:creator_id] || Criticos.AccountsFixtures.user_fixture().id
 
     {:ok, review} =
       attrs
       |> Enum.into(%{
+        creator_id: creator_id,
         book_id: book_id,
         content: "some content",
         private_notes: "some private_notes",

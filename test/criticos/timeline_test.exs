@@ -3,6 +3,7 @@ defmodule Criticos.TimelineTest do
 
   alias Criticos.Timeline
 
+  import Criticos.AccountsFixtures
   import Criticos.LibraryFixtures
 
   describe "reviews" do
@@ -35,7 +36,8 @@ defmodule Criticos.TimelineTest do
         content: "some content",
         rating: 2,
         private_notes: "some private_notes",
-        book_id: book_fixture().id
+        book_id: book_fixture().id,
+        creator_id: user_fixture().id
       }
 
       assert {:ok, %Review{} = review} = Timeline.create_review(valid_attrs)
@@ -52,7 +54,8 @@ defmodule Criticos.TimelineTest do
         content: "some content",
         rating: 2,
         private_notes: "some private_notes",
-        google_volume_id: google_volume_id
+        google_volume_id: google_volume_id,
+        creator_id: user_fixture().id
       }
 
       assert {:ok, %Review{book_id: ^book_id}} = Timeline.create_review(valid_attrs)
