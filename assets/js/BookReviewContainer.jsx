@@ -36,8 +36,8 @@ export default function BookReviewContainer() {
       try {
         const response = await fetch(
           `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
-            bookName
-          )}+inauthor:${encodeURIComponent(author)}`
+            bookName,
+          )}+inauthor:${encodeURIComponent(author)}`,
         );
         const data = await response.json();
 
@@ -58,14 +58,17 @@ export default function BookReviewContainer() {
     const response = await fetch("/web_api/reviews", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ book_id: bookId, review: reviewInput }),
+      body: JSON.stringify({
+        review: { ...reviewInput, google_volume_id: bookId },
+      }),
     });
 
     if (response.ok) {
-      console.log("Review posted successfully");
+      alert("Review posted successfully");
     } else {
-      console.error("Error posting review waa");
-      console.log(result);
+      alert("Error posting review");
+      console.log("Error posting review");
+      console.log(response);
     }
   };
 
