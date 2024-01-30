@@ -1,6 +1,7 @@
 defmodule CriticosWeb.WebAPI.ReviewControllerTest do
   use CriticosWeb.ConnCase
 
+  import Criticos.AccountsFixtures
   import Criticos.LibraryFixtures
   import Criticos.TimelineFixtures
 
@@ -26,31 +27,36 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
   end
 
   describe "index" do
-    setup [:create_book, :create_review]
+    setup [:create_review]
 
-    test "lists all reviews", %{conn: conn, review: review} do
+    test "lists all reviews", %{conn: conn, review: review, book: book} do
       conn = get(conn, ~p"/web_api/reviews")
       assert [received] = json_response(conn, 200)["data"]
 
       id = review.id
-      book_id = review.book_id
+      book_id = book.id
+      google_volume_id = book.google_volume_id
 
       assert %{
                "id" => ^id,
                "content" => "some content",
                "rating" => 2,
                "private_notes" => "some private_notes",
-               "google_volume_id" => "abc123",
+               "google_volume_id" => ^google_volume_id,
                "book_id" => ^book_id
              } = received
     end
   end
 
   describe "create review" do
-    setup [:create_book]
+    setup [:create_book, :create_user]
 
-    test "renders review when data is valid", %{conn: conn} do
-      conn = post(conn, ~p"/web_api/reviews", review: @create_attrs)
+    test "renders review when data is valid", %{conn: conn, user: user} do
+      conn =
+        conn
+        |> log_in_user(user)
+        |> post(~p"/web_api/reviews", review: @create_attrs)
+
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, ~p"/web_api/reviews/#{id}")
@@ -63,17 +69,29 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
              } = json_response(conn, 200)["data"]
     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, ~p"/web_api/reviews", review: @invalid_attrs)
+    test "renders errors when data is invalid", %{conn: conn, user: user} do
+      conn =
+        conn
+        |> log_in_user(user)
+        |> post(~p"/web_api/reviews", review: @invalid_attrs)
+
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
   describe "update review" do
-    setup [:create_review]
+    setup [:create_user, :create_review]
 
-    test "renders review when data is valid", %{conn: conn, review: %Review{id: id} = review} do
-      conn = put(conn, ~p"/web_api/reviews/#{review}", review: @update_attrs)
+    test "renders review when data is valid", %{
+      conn: conn,
+      review: %Review{id: id} = review,
+      user: user
+    } do
+      conn =
+        conn
+        |> log_in_user(user)
+        |> put(~p"/web_api/reviews/#{review}", review: @update_attrs)
+
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, ~p"/web_api/reviews/#{id}")
@@ -86,8 +104,12 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
              } = json_response(conn, 200)["data"]
     end
 
-    test "renders errors when data is invalid", %{conn: conn, review: review} do
-      conn = put(conn, ~p"/web_api/reviews/#{review}", review: @invalid_attrs)
+    test "renders errors when data is invalid", %{conn: conn, review: review, user: user} do
+      conn =
+        conn
+        |> log_in_user(user)
+        |> put(~p"/web_api/reviews/#{review}", review: @invalid_attrs)
+
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -118,10 +140,14 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
   end
 
   describe "delete review" do
-    setup [:create_review]
+    setup [:create_user, :create_review]
 
-    test "deletes chosen review", %{conn: conn, review: review} do
-      conn = delete(conn, ~p"/web_api/reviews/#{review}")
+    test "deletes chosen review", %{conn: conn, review: review, user: user} do
+      conn =
+        conn
+        |> log_in_user(user)
+        |> delete(~p"/web_api/reviews/#{review}")
+
       assert response(conn, 204)
 
       assert %{status: 404} = get(conn, ~p"/web_api/reviews/#{review}")
@@ -129,20 +155,27 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
   end
 
   defp create_book(_) do
-    %{book: book_fixture(%{google_volume_id: "abc123"})}
+    %{book: book_fixture(%{google_volume_id: Ecto.UUID.generate()})}
   end
 
-  defp create_review(%{book: book}) do
+  defp create_review(%{book: book, user: user}) do
     review =
       review_fixture(%{
-        book: book,
-        book_id: book.id
+        book_id: book.id,
+        creator_id: user.id
       })
 
-    %{review: review}
+    %{review: review, book: book}
   end
 
-  defp create_review(_) do
-    %{review: review_fixture()}
+  defp create_review(context) do
+    book = context[:book] || book_fixture(%{google_volume_id: Ecto.UUID.generate()})
+    user = context[:user] || user_fixture(context)
+
+    create_review(Map.merge(context, %{book: book, user: user}))
+  end
+
+  defp create_user(_) do
+    %{user: user_fixture()}
   end
 end

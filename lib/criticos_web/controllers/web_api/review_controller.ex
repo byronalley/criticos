@@ -11,8 +11,10 @@ defmodule CriticosWeb.WebAPI.ReviewController do
     render(conn, :index, reviews: reviews)
   end
 
-  def create(conn, %{"review" => review_params}) do
-    with {:ok, %Review{} = review} <- Timeline.create_review(review_params) do
+  def create(%{assigns: %{current_user: user}} = conn, %{"review" => review_params}) do
+    creation_params = Map.put(review_params, "creator_id", user.id)
+
+    with {:ok, %Review{} = review} <- Timeline.create_review(creation_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", ~p"/web_api/reviews/#{review}")
@@ -29,7 +31,8 @@ defmodule CriticosWeb.WebAPI.ReviewController do
   def update(conn, %{"id" => id, "review" => review_params}) do
     review = Timeline.get_review!(id)
 
-    with {:ok, %Review{} = review} <- Timeline.update_review(review, review_params) do
+    with :ok <- valid_owner(conn, review),
+         {:ok, %Review{} = review} <- Timeline.update_review(review, review_params) do
       render(conn, :show, review: review)
     end
   end
@@ -37,8 +40,13 @@ defmodule CriticosWeb.WebAPI.ReviewController do
   def delete(conn, %{"id" => id}) do
     review = Timeline.get_review!(id)
 
-    with {:ok, %Review{}} <- Timeline.delete_review(review) do
+    with :ok <- valid_owner(conn, review),
+         {:ok, %Review{}} <- Timeline.delete_review(review) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  defp valid_owner(%{assigns: %{current_user: user}} = _conn, review) do
+    if user && user.id == review.creator_id, do: :ok, else: {:error, :unauthorized}
   end
 end
