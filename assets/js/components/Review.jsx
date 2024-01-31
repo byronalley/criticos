@@ -1,18 +1,14 @@
 import React from "react";
 
 import Input from "./Input";
-import Button from "./Button";
 
 function Review({
   book,
   isEditable,
   bookName,
   author,
-  setAuthor,
-  setBookName,
   handleBookInputChange,
-  handleAuthorInputChange,
-  handleSearch,
+  handleAuthorInputChange
 }) {
   return (
     <div className="bg-blue-500 rounded-lg shadow-lg overflow-hidden">

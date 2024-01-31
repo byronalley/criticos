@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import Footer from "./Footer";
-import Reviews from "./Reviews";
 import BookSearch from "./components/BookSearch";
 import BookResults from "./components/BookResults";
 
@@ -12,8 +10,6 @@ export default function ReviewEditor() {
   const [reviewContents, setReviewContents] = useState("");
   const [reviewRating, setReviewRating] = useState(2);
   const [bookId, setBookId] = useState("");
-
-  const [isResultsVisible, setIsResultsVisible] = useState(false);
 
   const handleBookInputChange = (event) => {
     setBookName(event.target.value);
@@ -36,7 +32,6 @@ export default function ReviewEditor() {
         const data = await response.json();
 
         setResults(data.items);
-        setIsResultsVisible(true);
       } catch (error) {
         console.error("Error fetching data from Google Books API", error);
       }
@@ -90,8 +85,6 @@ export default function ReviewEditor() {
         <BookResults
           results={results}
           handleSearch={handleSearch}
-          isResultsVisible={isResultsVisible}
-          setIsResultsVisible={setIsResultsVisible}
           setAuthor={setAuthor}
           setBookName={setBookName}
           setBookId={setBookId}

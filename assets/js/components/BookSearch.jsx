@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 
-import { BeakerIcon } from "@heroicons/react/solid";
-
 import Input from "./Input";
 import Button from "./Button";
-import StarRatingInput from "./StarRatingInput";
 
 const BookSearch = ({
   bookName,
   author,
   bookId,
-  setAuthor,
-  setBookName,
   handleBookInputChange,
   handleAuthorInputChange,
   handleSearch,

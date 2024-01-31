@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Book({ result, handleSearch, setAuthor, setBookName, setBookId }) {
   const id = result.id;

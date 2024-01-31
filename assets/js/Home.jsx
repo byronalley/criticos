@@ -4,7 +4,6 @@ import ReviewEditor from "./ReviewEditor";
 import Reviews from "./Reviews";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import BookSearch from "./components/BookSearch";
 import { currentUser } from "./lib/Session";
 
 export default function Home() {
@@ -25,8 +24,7 @@ export default function Home() {
   return (
     <>
       <Navbar user={user} setUser={setUser} />
-      <Welcome />
-      <ReviewEditor />
+      {user.username ? <ReviewEditor /> : <Welcome />}
       <Reviews />
       <Footer />
     </>
