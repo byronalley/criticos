@@ -66,7 +66,7 @@ export default function ReviewEditor() {
 
   return (
     <>
-      <header className="flex flex-col lg:flex-row top-0 text-white text-center  lg:text-left">
+      <header className="p-6 flex flex-col lg:flex-row top-0 text-white text-center  lg:text-left">
         <BookSearch
           bookName={bookName}
           author={author}
