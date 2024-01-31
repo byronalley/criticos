@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Footer from "./Footer";
-import BookReview from "./BookReview";
 import Reviews from "./Reviews";
 import BookSearch from "./components/BookSearch";
 import BookResults from "./components/BookResults";
@@ -10,13 +9,11 @@ export default function BookReviewContainer() {
   const [results, setResults] = useState([]);
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
-  const [reviewInput, setReviewInput] = useState("");
+  const [reviewContents, setReviewContents] = useState("");
+  const [reviewRating, setReviewRating] = useState(2);
   const [bookId, setBookId] = useState("");
 
   const [isResultsVisible, setIsResultsVisible] = useState(false);
-
-  const [bookNameOutput, setBookNameOutput] = useState("");
-  const [authorOutput, setAuthorOutput] = useState("");
 
   const handleBookInputChange = (event) => {
     setBookName(event.target.value);
@@ -30,9 +27,6 @@ export default function BookReviewContainer() {
     event.preventDefault();
 
     if (bookName !== "" || author !== "") {
-      setBookNameOutput("");
-      setAuthorOutput("");
-
       try {
         const response = await fetch(
           `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
@@ -58,7 +52,11 @@ export default function BookReviewContainer() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        review: { content: reviewInput, google_volume_id: bookId },
+        review: {
+          content: reviewContents,
+          google_volume_id: bookId,
+          rating: reviewRating,
+        },
       }),
     });
 
@@ -73,7 +71,6 @@ export default function BookReviewContainer() {
 
   return (
     <>
-      {/* <BookReview /> */}
       <header className="flex flex-col lg:flex-row top-0 text-white text-center  lg:text-left">
         <BookSearch
           bookName={bookName}
@@ -83,8 +80,10 @@ export default function BookReviewContainer() {
           handleBookInputChange={handleBookInputChange}
           handleAuthorInputChange={handleAuthorInputChange}
           handleSearch={handleSearch}
-          reviewInput={reviewInput}
-          setReviewInput={setReviewInput}
+          reviewContents={reviewContents}
+          setReviewContents={setReviewContents}
+          reviewRating={reviewRating}
+          setReviewRating={setReviewRating}
           postReview={postReview}
         />
 
