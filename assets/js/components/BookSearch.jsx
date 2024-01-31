@@ -4,6 +4,7 @@ import { BeakerIcon } from "@heroicons/react/solid";
 
 import Input from "./Input";
 import Button from "./Button";
+import StarRatingInput from "./StarRatingInput";
 
 const BookSearch = ({
   bookName,
@@ -15,40 +16,32 @@ const BookSearch = ({
   handleAuthorInputChange,
   handleSearch,
   postReview,
-  reviewInput,
-  setReviewInput,
+  reviewContents,
+  setReviewContents,
+  reviewRating,
+  setReviewRating,
 }) => {
   const [isHidden, setIsHidden] = useState(false);
 
-  // const postReview = async (event) => {
-  //   console.log(event);
-  //   if (!event) {
-  //     console.error("Event is waaaaay undefined");
-  //     return;
-  //   }
-  //   if (event) {
-  //     event.preventDefault();
-  //   }
-  //   const response = await fetch("/web_api/reviews", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ book_id: googleVolumeID, review: reviewInput }),
-  //   });
-
-  //   if (response.ok) {
-  //     console.log("Review posted successfully");
-  //   } else {
-  //     console.error("Error posting review");
-  //   }
-  // };
-
-  const handleHiddenChange = (event) => {
-    setReviewInput(event.target.value);
+  const handleReviewContents = (event) => {
+    setReviewContents(event.target.value);
   };
 
-  const handleReviewPress = (event) => {
+  const handleReviewRating = (event) => {
+    setReviewRating(event.target.value);
+  };
+
+  const ratingDescription = [
+    "Terrible. Avert your eyes!",
+    "Not good. Not worth reading.",
+    "Worthwhile but there are better options.",
+    "Really great!",
+    "Amazing! A classic. Must-read!",
+  ];
+
+  const handleSubmitReview = (event) => {
     event.preventDefault(); // prevent the default action
-    console.log(reviewInput);
+    console.log(reviewContents);
     console.log(bookId);
     postReview(event);
   };
@@ -70,11 +63,7 @@ const BookSearch = ({
           value={author}
           onChange={handleAuthorInputChange}
         />
-        <Button
-          variant="secondary"
-          onClick={handleSearch}
-          isHidden={isHidden}
-        >
+        <Button variant="secondary" onClick={handleSearch} isHidden={isHidden}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -90,18 +79,16 @@ const BookSearch = ({
             />
           </svg>
         </Button>
-        <br />
       </div>
+      <br />
+
       <div className="flex">
         <Input
           placeholder={"Review..."}
-          onChange={handleHiddenChange}
+          onChange={handleReviewContents}
           multiline={true}
         />
-        <Button
-          variant="primary"
-          onClick={(e) => handleReviewPress(e)}
-        >
+        <Button variant="primary" onClick={(e) => handleSubmitReview(e)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -118,6 +105,25 @@ const BookSearch = ({
           </svg>
         </Button>
       </div>
+
+      <fieldset className="mt-6">
+        <span className="text-white-500">Rating: </span>
+        <input
+          onChange={handleReviewRating}
+          type="range"
+          name="rating"
+          id="rating"
+          className="text-blue-500 w-full ml-2"
+          defaultValue="2"
+          min="0"
+          max="4"
+          step="1"
+        />
+
+        <output className="ml-2" htmlFor="rating">
+          {reviewRating} Stars: "{ratingDescription[reviewRating]}"
+        </output>
+      </fieldset>
     </form>
   );
 };
