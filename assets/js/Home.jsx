@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Welcome from "./Welcome";
-import BookReviewContainer from "./BookReviewContainer";
+import ReviewEditor from "./ReviewEditor";
 import Reviews from "./Reviews";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
@@ -26,7 +26,7 @@ export default function Home() {
     <>
       <Navbar user={user} setUser={setUser} />
       <Welcome />
-      <BookReviewContainer />
+      <ReviewEditor />
       <Reviews />
       <Footer />
     </>

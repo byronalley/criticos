@@ -5,7 +5,7 @@ import Reviews from "./Reviews";
 import BookSearch from "./components/BookSearch";
 import BookResults from "./components/BookResults";
 
-export default function BookReviewContainer() {
+export default function ReviewEditor() {
   const [results, setResults] = useState([]);
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
