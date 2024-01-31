@@ -42,10 +42,12 @@ const BookSearch = ({
   };
 
   return (
-    <form className="p-4 w-full lg:w-1/2   bg-gray-800 p-6 z-10">
-      <h1 className="text-4xl bg-gray-800 text-white font-semibold animate-flip-up animate-ease-out">
-        Find a book leave a review
+    <form className="p-6 w-full lg:w-1/2 rounded-lg space-y-2 bg-gray-800 p-6 z-10">
+      <h1 className="mt-4 ml-10 mb-10 text-4xl bg-gray-800 text-white font-semibold animate-flip-up animate-ease-out">
+        Review a book
       </h1>
+
+      <br />
 
       <div className="flex ">
         <Input
