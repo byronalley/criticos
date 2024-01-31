@@ -97,8 +97,6 @@ export default function BookReviewContainer() {
           setBookId={setBookId}
         />
       </header>
-      <Reviews />
-      <Footer />
     </>
   );
 }
