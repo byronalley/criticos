@@ -27,6 +27,7 @@ export default function Home() {
       <Navbar user={user} setUser={setUser} />
       <Welcome />
       <BookReviewContainer />
+      <Reviews />
       <Footer />
     </>
   );
