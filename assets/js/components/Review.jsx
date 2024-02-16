@@ -1,6 +1,7 @@
 import React from "react";
-
 import Input from "./Input";
+
+const defaultThumbnail = "images/white-square.gif";
 
 function Review({
   review,
@@ -11,11 +12,13 @@ function Review({
 }) {
   return (
     <div className="bg-blue-500 rounded-lg shadow-lg overflow-hidden">
-      <img
-        src="images/white-square.gif"
-        alt="Book Title"
-        className="w-full h-48 object-cover"
-      />
+      <div className="w-full h-64">
+        <img
+          src={book?.thumbnail || defaultThumbnail}
+          alt={`Cover of ${book?.title} by ${book?.author}`}
+          className="w-full h-full mt-4 object-contain object-center"
+        />
+      </div>
       <div className="p-6">
         <h4 className="text-xl font-semibold text-white">
           {isEditable ? (
