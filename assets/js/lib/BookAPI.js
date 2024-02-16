@@ -16,6 +16,7 @@ const fetchGoogleVolumes = async (googleVolumeIds) => {
         id: book.id,
         title: book.volumeInfo.title,
         author: book.volumeInfo.authors.join(", "),
+        thumbnail: book.volumeInfo.imageLinks.thumbnail,
       },
     ]),
   );
