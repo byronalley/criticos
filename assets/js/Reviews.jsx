@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { fetchGoogleVolumes } from "./lib/BookAPI";
+import { fetchReviews } from "./lib/ReviewAPI";
 
 import Review from "./components/Review";
 
@@ -7,42 +9,19 @@ export default function Reviews() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    fetch("/web_api/reviews")
-      .then((res) => res.json())
-      .then(({ data: reviewData }) => {
-        setReviews(reviewData);
+    fetchReviews().then((reviewData) => {
+      setReviews(reviewData);
 
-        const googleVolumeIds = new Set(
-          reviewData
-            .filter(({ google_volume_id }) => google_volume_id)
-            .map((book) => book.google_volume_id),
-        );
+      const googleVolumeIds = new Set(
+        reviewData
+          .filter(({ google_volume_id }) => google_volume_id)
+          .map((book) => book.google_volume_id),
+      );
 
-        Promise.all(
-          [...googleVolumeIds].map((id) => {
-            if (!id) throw new Error("id was null");
-
-            return fetch(
-              `https://www.googleapis.com/books/v1/volumes/${id}`,
-            ).then((res) => res.json());
-          }),
-        )
-          .then((responses) => {
-            const books = Object.fromEntries(
-              responses.map((book) => [
-                book.id,
-                {
-                  id: book.id,
-                  title: book.volumeInfo.title,
-                  author: book.volumeInfo.authors.join(", "),
-                },
-              ]),
-            );
-
-            setBooks(books);
-          })
-          .catch((err) => console.error(err));
-      });
+      fetchGoogleVolumes(googleVolumeIds)
+        .then((books) => setBooks(books))
+        .catch((err) => console.error(err));
+    });
   }, []);
 
   return (
