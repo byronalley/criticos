@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import BookSearch from "./components/BookSearch";
 import BookResults from "./components/BookResults";
+import { searchBooks } from "./lib/BookAPI";
 
 export default function ReviewEditor() {
   const [results, setResults] = useState([]);
@@ -24,16 +25,11 @@ export default function ReviewEditor() {
 
     if (bookName !== "" || author !== "") {
       try {
-        const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
-            bookName,
-          )}+inauthor:${encodeURIComponent(author)}`,
-        );
-        const data = await response.json();
+        const items = await searchBooks(bookName, author);
 
-        setResults(data.items);
+        setResults(items);
       } catch (error) {
-        console.error("Error fetching data from Google Books API", error);
+        console.error("Error fetching data from Books API", error);
       }
     } else {
       handleSearch();
