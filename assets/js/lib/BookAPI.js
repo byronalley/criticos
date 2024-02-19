@@ -24,4 +24,15 @@ const fetchGoogleVolumes = async (googleVolumeIds) => {
   return books;
 };
 
-export { fetchGoogleVolumes };
+const searchBooks = async (title, author) => {
+  const response = await fetch(
+    `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
+      title,
+    )}+inauthor:${encodeURIComponent(author)}`,
+  );
+  const { items } = await response.json();
+
+  return items;
+};
+
+export { fetchGoogleVolumes, searchBooks };
