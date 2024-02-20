@@ -12,11 +12,11 @@ function BookResults({
 }) {
   return (
     <div className="flex lg:flex-row w-full lg:w-1/2 self-end gap-4 p-6 mx-auto overflow-x-auto cursor-pointer opacity-100 translate-x-0 ">
-      {results.map((result) => {
+      {results.map((book) => {
         return (
-          <div className="flex-shrink-0" key={result.id}>
+          <div className="flex-shrink-0" key={book.id}>
             <Book
-              result={result}
+              book={book}
               handleSearch={handleSearch}
               setAuthor={setAuthor}
               setBookName={setBookName}

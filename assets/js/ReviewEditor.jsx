@@ -25,9 +25,9 @@ export default function ReviewEditor() {
 
     if (bookName !== "" || author !== "") {
       try {
-        const items = await searchBooks(bookName, author);
+        const results = await searchBooks(bookName, author);
 
-        setResults(items);
+        setResults(results);
       } catch (error) {
         console.error("Error fetching data from Books API", error);
       }
