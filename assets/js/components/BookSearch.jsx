@@ -79,6 +79,7 @@ const BookSearch = ({
 
       <div className="flex">
         <Input
+          value={reviewContents}
           placeholder={"Review..."}
           onChange={handleReviewContents}
           multiline={true}
@@ -110,13 +111,14 @@ const BookSearch = ({
           id="rating"
           className="text-blue-500 w-full ml-2"
           defaultValue="2"
+          value={reviewRating}
           min="0"
           max="4"
           step="1"
         />
 
         <output className="ml-2" htmlFor="rating">
-          {reviewRating} Stars: "{ratingDescription[reviewRating]}"
+          {reviewRating} Stars: &ldquo;{ratingDescription[reviewRating]}&rdquo;
         </output>
       </fieldset>
     </form>

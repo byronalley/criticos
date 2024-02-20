@@ -52,12 +52,24 @@ export default function ReviewEditor() {
     });
 
     if (response.ok) {
+      clearReview();
+
+      // TODO(BA): Replace with flash
       alert("Review posted successfully");
     } else {
       alert("Error posting review");
       console.log("Error posting review");
       console.log(response);
     }
+  };
+
+  const clearReview = () => {
+    setResults([]);
+    setBookName("");
+    setAuthor("");
+    setReviewContents("");
+    setReviewRating(2);
+    setBookId("");
   };
 
   return (
