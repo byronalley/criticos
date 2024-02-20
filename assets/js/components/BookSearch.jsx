@@ -36,8 +36,6 @@ const BookSearch = ({
 
   const handleSubmitReview = (event) => {
     event.preventDefault(); // prevent the default action
-    console.log(reviewContents);
-    console.log(bookId);
     postReview(event);
   };
 
