@@ -2,7 +2,7 @@
 
 async function loginUser() {
   try {
-    const response = await fetch('http://localhost:4000/web_api/users/log_in', {
+    const response = await fetch("http://localhost:4000/web_api/users/log_in", {
       method: "POST",
       mode: "no-cors",
       headers: {
@@ -14,26 +14,21 @@ async function loginUser() {
           password: "alphaAPPLE11!",
           // Set the remember_me param for the server to remember the user for an
           // extended time (60 days)
-          remember_me: "true"
-        }
+          remember_me: "true",
+        },
       }),
-    }
-    );
+    });
 
     if (response.status !== 200) {
       console.error(`Error: ${response.status} - ${response.statusText}`);
       return;
     }
 
-    const {data: {id, email,  username}} = await response.json();
-    console.log(`id:`, id);
-    console.log(`email:`, email);
-    console.log(`username:`, username);
-
-    console.log(`Cookies:`);
-    console.dir(response.headers.getSetCookie());
+    const {
+      data: { id, email, username },
+    } = await response.json();
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
 }
 
