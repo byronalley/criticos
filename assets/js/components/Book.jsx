@@ -1,13 +1,12 @@
 import React from "react";
 
-function Book({ result, handleSearch, setAuthor, setBookName, setBookId }) {
-  const id = result.id;
-  const title = result.volumeInfo.title;
-  const authors = result.volumeInfo.authors;
+const placeholder = "https://via.placeholder.com/128x192.png?text=No+Cover";
 
-  const imageThumbnail =
-    result.volumeInfo.imageLinks?.thumbnail?.replace("http:", "https:") ||
-    "https://via.placeholder.com/128x192.png?text=No+Cover";
+function Book({ book, handleSearch, setAuthor, setBookName, setBookId }) {
+  const id = book.id;
+  const title = book.title;
+  const authors = book.authors;
+  const thumbnail = book.thumbnail || placeholder;
 
   return (
     <div
@@ -19,7 +18,7 @@ function Book({ result, handleSearch, setAuthor, setBookName, setBookId }) {
     >
       <div className="w-32 h-48 hover:opacity-20">
         <img
-          src={imageThumbnail}
+          src={thumbnail}
           alt={`Cover of ${title} by ${authors}`}
           className="w-full h-full object-cover object-center"
         />
