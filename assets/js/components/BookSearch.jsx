@@ -110,7 +110,6 @@ const BookSearch = ({
           name="rating"
           id="rating"
           className="text-blue-500 w-full ml-2"
-          defaultValue="2"
           value={reviewRating}
           min="0"
           max="4"
