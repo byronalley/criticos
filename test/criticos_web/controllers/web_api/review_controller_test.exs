@@ -29,7 +29,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
   describe "index" do
     setup [:create_review]
 
-    test "lists all reviews", %{conn: conn, review: review, book: book} do
+    test "lists most recent reviews", %{conn: conn, review: review, book: book} do
       conn = get(conn, ~p"/web_api/reviews")
       assert [received] = json_response(conn, 200)["data"]
 
