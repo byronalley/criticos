@@ -4,7 +4,7 @@ import BookSearch from "./components/BookSearch";
 import BookResults from "./components/BookResults";
 import { searchBooks } from "./lib/BookAPI";
 
-export default function ReviewEditor() {
+export default function ReviewEditor({ updateReviews }) {
   const [results, setResults] = useState([]);
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
@@ -53,6 +53,7 @@ export default function ReviewEditor() {
 
     if (response.ok) {
       clearReview();
+      updateReviews();
 
       // TODO(BA): Replace with flash
       alert("Review posted successfully");

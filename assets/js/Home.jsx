@@ -60,7 +60,11 @@ export default function Home() {
   return (
     <>
       <Navbar user={user} setUser={setUser} />
-      {user.username ? <ReviewEditor /> : <Welcome />}
+      {user.username ? (
+        <ReviewEditor updateReviews={updateReviews} />
+      ) : (
+        <Welcome />
+      )}
       <Reviews reviews={reviews} books={books} />
       <Footer />
     </>
