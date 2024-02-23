@@ -7,7 +7,7 @@ defmodule CriticosWeb.WebAPI.ReviewController do
   action_fallback CriticosWeb.FallbackController
 
   def index(conn, _params) do
-    reviews = Timeline.list_reviews()
+    reviews = Timeline.latest_reviews()
     render(conn, :index, reviews: reviews)
   end
 
