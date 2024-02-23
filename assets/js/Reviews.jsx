@@ -1,29 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { fetchGoogleVolumes } from "./lib/BookAPI";
-import { fetchReviews } from "./lib/ReviewAPI";
+import React from "react";
 
 import Review from "./components/Review";
 
-export default function Reviews() {
-  const [reviews, setReviews] = useState([]);
-  const [books, setBooks] = useState([]);
-
-  useEffect(() => {
-    fetchReviews().then((reviewData) => {
-      setReviews(reviewData);
-
-      const googleVolumeIds = new Set(
-        reviewData
-          .filter(({ google_volume_id }) => google_volume_id)
-          .map((book) => book.google_volume_id),
-      );
-
-      fetchGoogleVolumes(googleVolumeIds)
-        .then((books) => setBooks(books))
-        .catch((err) => console.error(err));
-    });
-  }, []);
-
+export default function Reviews({ reviews, books }) {
   return (
     <section className="py-12">
       <div className="container mx-auto">
