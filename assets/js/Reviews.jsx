@@ -12,7 +12,6 @@ export default function Reviews({ reviews, books }) {
               review={review}
               book={books[review.google_volume_id]}
               key={index}
-              isEditable={false}
             />
           ))}
         </div>

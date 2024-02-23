@@ -1,15 +1,8 @@
 import React from "react";
-import Input from "./Input";
 
 const defaultThumbnail = "images/white-square.gif";
 
-function Review({
-  review,
-  book,
-  isEditable,
-  handleBookInputChange,
-  handleAuthorInputChange,
-}) {
+function Review({ review, book }) {
   return (
     <div className="bg-blue-500 rounded-lg shadow-lg overflow-hidden">
       <div className="w-full h-64">
@@ -21,26 +14,10 @@ function Review({
       </div>
       <div className="p-6">
         <h4 className="text-xl font-semibold text-white">
-          {isEditable ? (
-            <Input
-              value={book?.title}
-              onChange={handleBookInputChange}
-              placeholder={"Title"}
-            />
-          ) : (
-            book?.title || "Title Unknown"
-          )}
+          {book?.title || "Title Unknown"}
         </h4>
         <p className="text-white mt-2 mb-3">
-          {isEditable ? (
-            <Input
-              value={book?.author}
-              onChange={handleAuthorInputChange}
-              placeholder={"Author"}
-            />
-          ) : (
-            book?.author || "Author Unknown"
-          )}
+          {book?.author || "Author Unknown"}
         </p>
         <div className="bg-white px-4 py-2 rounded-md">
           <p className="text-black font-semibold">Rating: {review.rating}</p>
