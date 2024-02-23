@@ -10,6 +10,8 @@ defmodule Criticos.Timeline do
   alias Criticos.Library.Book
   alias Criticos.Timeline.Review
 
+  @default_posts_limit 25
+
   @doc """
   Returns the list of reviews
 
@@ -24,6 +26,27 @@ defmodule Criticos.Timeline do
       r in Review,
       join: b in Book,
       on: r.book_id == b.id,
+      select: %{r | google_volume_id: b.google_volume_id}
+    )
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of reviews
+
+  ## Examples
+
+      iex> latest_reviews()
+      [%Review{}, ...]
+
+  """
+  def latest_reviews(limit \\ @default_posts_limit) do
+    from(
+      r in Review,
+      join: b in Book,
+      on: r.book_id == b.id,
+      order_by: [desc: r.inserted_at],
+      limit: ^limit,
       select: %{r | google_volume_id: b.google_volume_id}
     )
     |> Repo.all()

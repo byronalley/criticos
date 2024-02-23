@@ -23,6 +23,44 @@ defmodule Criticos.TimelineTest do
       assert Timeline.list_reviews() == [review]
     end
 
+    test "latest_reviews/1 returns most recent reviews in reverse order" do
+      google_volume_id = "abc123"
+      book = book_fixture(%{google_volume_id: google_volume_id})
+
+      Repo.insert!(%Review{
+        book_id: book.id,
+        content: "foo",
+        rating: 2,
+        inserted_at: ~N[2001-01-01 00:01:01],
+        updated_at: ~N[2001-01-01 00:01:01]
+      })
+
+      %{id: latest_review_id} =
+        %{review_fixture(%{book_id: book.id}) | google_volume_id: google_volume_id}
+
+      assert [%{id: ^latest_review_id, google_volume_id: ^google_volume_id}, _] =
+               Timeline.latest_reviews()
+    end
+
+    test "latest_reviews/1 limits results" do
+      google_volume_id = "abc123"
+      book = book_fixture(%{google_volume_id: google_volume_id})
+
+      Repo.insert!(%Review{
+        book_id: book.id,
+        content: "foo",
+        rating: 2,
+        inserted_at: ~N[2001-01-01 00:01:01],
+        updated_at: ~N[2001-01-01 00:01:01]
+      })
+
+      %{id: latest_review_id} =
+        %{review_fixture(%{book_id: book.id}) | google_volume_id: google_volume_id}
+
+      assert [%{id: ^latest_review_id}] =
+               Timeline.latest_reviews(1)
+    end
+
     test "get_review!/1 returns the review with given id" do
       book = book_fixture()
 
