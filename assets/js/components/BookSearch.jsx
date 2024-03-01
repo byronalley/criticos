@@ -40,21 +40,15 @@ const BookSearch = ({
   };
 
   return (
-    <form className="p-6 w-full lg:w-1/2 rounded-lg space-y-2 bg-gray-800 p-6 z-10">
-      <h1 className="mt-4 ml-10 mb-10 text-4xl bg-gray-800 text-white font-semibold animate-flip-up animate-ease-out">
-        Review a book
-      </h1>
-
-      <br />
-
+    <form className="p-6 w-full lg:w-1/2 rounded-lg space-y-2 bg-gray-800">
       <div className="flex ">
         <Input
-          placeholder={bookName === "" ? "By title..." : bookName}
+          placeholder="Title..."
           value={bookName}
           onChange={handleBookInputChange}
         ></Input>
         <Input
-          placeholder={author === "" ? "By author..." : author}
+          placeholder="Author..."
           value={author}
           onChange={handleAuthorInputChange}
         />
@@ -75,12 +69,11 @@ const BookSearch = ({
           </svg>
         </Button>
       </div>
-      <br />
 
       <div className="flex">
         <Input
           value={reviewContents}
-          placeholder={"Review..."}
+          placeholder={"Review a book..."}
           onChange={handleReviewContents}
           multiline={true}
         />
