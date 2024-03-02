@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Input from "./Input";
 import Button from "./Button";
+import SubmitButton from "./SubmitButton";
 import SearchIcon from "../icons/SearchIcon";
 import SubmitIcon from "../icons/SubmitIcon";
 
@@ -71,9 +72,9 @@ const BookSearch = ({
         />
       </div>
 
-      <fieldset className="mt-6">
-        <div className="flex space-x-5">
-          <span className="text-white-500">Rating: </span>
+      <fieldset className="ml-0 mt-6 flex flex-col lg:flex-row space-y-5 gap-x-6">
+        <div className="w-full lg:w-3/4">
+          <span className="text-white-500 flex">Rating: </span>
           <input
             onChange={handleReviewRating}
             type="range"
@@ -85,14 +86,17 @@ const BookSearch = ({
             max="4"
             step="1"
           />
-          <Button variant="primary" onClick={(e) => handleSubmitReview(e)}>
-            <SubmitIcon />
-          </Button>
-        </div>
 
-        <output className="ml-2" htmlFor="rating">
-          {reviewRating} Stars: &ldquo;{ratingDescription[reviewRating]}&rdquo;
-        </output>
+          <div className="p-2">
+            <output htmlFor="rating">
+              {reviewRating} Stars: &ldquo;{ratingDescription[reviewRating]}
+              &rdquo;
+            </output>
+          </div>
+        </div>
+        <SubmitButton onClick={(e) => handleSubmitReview(e)}>
+          <SubmitIcon />
+        </SubmitButton>
       </fieldset>
     </form>
   );
