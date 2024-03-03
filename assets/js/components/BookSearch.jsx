@@ -72,9 +72,9 @@ const BookSearch = ({
         />
       </div>
 
-      <fieldset className="ml-0 mt-6 flex flex-col lg:flex-row space-y-5 gap-x-6">
-        <div className="w-full lg:w-3/4">
-          <span className="text-white-500 flex">Rating: </span>
+      <fieldset className="mt-8 flex flex-col lg:flex-row space-y-5 gap-x-6">
+        <div className="mt-2 w-full lg:w-3/4">
+          <span className="text-white-500 flex mb-2">Rating: </span>
           <input
             onChange={handleReviewRating}
             type="range"
@@ -87,7 +87,7 @@ const BookSearch = ({
             step="1"
           />
 
-          <div className="p-2">
+          <div className="p-2 h-16">
             <output htmlFor="rating">
               {reviewRating} Stars: &ldquo;{ratingDescription[reviewRating]}
               &rdquo;
