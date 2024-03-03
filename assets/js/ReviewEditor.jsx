@@ -75,7 +75,7 @@ export default function ReviewEditor({ updateReviews }) {
 
   return (
     <>
-      <header className="p-6 flex flex-col lg:flex-row top-0 text-white text-center  lg:text-left">
+      <main className="p-6 flex flex-col lg:flex-row top-0 text-white text-center  lg:text-left">
         <BookSearch
           bookName={bookName}
           author={author}
@@ -98,7 +98,7 @@ export default function ReviewEditor({ updateReviews }) {
           setBookName={setBookName}
           setBookId={setBookId}
         />
-      </header>
+      </main>
     </>
   );
 }
