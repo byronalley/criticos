@@ -11,7 +11,7 @@ function BookResults({
   bookId,
 }) {
   return (
-    <div className="flex lg:flex-row w-full lg:w-1/2 self-end gap-4 p-6 mx-auto overflow-x-auto cursor-pointer opacity-100 translate-x-0 ">
+    <div className="flex lg:flex-row lg:ml-2 mt-2 w-full lg:w-1/2 self-end gap-4 mx-auto overflow-x-auto cursor-pointer opacity-100 translate-x-0 ">
       {results.map((book) => {
         return (
           <div className="flex-shrink-0" key={book.id}>
