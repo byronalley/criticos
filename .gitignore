@@ -35,3 +35,10 @@ criticos-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Secrets and deploy config
+.env
+*_API_KEY
+DATABASE_URL
+SECRET_KEY_BASE
+SECRETS
+fly.toml
