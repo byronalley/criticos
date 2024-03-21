@@ -11,7 +11,7 @@ defmodule Criticos.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"Criticos", "contact@example.com"})
+      |> from({"Criticos", email_sender()})
       |> subject(subject)
       |> text_body(body)
 
@@ -19,6 +19,11 @@ defmodule Criticos.Accounts.UserNotifier do
       {:ok, email}
     end
   end
+
+  defp email_sender,
+    do:
+      Application.get_env(:criticos, Criticos.Mailer)
+      |> Keyword.get(:email_sender, "noreply@example.com")
 
   @doc """
   Deliver instructions to confirm account.
