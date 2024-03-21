@@ -112,4 +112,6 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+
+  if File.exists?("config/runtime_prod_local.exs"), do: import_config("runtime_prod_local.exs")
 end
