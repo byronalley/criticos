@@ -59,6 +59,7 @@ RUN mix compile
 
 # Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/
+COPY config/runtime_prod_local.exs config/
 
 COPY rel rel
 RUN mix release
