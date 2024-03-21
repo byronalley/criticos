@@ -37,6 +37,7 @@ npm-debug.log
 
 # Secrets and deploy config
 .env
+*_API_KEY
 DATABASE_URL
 SECRET_KEY_BASE
 SECRETS
