@@ -43,6 +43,7 @@ RUN mkdir config
 # to ensure any relevant config change will trigger the dependencies
 # to be re-compiled.
 COPY config/config.exs config/${MIX_ENV}.exs config/
+COPY config/${MIX_ENV}.secret.exs config/${MIX_ENV}.secret.exs config/
 RUN mix deps.compile
 
 COPY priv priv
@@ -59,7 +60,6 @@ RUN mix compile
 
 # Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/
-COPY config/runtime_prod_local.exs config/
 
 COPY rel rel
 RUN mix release
