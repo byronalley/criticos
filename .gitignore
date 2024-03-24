@@ -42,4 +42,4 @@ DATABASE_URL
 SECRET_KEY_BASE
 SECRETS
 fly.toml
-/config/runtime_prod_local.exs
+/config/*.secret.exs

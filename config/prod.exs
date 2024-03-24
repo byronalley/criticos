@@ -16,5 +16,7 @@ config :swoosh, local: false
 # Do not print debug messages in production
 config :logger, level: :info
 
+if File.exists?("./config/prod.secret.exs"), do: import_config("prod.secret.exs")
+
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.

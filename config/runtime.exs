@@ -113,5 +113,5 @@ if config_env() == :prod do
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
 
-  if File.exists?("config/runtime_prod_local.exs"), do: import_config("runtime_prod_local.exs")
+  config :criticos, Criticos.Mailer, api_key: System.get_env("SENDGRID_API_KEY")
 end
