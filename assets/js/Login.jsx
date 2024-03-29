@@ -67,6 +67,15 @@ export default function Login({ setUser, toggleLogin }) {
           Sign up!
         </a>
       </div>
+      <div className="bg-blue-500 p-10 w-full z-20 flex flex-col md:flex-row items-center justify-center">
+        <span className="inline-block p-5">{"Forgot your password?"}</span>
+        <a
+          className="inline-block underline p-5 text-white bg-white-400 hover:bg-white-100 transition"
+          href="/users/reset_password"
+        >
+          Reset your password
+        </a>
+      </div>
     </>
   );
 }
