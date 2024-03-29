@@ -58,19 +58,19 @@ export default function Login({ setUser, toggleLogin }) {
           Login
         </button>
       </form>
-      <div className="bg-blue-500 p-10 w-full z-20 flex flex-col md:flex-row items-center justify-center">
-        <span className="inline-block p-5">{"Don't have an account yet?"}</span>
+      <div className="bg-blue-500 mt-0 p-1 w-full z-20 flex flex-col md:flex-row items-center justify-center">
+        <span className="inline-block p-2">{"Don't have an account yet?"}</span>
         <a
-          className="inline-block underline p-5 text-white bg-white-400 hover:bg-white-100 transition"
+          className="inline-block underline p-2 text-white bg-white-400 hover:bg-white-100 transition"
           href="/users/register"
         >
           Sign up!
         </a>
       </div>
-      <div className="bg-blue-500 p-10 w-full z-20 flex flex-col md:flex-row items-center justify-center">
-        <span className="inline-block p-5">{"Forgot your password?"}</span>
+      <div className="bg-blue-500 mt-0 p-5 w-full z-20 flex flex-col md:flex-row items-center justify-center">
+        <span className="inline-block p-2">{"Forgot your password?"}</span>
         <a
-          className="inline-block underline p-5 text-white bg-white-400 hover:bg-white-100 transition"
+          className="inline-block underline p-2 text-white bg-white-400 hover:bg-white-100 transition"
           href="/users/reset_password"
         >
           Reset your password
