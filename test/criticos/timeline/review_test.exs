@@ -40,5 +40,19 @@ defmodule Criticos.Timeline.ReviewTest do
                "#{inspect(f)} should be required"
       end
     end
+
+    test "max 100 chars" do
+      assert %Changeset{
+               valid?: false,
+               errors: [
+                 {:content,
+                  {"should be at most" <> _, [{:count, 100}, {:validation, :length} | _]}}
+               ]
+             } =
+               Review.changeset(
+                 @valid_review,
+                 %{content: String.duplicate("x", 101)}
+               )
+    end
   end
 end

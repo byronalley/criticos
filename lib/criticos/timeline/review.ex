@@ -35,6 +35,7 @@ defmodule Criticos.Timeline.Review do
       less_than: 5,
       message: "must be between 0 and 4"
     )
+    |> validate_length(:content, max: 100)
     |> assoc_constraint(:creator)
     |> assoc_constraint(:book)
   end
