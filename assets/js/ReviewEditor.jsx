@@ -57,10 +57,21 @@ export default function ReviewEditor({ updateReviews }) {
 
       // TODO(BA): Replace with flash
       alert("Review posted successfully");
+    } else if (response.status == 422) {
+      const { errors } = await response.json();
+      const errorString = Object.entries(errors)
+        .map((error) => {
+          const [e, a] = error;
+          return `${e}: ${a.join(", ")}`;
+        })
+        .join("\n");
+
+      alert(`Error posting review:\n${errorString}`);
+      console.log(`Error posting review:\n${errorString}`);
     } else {
-      alert("Error posting review");
-      console.log("Error posting review");
-      console.log(response);
+      alert(`Error posting review`);
+      console.log(`Error posting review:`);
+      console.dir(response);
     }
   };
 
