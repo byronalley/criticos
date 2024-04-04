@@ -75,7 +75,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
         |> log_in_user(user)
         |> post(~p"/web_api/reviews", review: @invalid_attrs)
 
-      assert json_response(conn, 422)["errors"] != %{}
+      assert %{"content" => ["can't be blank"]} = json_response(conn, 422)["errors"]
     end
   end
 
