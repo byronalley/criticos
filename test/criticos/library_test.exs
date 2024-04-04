@@ -162,26 +162,21 @@ defmodule Criticos.LibraryTest do
       assert %Ecto.Changeset{} = Library.change_book(book)
     end
 
-    test "find_or_create_book_by_google_volume_id/1 finds an existing book by google_volume_id" do
+    test "find_or_create_book_by_google_volume_id!/1 finds an existing book by google_volume_id" do
       google_volume_id = "abc123"
       %Book{id: expected_id} = book_fixture(%{google_volume_id: google_volume_id})
 
-      assert {:ok, %Book{id: ^expected_id}} =
-               Library.find_or_create_book_by_google_volume_id(google_volume_id)
+      assert %Book{id: ^expected_id} =
+               Library.find_or_create_book_by_google_volume_id!(google_volume_id)
     end
 
-    test "find_or_create_book_by_google_volume_id/1 creates new book when google_volume_id not found" do
+    test "find_or_create_book_by_google_volume_id!/1 creates new book when google_volume_id not found" do
       google_volume_id = "abc123"
 
       refute Repo.get_by(Book, google_volume_id: google_volume_id)
 
-      assert {:ok, %Book{google_volume_id: ^google_volume_id}} =
-               Library.find_or_create_book_by_google_volume_id(google_volume_id)
-    end
-
-    test "find_or_create_book_by_google_volume_id/1 passes through changeset errors" do
-      assert {:error, %Changeset{errors: [{:google_volume_id, _} | _]}} =
-               Library.find_or_create_book_by_google_volume_id("")
+      assert %Book{google_volume_id: ^google_volume_id} =
+               Library.find_or_create_book_by_google_volume_id!(google_volume_id)
     end
   end
 end

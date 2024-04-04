@@ -202,16 +202,15 @@ defmodule Criticos.Library do
   Finds a book by google_volume_id or if none exists,
   creates one.
   """
-  @spec find_or_create_book_by_google_volume_id(String.t()) :: {:ok, %Book{}} | {:error, term()}
-  def find_or_create_book_by_google_volume_id(google_volume_id) do
+  @spec find_or_create_book_by_google_volume_id!(String.t()) :: %Book{}
+  def find_or_create_book_by_google_volume_id!(google_volume_id) do
     case Repo.get_by(Book, google_volume_id: google_volume_id) do
       nil ->
-        with {:ok, book} <- create_book(%{google_volume_id: google_volume_id}) do
-          {:ok, book}
-        end
+        {:ok, book} = create_book(%{google_volume_id: google_volume_id})
+        book
 
       book ->
-        {:ok, book}
+        book
     end
   end
 end
