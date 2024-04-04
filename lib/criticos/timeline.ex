@@ -98,36 +98,35 @@ defmodule Criticos.Timeline do
 
   """
   def create_review(attrs) do
-    maybe_updated_attrs =
+    updated_attrs =
       case attrs do
         %{book_id: book_id} when is_binary(book_id) ->
-          {:ok, attrs}
+          attrs
 
         %{"book_id" => book_id} when is_binary(book_id) ->
-          {:ok, attrs}
+          attrs
 
-        %{google_volume_id: google_volume_id} when is_binary(google_volume_id) ->
-          with {:ok, %{id: book_id}} <-
-                 Library.find_or_create_book_by_google_volume_id(google_volume_id) do
-            {:ok, Map.put(attrs, :book_id, book_id)}
-          end
+        %{google_volume_id: google_volume_id}
+        when is_binary(google_volume_id) and google_volume_id != "" ->
+          %{id: book_id} =
+            Library.find_or_create_book_by_google_volume_id!(google_volume_id)
 
-        %{"google_volume_id" => google_volume_id} when is_binary(google_volume_id) ->
-          with {:ok, %{id: book_id}} <-
-                 Library.find_or_create_book_by_google_volume_id(google_volume_id) do
-            Map.put(attrs, "book_id", book_id)
-            {:ok, Map.put(attrs, :book_id, book_id)}
-          end
+          Map.put(attrs, :book_id, book_id)
+
+        %{"google_volume_id" => google_volume_id}
+        when is_binary(google_volume_id) and google_volume_id != "" ->
+          %{id: book_id} =
+            Library.find_or_create_book_by_google_volume_id!(google_volume_id)
+
+          Map.put(attrs, "book_id", book_id)
 
         _ ->
-          {:ok, attrs}
+          attrs
       end
 
-    with {:ok, updated_attrs} <- maybe_updated_attrs do
-      %Review{}
-      |> Review.changeset(updated_attrs)
-      |> Repo.insert()
-    end
+    %Review{}
+    |> Review.changeset(updated_attrs)
+    |> Repo.insert()
   end
 
   @doc """
