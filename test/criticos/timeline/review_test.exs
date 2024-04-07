@@ -41,17 +41,17 @@ defmodule Criticos.Timeline.ReviewTest do
       end
     end
 
-    test "max 100 chars" do
+    test "max 256 chars" do
       assert %Changeset{
                valid?: false,
                errors: [
                  {:content,
-                  {"should be at most" <> _, [{:count, 100}, {:validation, :length} | _]}}
+                  {"should be at most" <> _, [{:count, 256}, {:validation, :length} | _]}}
                ]
              } =
                Review.changeset(
                  @valid_review,
-                 %{content: String.duplicate("x", 101)}
+                 %{content: String.duplicate("x", 257)}
                )
     end
   end

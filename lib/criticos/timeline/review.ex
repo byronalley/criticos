@@ -12,6 +12,8 @@ defmodule Criticos.Timeline.Review do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
+  @review_max_length 256
+
   schema "reviews" do
     field :content, :string
     field :rating, :integer
@@ -35,7 +37,7 @@ defmodule Criticos.Timeline.Review do
       less_than: 5,
       message: "must be between 0 and 4"
     )
-    |> validate_length(:content, max: 100)
+    |> validate_length(:content, max: @review_max_length)
     |> assoc_constraint(:creator)
     |> assoc_constraint(:book)
   end

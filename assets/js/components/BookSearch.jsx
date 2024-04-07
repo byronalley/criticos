@@ -71,7 +71,7 @@ const BookSearch = ({
           placeholder={"Review a book..."}
           onChange={handleReviewContents}
           multiline={true}
-          maxLength="100"
+          maxLength="256"
         />
       </div>
 
