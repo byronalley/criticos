@@ -49,12 +49,14 @@ const BookSearch = ({
           placeholder="Title..."
           value={bookName}
           onChange={handleBookInputChange}
+          id="titleSearch"
         ></Input>
       </div>
       <div className="flex space-x-1">
         <Input
           placeholder="Author..."
           value={author}
+          id="authorSearch"
           onChange={handleAuthorInputChange}
           className="mr-10"
         />
@@ -69,6 +71,7 @@ const BookSearch = ({
           placeholder={"Review a book..."}
           onChange={handleReviewContents}
           multiline={true}
+          maxLength="100"
         />
       </div>
 

@@ -39,6 +39,21 @@ export default function ReviewEditor({ updateReviews }) {
   const postReview = async (event) => {
     event.preventDefault();
 
+    let form = document.querySelector("form");
+
+    let formIsValid = true;
+    if (!bookId) {
+      document
+        .querySelector("#titleSearch")
+        .setCustomValidity("Please choose a book!");
+      formIsValid = false;
+    }
+    if (![...form.elements].every((e) => e.reportValidity())) {
+      formIsValid = false;
+    }
+
+    if (!formIsValid) return;
+
     const response = await fetch("/web_api/reviews", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
