@@ -17,6 +17,7 @@ function Input({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      rows="5"
       maxLength={maxLength}
       required={true}
     />
