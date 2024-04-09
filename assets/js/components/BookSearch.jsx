@@ -5,11 +5,17 @@ import Button from "./Button";
 import SubmitButton from "./SubmitButton";
 import SearchIcon from "../icons/SearchIcon";
 import SubmitIcon from "../icons/SubmitIcon";
+import BookResults from "./BookResults";
+
+const placeholder = "https://via.placeholder.com/128x192.png?text=No+Cover";
 
 const BookSearch = ({
   bookName,
   author,
+  thumbnail,
   bookId,
+  results,
+  setResults,
   handleBookInputChange,
   handleAuthorInputChange,
   handleSearch,
@@ -18,6 +24,10 @@ const BookSearch = ({
   setReviewContents,
   reviewRating,
   setReviewRating,
+  setAuthor,
+  setBookName,
+  setThumbnail,
+  setBookId,
 }) => {
   const [isHidden, setIsHidden] = useState(false);
 
@@ -44,36 +54,57 @@ const BookSearch = ({
 
   return (
     <form className="p-6 w-full lg:w-1/2 rounded-lg space-y-2 bg-gray-800">
-      <div className="flex">
-        <Input
-          placeholder="Title..."
-          value={bookName}
-          onChange={handleBookInputChange}
-          id="titleSearch"
-        ></Input>
-      </div>
-      <div className="flex space-x-1">
-        <Input
-          placeholder="Author..."
-          value={author}
-          id="authorSearch"
-          onChange={handleAuthorInputChange}
-          className="mr-10"
-        />
-        <Button variant="secondary" onClick={handleSearch} isHidden={isHidden}>
-          <SearchIcon />
-        </Button>
-      </div>
+      <fieldset className="flex lg:flex-row space-x-2">
+        {thumbnail ? (
+          <img className="h-24 w-16 max-w-16" src={thumbnail || placeholder} />
+        ) : (
+          ""
+        )}
+        <div className="w-full">
+          <div className="flex">
+            <Input
+              placeholder="Title..."
+              value={bookName}
+              onChange={handleBookInputChange}
+              id="titleSearch"
+            ></Input>
+          </div>
+          <div className="flex space-x-1">
+            <Input
+              placeholder="Author..."
+              value={author}
+              id="authorSearch"
+              onChange={handleAuthorInputChange}
+              className="mr-10"
+            />
+            <Button
+              variant="secondary"
+              onClick={handleSearch}
+              isHidden={isHidden}
+            >
+              <SearchIcon />
+            </Button>
+          </div>
+        </div>
+      </fieldset>
 
-      <div className="flex space-x-1">
-        <Input
-          value={reviewContents}
-          placeholder={"Review a book..."}
-          onChange={handleReviewContents}
-          multiline={true}
-          maxLength="256"
-        />
-      </div>
+      <BookResults
+        results={results}
+        setResults={setResults}
+        handleSearch={handleSearch}
+        setAuthor={setAuthor}
+        setBookName={setBookName}
+        setThumbnail={setThumbnail}
+        setBookId={setBookId}
+      />
+
+      <Input
+        value={reviewContents}
+        placeholder={"Review a book..."}
+        onChange={handleReviewContents}
+        multiline={true}
+        maxLength="256"
+      />
 
       <fieldset className="mt-8 flex flex-col lg:flex-row space-y-5 gap-x-6">
         <div className="mt-2 w-full lg:w-3/4">

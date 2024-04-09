@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import BookSearch from "./components/BookSearch";
-import BookResults from "./components/BookResults";
 import { searchBooks } from "./lib/BookAPI";
 
 export default function ReviewEditor({ updateReviews }) {
   const [results, setResults] = useState([]);
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
+  const [thumbnail, setThumbnail] = useState(null);
   const [reviewContents, setReviewContents] = useState("");
   const [reviewRating, setReviewRating] = useState(2);
   const [bookId, setBookId] = useState("");
@@ -105,23 +105,20 @@ export default function ReviewEditor({ updateReviews }) {
         <BookSearch
           bookName={bookName}
           author={author}
-          setBookName={setBookName}
-          setAuthor={setAuthor}
+          thumbnail={thumbnail}
           handleBookInputChange={handleBookInputChange}
           handleAuthorInputChange={handleAuthorInputChange}
           handleSearch={handleSearch}
+          results={results}
+          setResults={setResults}
           reviewContents={reviewContents}
           setReviewContents={setReviewContents}
           reviewRating={reviewRating}
           setReviewRating={setReviewRating}
           postReview={postReview}
-        />
-
-        <BookResults
-          results={results}
-          handleSearch={handleSearch}
           setAuthor={setAuthor}
           setBookName={setBookName}
+          setThumbnail={setThumbnail}
           setBookId={setBookId}
         />
       </main>
