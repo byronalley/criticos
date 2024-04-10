@@ -7,6 +7,7 @@ defmodule Criticos.Timeline.ReviewTest do
   @valid_params %{
     content: "Some content",
     rating: 4,
+    thumbs_up: true,
     book_id: Ecto.UUID.generate(),
     creator_id: Ecto.UUID.generate()
   }
@@ -23,8 +24,8 @@ defmodule Criticos.Timeline.ReviewTest do
       end
     end
 
-    test "requires book_id, content, creator_id, rating" do
-      required = ~w[book_id content creator_id rating]a
+    test "requires book_id, content, creator_id, rating, thumbs_up" do
+      required = ~w[book_id content creator_id rating thumbs_up]a
 
       for f <- required do
         invalid =
