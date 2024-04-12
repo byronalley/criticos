@@ -22,8 +22,8 @@ const BookSearch = ({
   postReview,
   reviewContents,
   setReviewContents,
-  reviewRating,
-  setReviewRating,
+  thumbsUp,
+  setThumbsUp,
   setAuthor,
   setBookName,
   setThumbnail,
@@ -35,17 +35,9 @@ const BookSearch = ({
     setReviewContents(event.target.value);
   };
 
-  const handleReviewRating = (event) => {
-    setReviewRating(event.target.value);
+  const handleThumbsUp = (event) => {
+    setThumbsUp(event.target.value === "true");
   };
-
-  const ratingDescription = [
-    "Terrible. Avert your eyes!",
-    "Not good. Not worth reading.",
-    "Worthwhile but there are better options.",
-    "Really great!",
-    "Amazing! A classic. Must-read!",
-  ];
 
   const handleSubmitReview = (event) => {
     event.preventDefault(); // prevent the default action
@@ -53,7 +45,7 @@ const BookSearch = ({
   };
 
   return (
-    <form className="p-6 w-full lg:w-1/2 rounded-lg space-y-2 bg-gray-800">
+    <form className="mx-auto p-6 w-full max-w-4xl rounded-lg space-y-2 bg-gray-800">
       <fieldset className="flex lg:flex-row space-x-2">
         {thumbnail ? (
           <img className="h-24 w-16 max-w-16" src={thumbnail || placeholder} />
@@ -106,32 +98,47 @@ const BookSearch = ({
         maxLength="256"
       />
 
-      <fieldset className="mt-8 flex flex-col lg:flex-row space-y-5 gap-x-6">
+      <fieldset className="mt-3 flex flex-col lg:flex-row space-y-5 gap-x-6 p-5 items-center">
+        <span className="bold text-2xl mt-3 p-2">Rate this title:</span>
         <div className="mt-2 w-full lg:w-3/4">
-          <span className="text-white-500 flex mb-2">Rating: </span>
-          <input
-            onChange={handleReviewRating}
-            type="range"
-            name="rating"
-            id="rating"
-            className="text-blue-500 w-full ml-2"
-            value={reviewRating}
-            min="0"
-            max="4"
-            step="1"
-          />
+          <div className="inline">
+            <input
+              onChange={handleThumbsUp}
+              type="radio"
+              name="thumbs_up"
+              id="thumbsDown"
+              className="appearance-none opacity-0 peer"
+              value="false"
+            />
+            <label
+              htmlFor="thumbsDown"
+              className="p-2 text-5xl opacity-50 saturate-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
+            >
+              👎
+            </label>
+          </div>
 
-          <div className="p-2 h-16">
-            <output htmlFor="rating">
-              {reviewRating} Stars: &ldquo;{ratingDescription[reviewRating]}
-              &rdquo;
-            </output>
+          <div className="inline">
+            <input
+              onChange={handleThumbsUp}
+              type="radio"
+              name="thumbs_up"
+              id="thumbsUp"
+              className="m-0 h-0 w-0 appearance-none opacity-0 peer"
+              value="true"
+            />
+            <label
+              htmlFor="thumbsUp"
+              className="relative bottom-1 p-2 text-5xl saturate-50 opacity-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
+            >
+              👍
+            </label>
           </div>
         </div>
-        <SubmitButton onClick={(e) => handleSubmitReview(e)}>
-          <SubmitIcon />
-        </SubmitButton>
       </fieldset>
+      <SubmitButton onClick={(e) => handleSubmitReview(e)}>
+        <SubmitIcon />
+      </SubmitButton>
     </form>
   );
 };

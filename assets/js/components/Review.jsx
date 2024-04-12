@@ -20,7 +20,9 @@ function Review({ review, book }) {
           {book?.author || "Author Unknown"}
         </p>
         <div className="bg-white px-4 py-2 rounded-md">
-          <p className="text-black font-semibold">Rating: {review.rating}</p>
+          <p className="text-black font-semibold">
+            Rating: {review.thumbs_up ? "👍" : "👎"}{" "}
+          </p>
 
           <p className="inline-block mt-4  text-500-blue ">{review.content}</p>
         </div>

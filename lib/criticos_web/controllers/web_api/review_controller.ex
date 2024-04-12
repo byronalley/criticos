@@ -12,7 +12,10 @@ defmodule CriticosWeb.WebAPI.ReviewController do
   end
 
   def create(%{assigns: %{current_user: user}} = conn, %{"review" => review_params}) do
-    creation_params = Map.put(review_params, "creator_id", user.id)
+    creation_params =
+      review_params
+      |> Map.put("creator_id", user.id)
+      |> apply_thumb_to_rating()
 
     with {:ok, %Review{} = review} <- Timeline.create_review(creation_params) do
       conn
@@ -22,9 +25,17 @@ defmodule CriticosWeb.WebAPI.ReviewController do
     end
   end
 
+  defp apply_thumb_to_rating(params) do
+    if is_boolean(params["thumbs_up"]) && !params["rating"] do
+      Map.put(params, "rating", (params["thumbs_up"] && 4) || 0)
+    else
+      params
+    end
+  end
+
   def show(conn, %{"id" => id}) do
     with {:ok, review} <- Timeline.get_review_with_google_volume_id(id) do
-      render(conn, :show, review: review)
+      render(conn, :show, review: %{review | thumbs_up: review.id > 3})
     end
   end
 

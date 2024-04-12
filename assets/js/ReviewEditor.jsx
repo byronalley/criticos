@@ -9,7 +9,7 @@ export default function ReviewEditor({ updateReviews }) {
   const [author, setAuthor] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [reviewContents, setReviewContents] = useState("");
-  const [reviewRating, setReviewRating] = useState(2);
+  const [thumbsUp, setThumbsUp] = useState(null);
   const [bookId, setBookId] = useState("");
 
   const handleBookInputChange = (event) => {
@@ -61,7 +61,7 @@ export default function ReviewEditor({ updateReviews }) {
         review: {
           content: reviewContents,
           google_volume_id: bookId,
-          rating: reviewRating,
+          thumbs_up: thumbsUp,
         },
       }),
     });
@@ -95,13 +95,16 @@ export default function ReviewEditor({ updateReviews }) {
     setBookName("");
     setAuthor("");
     setReviewContents("");
-    setReviewRating(2);
+    setThumbsUp(null);
     setBookId("");
+    setThumbnail(null);
+    document.querySelector("#thumbsDown").checked = false;
+    document.querySelector("#thumbsUp").checked = false;
   };
 
   return (
     <>
-      <main className="p-6 flex flex-col lg:flex-row top-0 text-white text-center  lg:text-left">
+      <main className="mx-auto p-6 flex flex-col lg:flex-row top-0 text-white text-center lg:text-left">
         <BookSearch
           bookName={bookName}
           author={author}
@@ -113,8 +116,8 @@ export default function ReviewEditor({ updateReviews }) {
           setResults={setResults}
           reviewContents={reviewContents}
           setReviewContents={setReviewContents}
-          reviewRating={reviewRating}
-          setReviewRating={setReviewRating}
+          thumbsUp={thumbsUp}
+          setThumbsUp={setThumbsUp}
           postReview={postReview}
           setAuthor={setAuthor}
           setBookName={setBookName}

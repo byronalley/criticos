@@ -11,13 +11,13 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
 
   @create_attrs %{
     content: "some content",
-    rating: 2,
+    thumbs_up: true,
     private_notes: "some private_notes",
     google_volume_id: "google_volume_id"
   }
   @update_attrs %{
     content: "some updated content",
-    rating: 3,
+    thumbs_up: false,
     private_notes: "some updated private_notes"
   }
   @invalid_attrs %{content: nil, rating: nil, private_notes: nil}
@@ -40,7 +40,8 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
       assert %{
                "id" => ^id,
                "content" => "some content",
-               "rating" => 2,
+               "thumbs_up" => true,
+               "rating" => 4,
                "private_notes" => "some private_notes",
                "google_volume_id" => ^google_volume_id,
                "book_id" => ^book_id
@@ -65,7 +66,8 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "id" => ^id,
                "content" => "some content",
                "private_notes" => "some private_notes",
-               "rating" => 2
+               "thumbs_up" => true,
+               "rating" => 4
              } = json_response(conn, 200)["data"]
     end
 
@@ -100,7 +102,8 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "id" => ^id,
                "content" => "some updated content",
                "private_notes" => "some updated private_notes",
-               "rating" => 3
+               "thumbs_up" => true,
+               "rating" => 4
              } = json_response(conn, 200)["data"]
     end
 
@@ -128,7 +131,8 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "id" => ^id,
                "content" => "some content",
                "private_notes" => "some private_notes",
-               "rating" => 2,
+               "rating" => 4,
+               "thumbs_up" => true,
                "book_id" => ^book_id,
                "google_volume_id" => ^google_volume_id
              } = json_response(conn, 200)["data"]

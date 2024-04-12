@@ -73,6 +73,7 @@ defmodule Criticos.TimelineTest do
       valid_attrs = %{
         content: "some content",
         rating: 2,
+        thumbs_up: false,
         private_notes: "some private_notes",
         book_id: book_fixture().id,
         creator_id: user_fixture().id
@@ -91,6 +92,7 @@ defmodule Criticos.TimelineTest do
       valid_attrs = %{
         content: "some content",
         rating: 2,
+        thumbs_up: false,
         private_notes: "some private_notes",
         google_volume_id: google_volume_id,
         creator_id: user_fixture().id
