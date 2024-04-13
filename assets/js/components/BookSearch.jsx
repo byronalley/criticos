@@ -109,6 +109,7 @@ const BookSearch = ({
               id="thumbsDown"
               className="appearance-none opacity-0 peer"
               value="false"
+              required={true}
             />
             <label
               htmlFor="thumbsDown"
@@ -126,6 +127,7 @@ const BookSearch = ({
               id="thumbsUp"
               className="m-0 h-0 w-0 appearance-none opacity-0 peer"
               value="true"
+              required={true}
             />
             <label
               htmlFor="thumbsUp"

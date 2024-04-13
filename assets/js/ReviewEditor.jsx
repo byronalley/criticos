@@ -41,13 +41,23 @@ export default function ReviewEditor({ updateReviews }) {
 
     let form = document.querySelector("form");
 
+    [...form.elements].forEach((e) => e.setCustomValidity(""));
+
     let formIsValid = true;
     if (!bookId) {
-      document
+      form
         .querySelector("#titleSearch")
         .setCustomValidity("Please choose a book!");
       formIsValid = false;
     }
+
+    if (thumbsUp === null) {
+      [...form.querySelectorAll("input[name=thumbs_up]")].map((e) =>
+        e.setCustomValidity("Rate it thumbs up or thumbs down!"),
+      );
+      formIsValid = false;
+    }
+
     if (![...form.elements].every((e) => e.reportValidity())) {
       formIsValid = false;
     }
