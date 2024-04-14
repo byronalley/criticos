@@ -55,7 +55,7 @@ const BookSearch = ({
         <div className="w-full">
           <div className="flex">
             <Input
-              placeholder="Title..."
+              placeholder="Search by Title..."
               value={bookName}
               onChange={handleBookInputChange}
               id="titleSearch"
@@ -63,7 +63,7 @@ const BookSearch = ({
           </div>
           <div className="flex space-x-1">
             <Input
-              placeholder="Author..."
+              placeholder="Search by Author..."
               value={author}
               id="authorSearch"
               onChange={handleAuthorInputChange}
