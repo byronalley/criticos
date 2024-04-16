@@ -3,16 +3,13 @@ import React from "react";
 export default function Login({ setUser }) {
   async function logoutUser(event) {
     try {
-      const response = await fetch(
-        "/web_api/users/log_out",
-        {
-          mode: "same-origin",
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("/web_api/users/log_out", {
+        mode: "same-origin",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.status == 204) {
         setUser({});
@@ -36,10 +33,10 @@ export default function Login({ setUser }) {
 
   return (
     <button
-    onClick={logoutUser}
-    className="inline-block text-white border-2 border-white px-9 py-2 rounded-full hover:bg-blue-100 transition"
+      onClick={logoutUser}
+      className="inline-block text-white border-2 border-white px-4 py-2 rounded-full hover:bg-blue-100 transition"
     >
-    Log out
+      Log out
     </button>
   );
 }

@@ -19,7 +19,7 @@ export default function Navbar({ user, setUser }) {
 
   return (
     <>
-      <nav className="bg-blue-500 p-4 fixed top-0 w-full z-10 flex">
+      <nav className="bg-blue-500 p-4 fixed top-0 w-full z-10 flex text-sm">
         <a href="/">
           <h1
             className={`text-white text-2xl font-semibold ${
