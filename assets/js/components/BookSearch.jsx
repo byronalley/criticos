@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { HandThumbDownIcon, HandThumbUpIcon } from "@heroicons/react/24/solid";
+
 import Input from "./Input";
 import Button from "./Button";
 import SubmitButton from "./SubmitButton";
@@ -98,10 +100,12 @@ const BookSearch = ({
         maxLength="256"
       />
 
-      <fieldset className="mt-3 flex flex-col lg:flex-row space-y-5 gap-x-6 p-5 items-center">
-        <span className="bold text-2xl mt-3 p-2">Rate this title:</span>
-        <div className="mt-2 w-full lg:w-3/4">
-          <div className="inline">
+      <fieldset className="mt-3 flex flex-col lg:flex-row space-y-0 gap-x-10 gap-y-2 p-2 items-center">
+        <span className="bold text-2xl mt-2 mb-0 pb-0 pt-0 pl-2 pr-2">
+          Rate this title:
+        </span>
+        <div className="mt-0 w-full lg:w-3/4">
+          <div className="inline-block">
             <input
               onChange={handleThumbsUp}
               type="radio"
@@ -115,11 +119,11 @@ const BookSearch = ({
               htmlFor="thumbsDown"
               className="p-2 text-5xl opacity-50 saturate-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
             >
-              👎
+              <HandThumbDownIcon className="w-32 text-blue-500" />
             </label>
           </div>
 
-          <div className="inline">
+          <div className="inline-block">
             <input
               onChange={handleThumbsUp}
               type="radio"
@@ -133,7 +137,7 @@ const BookSearch = ({
               htmlFor="thumbsUp"
               className="relative bottom-1 p-2 text-5xl saturate-50 opacity-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
             >
-              👍
+              <HandThumbUpIcon className="w-32 text-blue-500" />
             </label>
           </div>
         </div>
