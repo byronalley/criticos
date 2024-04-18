@@ -1,5 +1,10 @@
 import React from "react";
 
+import {
+  HandThumbDownIcon,
+  HandThumbUpIcon,
+} from "@heroicons/react/24/outline";
+
 const defaultThumbnail = "images/white-square.gif";
 
 function Review({ review, book }) {
@@ -17,8 +22,12 @@ function Review({ review, book }) {
 
         {/* Thumb Up or Thumb Down */}
         <div className="flex items-center justify-center">
-          <p className="text-5xl text-500-blue">
-            {review.thumbs_up ? "👍" : "👎"}
+          <p className="text-5xl text-red-800">
+            {review.thumbs_up ? (
+              <HandThumbUpIcon className="w-40 text-blue-500" />
+            ) : (
+              <HandThumbDownIcon className="w-40 text-blue-500" />
+            )}
           </p>
         </div>
       </div>
