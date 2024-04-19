@@ -24,9 +24,9 @@ function Review({ review, book }) {
         <div className="flex items-center justify-center">
           <p className="text-5xl text-red-800">
             {review.thumbs_up ? (
-              <HandThumbUpIcon className="w-40 text-blue-500" />
+              <HandThumbUpIcon className="w-24 text-gray-500" />
             ) : (
-              <HandThumbDownIcon className="w-40 text-blue-500" />
+              <HandThumbDownIcon className="w-24 text-gray-500" />
             )}
           </p>
         </div>
