@@ -119,7 +119,7 @@ const BookSearch = ({
               htmlFor="thumbsDown"
               className="p-2 text-5xl opacity-50 saturate-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
             >
-              <HandThumbDownIcon className="w-32 text-blue-500" />
+              <HandThumbDownIcon className="w-32 text-ivory-500" />
             </label>
           </div>
 
@@ -137,7 +137,7 @@ const BookSearch = ({
               htmlFor="thumbsUp"
               className="relative bottom-1 p-2 text-5xl saturate-50 opacity-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
             >
-              <HandThumbUpIcon className="w-32 text-blue-500" />
+              <HandThumbUpIcon className="w-32 text-ivory-500" />
             </label>
           </div>
         </div>
