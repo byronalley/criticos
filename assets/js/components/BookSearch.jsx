@@ -47,7 +47,7 @@ const BookSearch = ({
   };
 
   return (
-    <form className="mx-auto p-6 w-full max-w-4xl rounded-lg space-y-2 bg-gray-800">
+    <form className="mx-auto p-6 w-full max-w-4xl rounded-lg space-y-1 bg-gray-800">
       <fieldset className="flex lg:flex-row space-x-2">
         {thumbnail ? (
           <img className="h-24 w-16 max-w-16" src={thumbnail || placeholder} />
@@ -100,12 +100,10 @@ const BookSearch = ({
         maxLength="256"
       />
 
-      <fieldset className="mt-3 flex flex-col lg:flex-row space-y-0 gap-x-10 gap-y-2 p-2 items-center">
-        <span className="bold text-2xl mt-2 mb-0 pb-0 pt-0 pl-2 pr-2">
-          Rate this title:
-        </span>
+      <fieldset className="flex flex-col mt-0 lg:flex-row space-y-0 gap-x-10 gap-y-0 p-0 items-center">
+        <span className="bold text-2xl my-0 py-0 px-2">Rate this title:</span>
         <div className="mt-0 w-full lg:w-3/4">
-          <div className="inline-block">
+          <div className="inline-block mx-2 relative top-2">
             <input
               onChange={handleThumbsUp}
               type="radio"
@@ -117,13 +115,13 @@ const BookSearch = ({
             />
             <label
               htmlFor="thumbsDown"
-              className="p-2 text-5xl opacity-50 saturate-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
+              className="px-4 py-0 text-xs opacity-50 saturate-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
             >
-              <HandThumbDownIcon className="w-32 text-ivory-500" />
+              <HandThumbDownIcon className="w-16 text-ivory-500" />
             </label>
           </div>
 
-          <div className="inline-block">
+          <div className="inline-block mx-2 relative top-3">
             <input
               onChange={handleThumbsUp}
               type="radio"
@@ -135,9 +133,9 @@ const BookSearch = ({
             />
             <label
               htmlFor="thumbsUp"
-              className="relative bottom-1 p-2 text-5xl saturate-50 opacity-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
+              className="relative bottom-1 px-4 py-0 text-xs saturate-50 opacity-50 peer-checked:opacity-100 peer-checked:saturate-100 hover:opacity-60"
             >
-              <HandThumbUpIcon className="w-32 text-ivory-500" />
+              <HandThumbUpIcon className="w-16 text-ivory-500" />
             </label>
           </div>
         </div>
