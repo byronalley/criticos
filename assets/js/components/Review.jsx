@@ -40,16 +40,16 @@ function Review({ review, book }) {
         <p className="text-slate-700 mb-4">
           {book?.author || "Author Unknown"}
         </p>
-        <div className="bg-zinc-50 px-4 py-2 rounded-md mb-4">
-          <p className="text-xl text-slate-700">
-            <span className="text-5xl font-serif relative top-2 right-2">
-              &ldquo;
-            </span>
+        <div className="flex bg-zinc-50 text-slate-400 px-4 py-2 rounded-md mb-4">
+          <div className="text-5xl font-serif relative right-3 inline-block">
+            &ldquo;
+          </div>
+          <div className="text-xl text-slate-700 inline-block">
             {review.content}
-            <span className="text-5xl font-serif mt-5 relative top-2 left-4">
-              &rdquo;
-            </span>
-          </p>
+          </div>
+          <div className="text-5xl font-serif mt-0 relative left-2 inline-block">
+            &rdquo;
+          </div>
         </div>
       </div>
     </div>
