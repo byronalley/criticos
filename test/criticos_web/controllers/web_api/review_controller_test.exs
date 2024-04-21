@@ -20,7 +20,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
     thumbs_up: false,
     private_notes: "some updated private_notes"
   }
-  @invalid_attrs %{content: nil, rating: nil, private_notes: nil}
+  @invalid_attrs %{content: nil, private_notes: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -41,7 +41,6 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "id" => ^id,
                "content" => "some content",
                "thumbs_up" => true,
-               "rating" => 4,
                "private_notes" => "some private_notes",
                "google_volume_id" => ^google_volume_id,
                "book_id" => ^book_id
@@ -66,8 +65,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "id" => ^id,
                "content" => "some content",
                "private_notes" => "some private_notes",
-               "thumbs_up" => true,
-               "rating" => 4
+               "thumbs_up" => true
              } = json_response(conn, 200)["data"]
     end
 
@@ -102,8 +100,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "id" => ^id,
                "content" => "some updated content",
                "private_notes" => "some updated private_notes",
-               "thumbs_up" => true,
-               "rating" => 4
+               "thumbs_up" => false
              } = json_response(conn, 200)["data"]
     end
 
@@ -131,7 +128,6 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
                "id" => ^id,
                "content" => "some content",
                "private_notes" => "some private_notes",
-               "rating" => 4,
                "thumbs_up" => true,
                "book_id" => ^book_id,
                "google_volume_id" => ^google_volume_id
