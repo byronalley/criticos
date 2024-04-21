@@ -19,9 +19,8 @@ defmodule CriticosWeb.WebAPI.ReviewJSON do
     %{
       id: review.id,
       content: review.content,
-      # TODO: remove rating and pass through actual thumbs_up
       rating: review.rating,
-      thumbs_up: review.rating > 3,
+      thumbs_up: review.thumbs_up,
       private_notes: review.private_notes,
       book_id: review.book_id,
       google_volume_id: review.google_volume_id
