@@ -19,7 +19,6 @@ defmodule CriticosWeb.WebAPI.ReviewJSON do
     %{
       id: review.id,
       content: review.content,
-      rating: review.rating,
       thumbs_up: review.thumbs_up,
       private_notes: review.private_notes,
       book_id: review.book_id,
