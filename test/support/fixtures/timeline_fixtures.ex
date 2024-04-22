@@ -18,7 +18,6 @@ defmodule Criticos.TimelineFixtures do
         book_id: book_id,
         content: "some content",
         private_notes: "some private_notes",
-        rating: 4,
         thumbs_up: true
       })
       |> Criticos.Timeline.create_review()
