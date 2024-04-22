@@ -16,7 +16,6 @@ defmodule Criticos.Timeline.Review do
 
   schema "reviews" do
     field :content, :string
-    field :rating, :integer
     field :thumbs_up, :boolean
     field :private_notes, :string
 
@@ -31,13 +30,8 @@ defmodule Criticos.Timeline.Review do
   @doc false
   def changeset(review, attrs) do
     review
-    |> cast(attrs, [:book_id, :content, :creator_id, :private_notes, :rating, :thumbs_up])
-    |> validate_required([:book_id, :content, :creator_id, :rating, :thumbs_up])
-    |> validate_number(:rating,
-      greater_than_or_equal_to: 0,
-      less_than: 5,
-      message: "must be between 0 and 4"
-    )
+    |> cast(attrs, [:book_id, :content, :creator_id, :private_notes, :thumbs_up])
+    |> validate_required([:book_id, :content, :creator_id, :thumbs_up])
     |> validate_length(:content, max: @review_max_length)
     |> assoc_constraint(:creator)
     |> assoc_constraint(:book)
