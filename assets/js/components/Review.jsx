@@ -10,7 +10,7 @@ const defaultThumbnail = "images/white-square.gif";
 function Review({ review, book }) {
   return (
     <div className="flex flex-col lg:flex-row rounded-lg overflow-hidden border-slate-600 border-1 shadow-sm text-slate-200 bg-zinc-50">
-      {/* Book and Rating */}
+      {/* Book and Thumbnail */}
       <div className="flex">
         <div className="w-56 h-64 mb-6 p-2">
           <img
