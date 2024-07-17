@@ -20,6 +20,7 @@ defmodule Criticos.TimelineTest do
       review =
         %{review_fixture(%{book_id: book.id}) | google_volume_id: google_volume_id}
 
+      # TODO: verify has user_id and username in review
       assert Timeline.list_reviews() == [review]
     end
 

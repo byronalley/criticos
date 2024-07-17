@@ -37,6 +37,7 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
       book_id = book.id
       google_volume_id = book.google_volume_id
 
+      # TODO: verify has user_id and username in review
       assert %{
                "id" => ^id,
                "content" => "some content",
