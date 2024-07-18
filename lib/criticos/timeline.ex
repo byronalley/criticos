@@ -9,6 +9,7 @@ defmodule Criticos.Timeline do
   alias Criticos.Library
   alias Criticos.Library.Book
   alias Criticos.Timeline.Review
+  alias Criticos.Accounts.User
 
   @default_posts_limit 25
 
@@ -45,8 +46,11 @@ defmodule Criticos.Timeline do
       r in Review,
       join: b in Book,
       on: r.book_id == b.id,
+      join: u in User,
+      on: r.creator_id == u.id,
       order_by: [desc: r.inserted_at],
       limit: ^limit,
+      preload: [:creator],
       select: %{r | google_volume_id: b.google_volume_id}
     )
     |> Repo.all()

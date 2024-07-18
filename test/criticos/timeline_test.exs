@@ -20,7 +20,6 @@ defmodule Criticos.TimelineTest do
       review =
         %{review_fixture(%{book_id: book.id}) | google_volume_id: google_volume_id}
 
-      # TODO: verify has user_id and username in review
       assert Timeline.list_reviews() == [review]
     end
 
@@ -28,18 +27,37 @@ defmodule Criticos.TimelineTest do
       google_volume_id = "abc123"
       book = book_fixture(%{google_volume_id: google_volume_id})
 
+      username = "some_user"
+
+      user_id = user_fixture(%{username: username}).id
+
       Repo.insert!(%Review{
+        creator_id: user_id,
         book_id: book.id,
-        content: "foo",
+        content: "first post",
         inserted_at: ~N[2001-01-01 00:01:01],
         updated_at: ~N[2001-01-01 00:01:01]
       })
 
-      %{id: latest_review_id} =
-        %{review_fixture(%{book_id: book.id}) | google_volume_id: google_volume_id}
+      latest_review_id =
+        review_fixture(%{book_id: book.id, creator_id: user_id}).id
 
-      assert [%{id: ^latest_review_id, google_volume_id: ^google_volume_id}, _] =
-               Timeline.latest_reviews()
+      assert latest_reviews = Timeline.latest_reviews()
+
+      assert Enum.count(latest_reviews) == 2
+
+      assert [
+               %{
+                 id: ^latest_review_id,
+                 google_volume_id: ^google_volume_id,
+                 creator_id: ^user_id,
+                 creator: %{
+                   id: ^user_id,
+                   username: ^username
+                 }
+               },
+               _
+             ] = latest_reviews
     end
 
     test "latest_reviews/1 limits results" do
