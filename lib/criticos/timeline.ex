@@ -74,6 +74,7 @@ defmodule Criticos.Timeline do
 
   @doc """
   Get a review with the google_volume_id virtual field set
+  and creator preloaded
   """
   def get_review_with_google_volume_id(id) do
     review =
@@ -82,7 +83,8 @@ defmodule Criticos.Timeline do
         join: b in Book,
         on: r.book_id == b.id,
         where: r.id == ^id,
-        select: %{r | google_volume_id: b.google_volume_id}
+        select: %{r | google_volume_id: b.google_volume_id},
+        preload: [:creator]
       )
       |> Repo.one()
 

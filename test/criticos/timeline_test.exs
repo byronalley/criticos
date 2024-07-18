@@ -149,14 +149,25 @@ defmodule Criticos.TimelineTest do
       assert %Ecto.Changeset{} = Timeline.change_review(review)
     end
 
-    test "get_review_with_google_volume_id/1 sets google_volume_id virtual field" do
+    test "get_review_with_google_volume_id/1 sets google_volume_id and creator" do
       google_volume_id = "abc123"
+      book = book_fixture(%{google_volume_id: google_volume_id})
 
-      review = review_fixture(%{google_volume_id: google_volume_id})
+      username = "some_user"
+      user = user_fixture(%{username: username})
 
-      assert %{google_volume_id: google_volume_id} = review
+      assert review =
+               review_fixture(%{
+                 creator_id: user.id,
+                 book_id: book.id
+               })
 
-      assert {:ok, %{google_volume_id: ^google_volume_id}} =
+      assert {:ok,
+              %{
+                google_volume_id: ^google_volume_id,
+                creator_id: creator_id,
+                creator: %{id: creator_id, username: ^username}
+              }} =
                Timeline.get_review_with_google_volume_id(review.id)
     end
 
