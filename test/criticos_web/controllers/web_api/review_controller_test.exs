@@ -27,23 +27,26 @@ defmodule CriticosWeb.WebAPI.ReviewControllerTest do
   end
 
   describe "index" do
-    setup [:create_review]
+    setup [:create_user, :create_review]
 
-    test "lists most recent reviews", %{conn: conn, review: review, book: book} do
+    test "lists most recent reviews", %{conn: conn, review: review, book: book, user: user} do
       conn = get(conn, ~p"/web_api/reviews")
       assert [received] = json_response(conn, 200)["data"]
 
       id = review.id
       book_id = book.id
       google_volume_id = book.google_volume_id
+      user_id = user.id
+      username = user.username
 
-      # TODO: verify has user_id and username in review
       assert %{
                "id" => ^id,
                "content" => "some content",
                "thumbs_up" => true,
                "private_notes" => "some private_notes",
                "google_volume_id" => ^google_volume_id,
+               "user_id" => ^user_id,
+               "username" => ^username,
                "book_id" => ^book_id
              } = received
     end
