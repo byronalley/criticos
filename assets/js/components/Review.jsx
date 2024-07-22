@@ -9,7 +9,9 @@ const defaultThumbnail = "images/white-square.gif";
 
 function Review({ review, book }) {
   return (
-    <div className="flex flex-col lg:flex-row rounded-lg overflow-hidden border-slate-600 border-1 shadow-sm text-slate-200 bg-zinc-50">
+    <div className="flex flex-col rounded-lg overflow-hidden border-slate-600 border-1 shadow-sm text-slate-700 bg-zinc-50">
+    <p className="text-xl font-medium italic px-9 pt-5 pb-2"><span className="font-bold">{review.username}</span> {review.thumbs_up ? 'recommends' : 'does not recommend'}:</p>
+    <div className="flex flex-col lg:flex-row rounded-lg overflow-hidden text-slate-200 bg-zinc-50">
       {/* Book and Thumbnail */}
       <div className="flex">
         <div className="w-56 h-64 mb-6 p-2">
@@ -52,6 +54,7 @@ function Review({ review, book }) {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
