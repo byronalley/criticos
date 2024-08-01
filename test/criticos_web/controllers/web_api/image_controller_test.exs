@@ -4,11 +4,11 @@ defmodule CriticosWeb.WebAPI.ImageControllerTest do
   import Criticos.FilesFixtures
 
   @create_attrs %{
-    data: "some data",
-    content_type: "image/png"
+    content_type: "image/png",
+    path: "test/support/files/smile.png"
   }
 
-  @invalid_attrs %{data: nil, content_type: nil}
+  @invalid_attrs %{content_type: nil, path: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -25,7 +25,7 @@ defmodule CriticosWeb.WebAPI.ImageControllerTest do
     setup [:register_and_log_in_user]
 
     test "renders image when data is valid", %{conn: conn} do
-      conn = post(conn, ~p"/web_api/images", image: @create_attrs)
+      conn = post(conn, ~p"/web_api/images", data: @create_attrs)
 
       assert %{"url" => url, "filename" => filename} = json_response(conn, 201)["data"]
 
@@ -37,7 +37,7 @@ defmodule CriticosWeb.WebAPI.ImageControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, ~p"/web_api/images", image: @invalid_attrs)
+      conn = post(conn, ~p"/web_api/images", data: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
