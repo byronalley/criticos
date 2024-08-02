@@ -14,7 +14,8 @@ defmodule Criticos.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
-    field(:username, :string)
+    field :username, :string
+    field :photo_url, :string
 
     has_many :author, Author, foreign_key: :creator_id
 
@@ -172,5 +173,11 @@ defmodule Criticos.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  def photo_url_changeset(changeset, params) do
+    changeset
+    |> cast(params, [:photo_url])
+    |> validate_format(:photo_url, ~r(.*/.+\..+))
   end
 end
