@@ -236,6 +236,22 @@ defmodule CriticosWeb.UserAuth do
     end
   end
 
+  @doc """
+  Used for web API routes that require the user to be authenticated.
+
+  The difference from require_authenticated_user is that this doesn't set flash.
+  """
+  def require_webapi_authenticated_user(conn, _opts) do
+    if conn.assigns[:current_user] do
+      conn
+    else
+      conn
+      |> put_status(401)
+      |> json(%{errors: %{error: "Unauthorized", message: "Authentication required"}})
+      |> halt()
+    end
+  end
+
   defp put_token_in_session(conn, token) do
     conn
     |> put_session(:user_token, token)
