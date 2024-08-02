@@ -37,23 +37,11 @@ defmodule CriticosWeb.Router do
 
   # Web API Scope
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
-    # pipe_through [:web_api, :require_authenticated_user]
-    pipe_through :web_api
+    pipe_through [:web_api, :require_webapi_authenticated_user]
 
     resources "/images", ImageController, only: [:create, :delete], param: "filename"
 
     get "/current_user", UserController, :current_user
-
-    # TODO: Fix access #
-
-    post "/users/log_in", UserSessionController, :create
-    delete "/users/log_out", UserSessionController, :delete
-    # get "/users/reset_password", UserResetPasswordController, :new
-    # post "/users/reset_password", UserResetPasswordController, :create
-    # get "/users/reset_password/:token", UserResetPasswordController, :edit
-    # put "/users/reset_password/:token", UserResetPasswordController, :update
-
-    get "/users/:id", UserController, :show
   end
 
   scope "/web_api", CriticosWeb.WebAPI, as: :web_api do
@@ -69,6 +57,11 @@ defmodule CriticosWeb.Router do
     resources "/books", BookController
     resources "/reviews", ReviewController
     resources "/images", ImageController, only: [:show, :index], param: "filename"
+
+    post "/users/log_in", UserSessionController, :create
+    get "/users/:id", UserController, :show
+
+    delete "/users/log_out", UserSessionController, :delete
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
