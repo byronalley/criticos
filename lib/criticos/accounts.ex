@@ -371,4 +371,14 @@ defmodule Criticos.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  def change_user_photo_url(user, attrs) do
+    User.photo_url_changeset(user, attrs)
+  end
+
+  def update_user_photo_url(user, photo_url) do
+    user
+    |> change_user_photo_url(%{photo_url: photo_url})
+    |> Repo.update()
+  end
 end
