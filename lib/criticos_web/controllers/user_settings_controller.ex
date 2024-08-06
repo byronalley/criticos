@@ -2,6 +2,8 @@ defmodule CriticosWeb.UserSettingsController do
   use CriticosWeb, :controller
 
   alias Criticos.Accounts
+  alias Criticos.Files
+  alias Criticos.Files.Image
   alias CriticosWeb.UserAuth
 
   plug :assign_user_changesets
@@ -50,19 +52,32 @@ defmodule CriticosWeb.UserSettingsController do
     end
   end
 
-  def update(conn, %{"action" => "update_photo_url"} = params) do
-    %{"user" => %{"photo_url" => photo_url}} = params
-
+  def update(
+        conn,
+        %{
+          "action" => "update_photo",
+          "user" => %{
+            "photo" => %Plug.Upload{path: path, content_type: content_type}
+          }
+        }
+      ) do
     user = conn.assigns.current_user
 
-    case Accounts.update_user_photo_url(user, photo_url) do
-      {:ok, _user} ->
-        conn
-        |> put_flash(:info, "Photo updated successfully.")
-        |> redirect(to: ~p"/users/settings")
+    file_data = File.read!(path)
 
-      {:error, changeset} ->
-        render(conn, :edit, photo_url_changeset: changeset)
+    image_params = %{data: file_data, content_type: content_type, creator_id: user.id}
+
+    with {:ok, %Image{} = image} <-
+           Files.create_image(image_params),
+         {:ok, _user} <- Accounts.update_user_photo_url(user, image.url) do
+      conn
+      |> put_flash(:info, "Photo updated successfully.")
+      |> redirect(to: ~p"/users/settings")
+    else
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Error uploading file.")
+        |> redirect(to: ~p"/users/settings")
     end
   end
 
