@@ -60,4 +60,27 @@
       </:actions>
     </.simple_form>
   </div>
+  <div>
+    <.simple_form
+      :let={f}
+      for={@photo_url_changeset}
+      action={~p"/users/settings"}
+      id="update_photo_url"
+    >
+      <.error :if={@photo_url_changeset.action}>
+        Oops, something went wrong! Please check the errors below.
+      </.error>
+
+      <.input field={f[:action]} type="hidden" name="action" value="update_photo_url" />
+
+      <.input field={f[:photo_url]} type="photo_url" label="New photo" required />
+
+      <%= if f[:photo_url] do %>
+      <img src={f[:photo_url].value} alt="" class="border border-1 border-red" />
+    <% end %>
+      <:actions>
+        <.button phx-disable-with="Changing...">Change Photo</.button>
+      </:actions>
+    </.simple_form>
+  </div>
 </div>
