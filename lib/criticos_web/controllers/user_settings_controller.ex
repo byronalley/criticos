@@ -4,7 +4,7 @@ defmodule CriticosWeb.UserSettingsController do
   alias Criticos.Accounts
   alias CriticosWeb.UserAuth
 
-  plug :assign_email_and_password_changesets
+  plug :assign_user_changesets
 
   def edit(conn, _params) do
     render(conn, :edit)
@@ -50,6 +50,22 @@ defmodule CriticosWeb.UserSettingsController do
     end
   end
 
+  def update(conn, %{"action" => "update_photo_url"} = params) do
+    %{"user" => %{"photo_url" => photo_url}} = params
+
+    user = conn.assigns.current_user
+
+    case Accounts.update_user_photo_url(user, photo_url) do
+      {:ok, _user} ->
+        conn
+        |> put_flash(:info, "Photo updated successfully.")
+        |> redirect(to: ~p"/users/settings")
+
+      {:error, changeset} ->
+        render(conn, :edit, photo_url_changeset: changeset)
+    end
+  end
+
   def confirm_email(conn, %{"token" => token}) do
     case Accounts.update_user_email(conn.assigns.current_user, token) do
       :ok ->
@@ -64,11 +80,12 @@ defmodule CriticosWeb.UserSettingsController do
     end
   end
 
-  defp assign_email_and_password_changesets(conn, _opts) do
+  defp assign_user_changesets(conn, _opts) do
     user = conn.assigns.current_user
 
     conn
     |> assign(:email_changeset, Accounts.change_user_email(user))
     |> assign(:password_changeset, Accounts.change_user_password(user))
+    |> assign(:photo_url_changeset, Accounts.change_user_photo_url(user))
   end
 end
