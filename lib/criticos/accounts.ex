@@ -372,7 +372,7 @@ defmodule Criticos.Accounts do
     end
   end
 
-  def change_user_photo_url(user, attrs) do
+  def change_user_photo_url(user, attrs \\ %{}) do
     User.photo_url_changeset(user, attrs)
   end
 
