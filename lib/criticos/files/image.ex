@@ -30,12 +30,12 @@ defmodule Criticos.Files.Image do
 
   defp set_filename(changeset) do
     case get_change(changeset, :content_type) do
-      "image/" <> t when t in ~w[png jpeg] ->
+      "image/" <> t when t in ~w[png jpeg gif] ->
         filename = Ecto.UUID.generate() <> ".#{t}"
         put_change(changeset, :filename, filename)
 
       _ ->
-        add_error(changeset, :content_type, "Invalid content type, cannot set URL")
+        add_error(changeset, :content_type, "Invalid content type")
     end
   end
 
