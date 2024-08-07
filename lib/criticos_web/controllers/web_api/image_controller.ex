@@ -17,8 +17,7 @@ defmodule CriticosWeb.WebAPI.ImageController do
 
     image_params = %{data: file_data, content_type: content_type}
 
-    with {:ok, %Image{} = image} <-
-           Files.create_image(Map.put(image_params, :content_type, "image/png")) do
+    with {:ok, %Image{} = image} <- Files.create_image(image_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", ~p"/web_api/images/#{image}")
