@@ -8,7 +8,8 @@ defmodule Criticos.Files.ImageTest do
     test "sets filename for allowed content types" do
       for allowed <- [
             "image/png",
-            "image/jpeg"
+            "image/jpeg",
+            "image/gif"
           ] do
         assert %Changeset{} =
                  changeset =
@@ -27,7 +28,7 @@ defmodule Criticos.Files.ImageTest do
 
         assert changeset.errors == [
                  {:filename, {"can't be blank", [validation: :required]}},
-                 {:content_type, {"Invalid content type, cannot set URL", []}}
+                 {:content_type, {"Invalid content type", []}}
                ]
       end
     end
