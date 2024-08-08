@@ -6,7 +6,7 @@ defmodule Criticos.AccountsTest do
   import Criticos.AccountsFixtures
   alias Criticos.Accounts.{User, UserToken}
 
-  describe "get_user_by_email/1" do
+  describe "get_user_by_emai/1" do
     test "does not return the user if the email does not exist" do
       refute Accounts.get_user_by_email("unknown@example.com")
     end
@@ -514,6 +514,45 @@ defmodule Criticos.AccountsTest do
   describe "inspect/2 for the User module" do
     test "does not include password" do
       refute inspect(%User{password: "123456"}) =~ "password: \"123456\""
+    end
+  end
+
+  describe "change_user_photo_url/2" do
+    test "returns a changeset" do
+      assert %Ecto.Changeset{} = Accounts.change_user_photo_url(%User{}, %{})
+    end
+
+    test "sets photo_url field" do
+      url = "https://example.com/1234"
+
+      assert changeset = Accounts.change_user_photo_url(%User{}, %{photo_url: url})
+      assert Ecto.Changeset.get_change(changeset, :photo_url) == url
+    end
+  end
+
+  describe "update_user_photo_url/2" do
+    setup do
+      %{user: user_fixture(), url: "https://example.com/abcd"}
+    end
+
+    test "sets photo_url", %{user: user, url: url} do
+      assert {:ok, updated_user} = Accounts.update_user_photo_url(user, url)
+      assert updated_user.photo_url == url
+      assert %{photo_url: ^url} = Repo.get!(User, user.id)
+    end
+
+    test "unsets photo_url", %{url: url} do
+      user = user_fixture(%{photo_url: url})
+
+      assert {:ok, updated_user} = Accounts.update_user_photo_url(user, nil)
+      refute updated_user.photo_url
+      assert %{photo_url: nil} = Repo.get!(User, user.id)
+    end
+
+    test "errors with blank url", %{user: user} do
+      assert {:error, changeset} = Accounts.update_user_photo_url(user, "xx")
+
+      assert %{photo_url: ["has invalid format"]} = errors_on(changeset)
     end
   end
 end

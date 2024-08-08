@@ -2,6 +2,10 @@ defmodule CriticosWeb.UserSettingsControllerTest do
   use CriticosWeb.ConnCase, async: true
 
   alias Criticos.Accounts
+  alias Criticos.Files.Image
+  alias Criticos.Repo
+  alias Plug.Upload
+
   import Criticos.AccountsFixtures
 
   setup :register_and_log_in_user
@@ -140,6 +144,42 @@ defmodule CriticosWeb.UserSettingsControllerTest do
       conn = build_conn()
       conn = get(conn, ~p"/users/settings/confirm_email/#{token}")
       assert redirected_to(conn) == ~p"/users/log_in"
+    end
+  end
+
+  describe "PUT /users/settings (upload and update photo)" do
+    @tag :capture_log
+    test "upload succeeds", %{conn: conn} do
+      upload = %Upload{
+        content_type: "image/png",
+        path: "test/support/files/smile.png",
+        filename: "smile.png"
+      }
+
+      conn =
+        put(conn, ~p"/users/settings", %{
+          :action => "update_photo",
+          :user => %{photo: upload}
+        })
+
+      assert redirected_to(conn) == ~p"/users/settings"
+
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "Photo updated successfully"
+
+      assert response =
+               conn
+               |> get(~p"/users/settings")
+               |> html_response(200)
+
+      assert [img_src] =
+               response
+               |> Floki.parse_document!()
+               |> Floki.find("#update_photo img")
+               |> Floki.attribute("src")
+
+      "/images/" <> url = img_src
+
+      assert Repo.get_by!(Image, filename: url)
     end
   end
 end

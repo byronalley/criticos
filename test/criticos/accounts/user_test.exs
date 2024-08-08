@@ -33,4 +33,22 @@ defmodule Criticos.Accounts.UserTest do
              ]
     end
   end
+
+  describe "photo_url_changeset" do
+    test "accepts valid url" do
+      assert changeset =
+               User.photo_url_changeset(%User{}, %{photo_url: "http://foo.bar/image.png"})
+
+      assert changeset.errors == []
+    end
+  end
+
+  test "rejects invalid url" do
+    assert [{:photo_url, {"has invalid format", _}}] =
+             User.photo_url_changeset(%User{}, %{photo_url: "123"}).errors
+  end
+
+  test "allows unsetting url" do
+    assert User.photo_url_changeset(%User{}, %{photo_url: nil}).errors == []
+  end
 end
