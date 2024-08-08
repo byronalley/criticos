@@ -51,5 +51,5 @@ defmodule Criticos.Files.Image do
   """
   def set_url(%__MODULE__{filename: filename} = image), do: %{image | url: to_url(filename)}
 
-  defp to_url(filename), do: "images/" <> filename
+  defp to_url(filename), do: "/images/" <> filename
 end

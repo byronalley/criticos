@@ -51,7 +51,7 @@ defmodule CriticosWeb.WebAPI.ImageControllerTest do
       assert json_response(conn, 200) == %{
                "data" => %{
                  "filename" => image.filename,
-                 "url" => "images/#{image.filename}",
+                 "url" => "/images/#{image.filename}",
                  "content_type" => image.content_type
                }
              }

@@ -38,7 +38,7 @@ defmodule Criticos.Files.ImageTest do
     test "sets url" do
       image = %Image{filename: "foo.jpg", content_type: "image/jpeg"}
 
-      assert %Image{url: "images/foo.jpg"} = Image.set_url(image)
+      assert %Image{url: "/images/foo.jpg"} = Image.set_url(image)
     end
   end
 end
