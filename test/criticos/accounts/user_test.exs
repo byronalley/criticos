@@ -32,6 +32,28 @@ defmodule Criticos.Accounts.UserTest do
                {:username, {"can't be blank", [validation: :required]}}
              ]
     end
+
+    test "validates username" do
+      for {reason, bad_name} <- [
+            "no spaces": "not this",
+            "no non-alphanumeric": "&#!$",
+            "no uppercase": "John"
+          ] do
+        assert changeset =
+                 %Changeset{} =
+                 User.registration_changeset(
+                   %User{},
+                   Map.put(@valid_registration, :username, bad_name)
+                 )
+
+        assert(
+          changeset.errors == [
+            {:username, {"has invalid format", [validation: :format]}}
+          ],
+          ~s(should not allow "#{bad_name}": #{reason})
+        )
+      end
+    end
   end
 
   describe "photo_url_changeset" do

@@ -57,7 +57,7 @@ defmodule Criticos.Accounts.User do
     changeset
     |> validate_required(:username)
     |> validate_length(:username, min: 1, max: 64)
-    |> validate_format(:username, ~r/^[a-z0-9_]/)
+    |> validate_format(:username, ~r/^[a-z0-9_]+$/)
   end
 
   defp validate_email(changeset, opts) do
